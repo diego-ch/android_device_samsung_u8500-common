@@ -11,12 +11,31 @@
 ## part         - Partition # (1 based), or 'auto' for first usable partition.
 ## <sysfs_path> - List of sysfs paths to source devices
 ######################
-
+# /sys/devices/platform/usb_mass_storage/lun0/file
+# sdcard mount for the GT-I9070
 # internal sdcard
-dev_mount emmc /mnt/emmc 11 /devices/platform/s3c-mshci.0/mmc_host/mmc0/mmc0
+{
+	ums_path = /sys/devices/platform/usb_mass_storage/lun0/file
+	asec = disable
+	discard = disable
+}
+dev_mount sdcard /mnt/sdcard 8 /devices/sdi2/mmc_host/mmc0/mmc0
+# Partion 8 of mmc0 is Internal sdcard
 
 # external sdcard
-dev_mount sdcard /mnt/sdcard auto /devices/platform/s3c-sdhci.2/mmc_host/mmc1
+{
+	ums_path = /sys/devices/platform/usb_mass_storage/lun1/file
+	asec = enable
+}
+dev_mount sdcard1 /mnt/sdcard/external_sd auto /devices/sdi0/mmc_host/mmc1/mmc1
 
-# USB storage device
-dev_mount usbdisk /mnt/usbdisk auto /devices/platform/s3c_otghcd/usb
+# otg sdcard - Need to define path for /sys/devices/platform/musb_hdrc when it supports USB OTG
+#{
+#    ums_path = /dev/zero
+#    asec = disable
+#}
+#usb_mount sdcard2 /mnt/sdcard/usbStorage auto <Need to define path for USB OTG>
+
+#end line ## keep this line
+
+

@@ -3,48 +3,50 @@ on early-init
 
 on init
     export PATH /sbin
+    export LD_LIBRARY_PATH /sbin
     export ANDROID_ROOT /system
     export ANDROID_DATA /data
     export EXTERNAL_STORAGE /sdcard
-    export PHONE_STORAGE /emmc
+    export SECONDARY_STORAGE /emmc
 
-    symlink /system/etc /etc
+    symlink /misc /etc
 
-    mkdir /boot
     mkdir /sdcard
-    mkdir /sd-ext
-    mkdir /datadata
-    mkdir /emmc
+    mkdir /preload
     mkdir /system
     mkdir /data
     mkdir /cache
     mkdir /efs
-
-    mount /tmp /tmp tmpfs
+    mkdir /tmp
+    mkdir /dbdata
 
     mkdir /mnt 0775 root root
 
+    #mount /tmp /tmp tmpfs   
+
 on early-fs
+
+    mount ext4 /dev/block/mmcblk0p3 /system wait
 
     # parameter block
     mkdir /mnt/.lfs 0755 root root
-    insmod /lib/modules/j4fs.ko
-    mount j4fs /dev/block/mmcblk0p4 /mnt/.lfs
+    insmod /lib/modules/2.6.35.7/kernel/drivers/samsung/j4fs/j4fs.ko
+    mount j4fs /dev/block/mmcblk0p1 /mnt/.lfs
+    insmod /lib/modules/2.6.35.7/kernel/drivers/samsung/param/param.ko
+
+
 
 on fs
-    mount tmpfs tmpfs /tmp mode=0755    
-    mount ext4 /dev/block/mmcblk0p9 /system wait rw
+    mount tmpfs tmpfs /tmp
 
-    # SEC_DMCRYPT move mounting efs befor apply_disk_policy, and set group id to system
-    mkdir /efs
-    mount ext4 /dev/block/mmcblk0p1 /efs nosuid nodev noatime wait 
-    chown radio system /efs
-    chmod 0771 /efs
-
-    # verfiy filesystem (UMS)
-    exec apply_system_policy /dev/block/mmcblk0p11 vfat
+    #exec apply_disk_policy
 
 on post-fs
+
+    #temp
+    #chmod 750 /sbin/fat.format
+    #mount rootfs rootfs / ro remount
+
     write /proc/sys/kernel/panic_on_oops 1
     write /proc/sys/kernel/hung_task_timeout_secs 0
     write /proc/cpu/alignment 4
@@ -59,23 +61,22 @@ on boot
     hostname localhost
     domainname localdomain
 
-    umount /system
-
     class_start default
 
 service ueventd /sbin/ueventd
     critical
 
-service console /sbin/sh
+service console /system/bin/sh
     console
 
 service recovery /sbin/recovery
 
-service adbd /sbin/adbd recovery
-    disabled
+service adbd /sbin/adbd.recovery recovery
+#    disabled
 
 on property:persist.service.adb.enable=1
     start adbd
 
-on property:persist.service.adb.enable=0
-    stop adbd
+#on property:persist.service.adb.enable=0
+#    stop adbd
+
