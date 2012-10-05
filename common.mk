@@ -37,7 +37,7 @@
 # These is the hardware-specific overlay, which points to the location
 # of hardware-specific resource overrides, typically the frameworks and
 # application settings that are stored in resourced.
-DEVICE_PACKAGE_OVERLAYS += device/samsung/c1-common/overlay
+DEVICE_PACKAGE_OVERLAYS += device/samsung/u8500-common/overlay
 
 # Libs
 PRODUCT_PACKAGES := \
@@ -54,111 +54,112 @@ PRODUCT_PACKAGES := \
 
 # These are the hardware-specific configuration files
 PRODUCT_COPY_FILES := \
-	device/samsung/c1-common/etc/asound.conf:system/etc/asound.conf \
-	device/samsung/c1-common/etc/gps.conf:system/etc/gps.conf \
-	device/samsung/c1-common/etc/nvram_net.txt:system/etc/nvram_net.txt \
-	device/samsung/c1-common/etc/sirfgps.conf:system/etc/sirfgps.conf \
-	device/samsung/c1-common/etc/vold.fstab:system/etc/vold.fstab \
-	device/samsung/c1-common/egl.cfg:system/lib/egl/egl.cfg
+	device/samsung/u8500-common/etc/asound.conf:system/etc/asound.conf \
+	device/samsung/u8500-common/etc/gps.conf:system/etc/gps.conf \
+	device/samsung/u8500-common/etc/nvram_net.txt:system/etc/nvram_net.txt \
+	device/samsung/u8500-common/etc/sirfgps.conf:system/etc/sirfgps.conf \
+	device/samsung/u8500-common/etc/vold.fstab:system/etc/vold.fstab \
+	device/samsung/u8500-common/egl.cfg:system/lib/egl/egl.cfg
 
 # Init files
 PRODUCT_COPY_FILES += \
-	device/samsung/c1-common/init.rc:root/init.rc \
-	device/samsung/c1-common/lpm.rc:root/lpm.rc \
-	device/samsung/c1-common/init.smdkc210.rc:root/init.smdkc210.rc \
-	device/samsung/c1-common/init.smdkv310.rc:root/init.smdkv310.rc \
-	device/samsung/c1-common/ueventd.smdkv310.rc:root/ueventd.smdkv310.rc \
-	device/samsung/c1-common/etc/init.d/10soundbooster:system/etc/init.d/10soundbooster
+	device/samsung/u8500-common/init.rc:root/init.rc \
+	device/samsung/u8500-common/lpm.rc:root/lpm.rc \
+	device/samsung/u8500-common/init.goldfish.rc:root/init.goldfish.rc \
+	device/samsung/u8500-common/init.u8500.rc:root/init.u8500.rc \
+	device/samsung/u8500-common/prerecovery.rc:root/prerecovery.rc \
+	device/samsung/u8500-common/ueventd.u8500.rc:root/ueventd.rc \
+	device/samsung/u8500-common/etc/init.d/10soundbooster:system/etc/init.d/10soundbooster
 
 # mDNIe
-PRODUCT_COPY_FILES += \
-	device/samsung/c1-common/etc/mdnie_tune_bypass_mode:system/etc/mdnie_tune_bypass_mode \
-	device/samsung/c1-common/etc/mdnie_tune_camera_mode:system/etc/mdnie_tune_camera_mode \
-	device/samsung/c1-common/etc/mdnie_tune_camera_outdoor_mode:system/etc/mdnie_tune_camera_outdoor_mode \
-	device/samsung/c1-common/etc/mdnie_tune_dynamic_mode:system/etc/mdnie_tune_dynamic_mode \
-	device/samsung/c1-common/etc/mdnie_tune_gallery_mode:system/etc/mdnie_tune_gallery_mode \
-	device/samsung/c1-common/etc/mdnie_tune_movie_mode:system/etc/mdnie_tune_movie_mode \
-	device/samsung/c1-common/etc/mdnie_tune_outdoor_mode:system/etc/mdnie_tune_outdoor_mode \
-	device/samsung/c1-common/etc/mdnie_tune_standard_mode:system/etc/mdnie_tune_standard_mode \
-	device/samsung/c1-common/etc/mdnie_tune_ui_dynamic_mode:system/etc/mdnie_tune_ui_dynamic_mode \
-	device/samsung/c1-common/etc/mdnie_tune_ui_movie_mode:system/etc/mdnie_tune_ui_movie_mode \
-	device/samsung/c1-common/etc/mdnie_tune_ui_standard_mode:system/etc/mdnie_tune_ui_standard_mode \
-	device/samsung/c1-common/etc/mdnie_tune_video_cold_mode:system/etc/mdnie_tune_video_cold_mode \
-	device/samsung/c1-common/etc/mdnie_tune_video_cold_outdoor_mode:system/etc/mdnie_tune_video_cold_outdoor_mode \
-	device/samsung/c1-common/etc/mdnie_tune_video_mode:system/etc/mdnie_tune_video_mode \
-	device/samsung/c1-common/etc/mdnie_tune_video_warm_mode:system/etc/mdnie_tune_video_warm_mode \
-	device/samsung/c1-common/etc/mdnie_tune_video_warm_outdoor_mode:system/etc/mdnie_tune_video_warm_outdoor_mode
+#PRODUCT_COPY_FILES += \
+#	device/samsung/u8500-common/etc/mdnie_tune_bypass_mode:system/etc/mdnie_tune_bypass_mode \
+#	device/samsung/u8500-common/etc/mdnie_tune_camera_mode:system/etc/mdnie_tune_camera_mode \
+#	device/samsung/u8500-common/etc/mdnie_tune_camera_outdoor_mode:system/etc/mdnie_tune_camera_outdoor_mode \
+#	device/samsung/u8500-common/etc/mdnie_tune_dynamic_mode:system/etc/mdnie_tune_dynamic_mode \
+#	device/samsung/u8500-common/etc/mdnie_tune_gallery_mode:system/etc/mdnie_tune_gallery_mode \
+#	device/samsung/u8500-common/etc/mdnie_tune_movie_mode:system/etc/mdnie_tune_movie_mode \
+#	device/samsung/u8500-common/etc/mdnie_tune_outdoor_mode:system/etc/mdnie_tune_outdoor_mode \
+#	device/samsung/u8500-common/etc/mdnie_tune_standard_mode:system/etc/mdnie_tune_standard_mode \
+#	device/samsung/u8500-common/etc/mdnie_tune_ui_dynamic_mode:system/etc/mdnie_tune_ui_dynamic_mode \
+#	device/samsung/u8500-common/etc/mdnie_tune_ui_movie_mode:system/etc/mdnie_tune_ui_movie_mode \
+#	device/samsung/u8500-common/etc/mdnie_tune_ui_standard_mode:system/etc/mdnie_tune_ui_standard_mode \
+#	device/samsung/u8500-common/etc/mdnie_tune_video_cold_mode:system/etc/mdnie_tune_video_cold_mode \
+#	device/samsung/u8500-common/etc/mdnie_tune_video_cold_outdoor_mode:system/etc/mdnie_tune_video_cold_outdoor_mode \
+#	device/samsung/u8500-common/etc/mdnie_tune_video_mode:system/etc/mdnie_tune_video_mode \
+#	device/samsung/u8500-common/etc/mdnie_tune_video_warm_mode:system/etc/mdnie_tune_video_warm_mode \
+#	device/samsung/u8500-common/etc/mdnie_tune_video_warm_outdoor_mode:system/etc/mdnie_tune_video_warm_outdoor_mode
 
 # Configuration files for audio
 PRODUCT_COPY_FILES += \
-	device/samsung/c1-common/etc/audio/soundbooster.txt:system/etc/audio/soundbooster.txt \
-	device/samsung/c1-common/etc/audio/LVVEFS_Rx_Configuration.txt:system/etc/audio/LVVEFS_Rx_Configuration.txt \
-	device/samsung/c1-common/etc/audio/LVVEFS_Tx_Configuration.txt:system/etc/audio/LVVEFS_Tx_Configuration.txt \
-	device/samsung/c1-common/etc/audio/Rx_ControlParams_EARPIECE_WIDEBAND.txt:system/etc/audio/Rx_ControlParams_EARPIECE_WIDEBAND.txt \
-	device/samsung/c1-common/etc/audio/Rx_ControlParams_SPEAKER_WIDEBAND.txt:system/etc/audio/Rx_ControlParams_SPEAKER_WIDEBAND.txt \
-	device/samsung/c1-common/etc/audio/Rx_ControlParams_WIRED_HEADPHONE_WIDEBAND.txt:system/etc/audio/Rx_ControlParams_WIRED_HEADPHONE_WIDEBAND.txt \
-	device/samsung/c1-common/etc/audio/Rx_ControlParams_WIRED_HEADSET_WIDEBAND.txt:system/etc/audio/Rx_ControlParams_WIRED_HEADSET_WIDEBAND.txt \
-	device/samsung/c1-common/etc/audio/Tx_ControlParams_EARPIECE_WIDEBAND.txt:system/etc/audio/Tx_ControlParams_EARPIECE_WIDEBAND.txt \
-	device/samsung/c1-common/etc/audio/Tx_ControlParams_SPEAKER_WIDEBAND.txt:system/etc/audio/Tx_ControlParams_SPEAKER_WIDEBAND.txt \
-	device/samsung/c1-common/etc/audio/Tx_ControlParams_WIRED_HEADPHONE_WIDEBAND.txt:system/etc/audio/Tx_ControlParams_WIRED_HEADPHONE_WIDEBAND.txt \
-	device/samsung/c1-common/etc/audio/Tx_ControlParams_WIRED_HEADSET_WIDEBAND.txt:system/etc/audio/Tx_ControlParams_WIRED_HEADSET_WIDEBAND.txt \
-	device/samsung/c1-common/etc/audio/codec/FMRadioEar.ini:system/etc/audio/codec/FMRadioEar.ini \
-	device/samsung/c1-common/etc/audio/codec/FMRadioSpk.ini:system/etc/audio/codec/FMRadioSpk.ini \
-	device/samsung/c1-common/etc/audio/codec/MusicEar.ini:system/etc/audio/codec/MusicEar.ini \
-	device/samsung/c1-common/etc/audio/codec/MusicSpk.ini:system/etc/audio/codec/MusicSpk.ini \
-	device/samsung/c1-common/etc/audio/codec/RecHeadSetMic.ini:system/etc/audio/codec/RecHeadSetMic.ini \
-	device/samsung/c1-common/etc/audio/codec/RecMainMic.ini:system/etc/audio/codec/RecMainMic.ini \
-	device/samsung/c1-common/etc/audio/codec/RecSubMic.ini:system/etc/audio/codec/RecSubMic.ini \
-	device/samsung/c1-common/etc/audio/codec/RingtoneEar.ini:system/etc/audio/codec/RingtoneEar.ini \
-	device/samsung/c1-common/etc/audio/codec/RingtoneSpk.ini:system/etc/audio/codec/RingtoneSpk.ini \
-	device/samsung/c1-common/etc/audio/codec/VoiceCall3pEar.ini:system/etc/audio/codec/VoiceCall3pEar.ini \
-	device/samsung/c1-common/etc/audio/codec/VoiceCall4pEar.ini:system/etc/audio/codec/VoiceCall4pEar.ini \
-	device/samsung/c1-common/etc/audio/codec/VoiceCallBT.ini:system/etc/audio/codec/VoiceCallBT.ini \
-	device/samsung/c1-common/etc/audio/codec/VoiceCallRcv.ini:system/etc/audio/codec/VoiceCallRcv.ini \
-	device/samsung/c1-common/etc/audio/codec/VoiceCallSpk.ini:system/etc/audio/codec/VoiceCallSpk.ini \
-	device/samsung/c1-common/etc/audio/codec/VoiceRecHeadSetMic.ini:system/etc/audio/codec/VoiceRecHeadSetMic.ini \
-	device/samsung/c1-common/etc/audio/codec/VoiceRecMainMic.ini:system/etc/audio/codec/VoiceRecMainMic.ini \
-	device/samsung/c1-common/etc/audio/codec/VoipCall3pEar.ini:system/etc/audio/codec/VoipCall3pEar.ini \
-	device/samsung/c1-common/etc/audio/codec/VoipCall4pEar.ini:system/etc/audio/codec/VoipCall4pEar.ini \
-	device/samsung/c1-common/etc/audio/codec/VoipCallRcv.ini:system/etc/audio/codec/VoipCallRcv.ini \
-	device/samsung/c1-common/etc/audio/codec/VoipCallSpk.ini:system/etc/audio/codec/VoipCallSpk.ini \
-	device/samsung/c1-common/etc/audio/codec/VtCall3pEar.ini:system/etc/audio/codec/VtCall3pEar.ini \
-	device/samsung/c1-common/etc/audio/codec/VtCall4pEar.ini:system/etc/audio/codec/VtCall4pEar.ini \
-	device/samsung/c1-common/etc/audio/codec/VtCallBT.ini:system/etc/audio/codec/VtCallBT.ini \
-	device/samsung/c1-common/etc/audio/codec/VtCallRcv.ini:system/etc/audio/codec/VtCallRcv.ini \
-	device/samsung/c1-common/etc/audio/codec/VtCallSpk.ini:system/etc/audio/codec/VtCallSpk.ini
+	device/samsung/u8500-common/etc/audio/soundbooster.txt:system/etc/audio/soundbooster.txt \
+#	device/samsung/u8500-common/etc/audio/LVVEFS_Rx_Configuration.txt:system/etc/audio/LVVEFS_Rx_Configuration.txt \
+#	device/samsung/u8500-common/etc/audio/LVVEFS_Tx_Configuration.txt:system/etc/audio/LVVEFS_Tx_Configuration.txt \
+#	device/samsung/u8500-common/etc/audio/Rx_ControlParams_EARPIECE_WIDEBAND.txt:system/etc/audio/Rx_ControlParams_EARPIECE_WIDEBAND.txt \
+#	device/samsung/u8500-common/etc/audio/Rx_ControlParams_SPEAKER_WIDEBAND.txt:system/etc/audio/Rx_ControlParams_SPEAKER_WIDEBAND.txt \
+#	device/samsung/u8500-common/etc/audio/Rx_ControlParams_WIRED_HEADPHONE_WIDEBAND.txt:system/etc/audio/Rx_ControlParams_WIRED_HEADPHONE_WIDEBAND.txt \
+#	device/samsung/u8500-common/etc/audio/Rx_ControlParams_WIRED_HEADSET_WIDEBAND.txt:system/etc/audio/Rx_ControlParams_WIRED_HEADSET_WIDEBAND.txt \
+#	device/samsung/u8500-common/etc/audio/Tx_ControlParams_EARPIECE_WIDEBAND.txt:system/etc/audio/Tx_ControlParams_EARPIECE_WIDEBAND.txt \
+#	device/samsung/u8500-common/etc/audio/Tx_ControlParams_SPEAKER_WIDEBAND.txt:system/etc/audio/Tx_ControlParams_SPEAKER_WIDEBAND.txt \
+#	device/samsung/u8500-common/etc/audio/Tx_ControlParams_WIRED_HEADPHONE_WIDEBAND.txt:system/etc/audio/Tx_ControlParams_WIRED_HEADPHONE_WIDEBAND.txt \
+#	device/samsung/u8500-common/etc/audio/Tx_ControlParams_WIRED_HEADSET_WIDEBAND.txt:system/etc/audio/Tx_ControlParams_WIRED_HEADSET_WIDEBAND.txt \
+#	device/samsung/u8500-common/etc/audio/codec/FMRadioEar.ini:system/etc/audio/codec/FMRadioEar.ini \
+#	device/samsung/u8500-common/etc/audio/codec/FMRadioSpk.ini:system/etc/audio/codec/FMRadioSpk.ini \
+#	device/samsung/u8500-common/etc/audio/codec/MusicEar.ini:system/etc/audio/codec/MusicEar.ini \
+#	device/samsung/u8500-common/etc/audio/codec/MusicSpk.ini:system/etc/audio/codec/MusicSpk.ini \
+#	device/samsung/u8500-common/etc/audio/codec/RecHeadSetMic.ini:system/etc/audio/codec/RecHeadSetMic.ini \
+#	device/samsung/u8500-common/etc/audio/codec/RecMainMic.ini:system/etc/audio/codec/RecMainMic.ini \
+#	device/samsung/u8500-common/etc/audio/codec/RecSubMic.ini:system/etc/audio/codec/RecSubMic.ini \
+#	device/samsung/u8500-common/etc/audio/codec/RingtoneEar.ini:system/etc/audio/codec/RingtoneEar.ini \
+#	device/samsung/u8500-common/etc/audio/codec/RingtoneSpk.ini:system/etc/audio/codec/RingtoneSpk.ini \
+#	device/samsung/u8500-common/etc/audio/codec/VoiceCall3pEar.ini:system/etc/audio/codec/VoiceCall3pEar.ini \
+#	device/samsung/u8500-common/etc/audio/codec/VoiceCall4pEar.ini:system/etc/audio/codec/VoiceCall4pEar.ini \
+#	device/samsung/u8500-common/etc/audio/codec/VoiceCallBT.ini:system/etc/audio/codec/VoiceCallBT.ini \
+#	device/samsung/u8500-common/etc/audio/codec/VoiceCallRcv.ini:system/etc/audio/codec/VoiceCallRcv.ini \
+#	device/samsung/u8500-common/etc/audio/codec/VoiceCallSpk.ini:system/etc/audio/codec/VoiceCallSpk.ini \
+#	device/samsung/u8500-common/etc/audio/codec/VoiceRecHeadSetMic.ini:system/etc/audio/codec/VoiceRecHeadSetMic.ini \
+#	device/samsung/u8500-common/etc/audio/codec/VoiceRecMainMic.ini:system/etc/audio/codec/VoiceRecMainMic.ini \
+#	device/samsung/u8500-common/etc/audio/codec/VoipCall3pEar.ini:system/etc/audio/codec/VoipCall3pEar.ini \
+#	device/samsung/u8500-common/etc/audio/codec/VoipCall4pEar.ini:system/etc/audio/codec/VoipCall4pEar.ini \
+#	device/samsung/u8500-common/etc/audio/codec/VoipCallRcv.ini:system/etc/audio/codec/VoipCallRcv.ini \
+#	device/samsung/u8500-common/etc/audio/codec/VoipCallSpk.ini:system/etc/audio/codec/VoipCallSpk.ini \
+#	device/samsung/u8500-common/etc/audio/codec/VtCall3pEar.ini:system/etc/audio/codec/VtCall3pEar.ini \
+#	device/samsung/u8500-common/etc/audio/codec/VtCall4pEar.ini:system/etc/audio/codec/VtCall4pEar.ini \
+#	device/samsung/u8500-common/etc/audio/codec/VtCallBT.ini:system/etc/audio/codec/VtCallBT.ini \
+#	device/samsung/u8500-common/etc/audio/codec/VtCallRcv.ini:system/etc/audio/codec/VtCallRcv.ini \
+#	device/samsung/u8500-common/etc/audio/codec/VtCallSpk.ini:system/etc/audio/codec/VtCallSpk.ini
 
 # Alsa configuration files
 PRODUCT_COPY_FILES += \
-	device/samsung/c1-common/usr/share/alsa/alsa.conf:system/usr/share/alsa/alsa.conf \
-	device/samsung/c1-common/usr/share/alsa/cards/aliases.conf:system/usr/share/alsa/cards/aliases.conf \
-	device/samsung/c1-common/usr/share/alsa/pcm/center_lfe.conf:system/usr/share/alsa/pcm/center_lfe.conf \
-	device/samsung/c1-common/usr/share/alsa/pcm/default.conf:system/usr/share/alsa/pcm/default.conf \
-	device/samsung/c1-common/usr/share/alsa/pcm/dmix.conf:system/usr/share/alsa/pcm/dmix.conf \
-	device/samsung/c1-common/usr/share/alsa/pcm/dpl.conf:system/usr/share/alsa/pcm/dpl.conf \
-	device/samsung/c1-common/usr/share/alsa/pcm/dsnoop.conf:system/usr/share/alsa/pcm/dsnoop.conf \
-	device/samsung/c1-common/usr/share/alsa/pcm/front.conf:system/usr/share/alsa/pcm/front.conf \
-	device/samsung/c1-common/usr/share/alsa/pcm/iec958.conf:system/usr/share/alsa/pcm/iec958.conf \
-	device/samsung/c1-common/usr/share/alsa/pcm/modem.conf:system/usr/share/alsa/pcm/modem.conf \
-	device/samsung/c1-common/usr/share/alsa/pcm/rear.conf:system/usr/share/alsa/pcm/rear.conf \
-	device/samsung/c1-common/usr/share/alsa/pcm/side.conf:system/usr/share/alsa/pcm/side.conf \
-	device/samsung/c1-common/usr/share/alsa/pcm/surround40.conf:system/usr/share/alsa/pcm/surround40.conf \
-	device/samsung/c1-common/usr/share/alsa/pcm/surround41.conf:system/usr/share/alsa/pcm/surround41.conf \
-	device/samsung/c1-common/usr/share/alsa/pcm/surround50.conf:system/usr/share/alsa/pcm/surround50.conf \
-	device/samsung/c1-common/usr/share/alsa/pcm/surround51.conf:system/usr/share/alsa/pcm/surround51.conf \
-	device/samsung/c1-common/usr/share/alsa/pcm/surround71.conf:system/usr/share/alsa/pcm/surround71.conf
+	device/samsung/u8500-common/usr/share/alsa/alsa.conf:system/usr/share/alsa/alsa.conf \
+	device/samsung/u8500-common/usr/share/alsa/cards/aliases.conf:system/usr/share/alsa/cards/aliases.conf \
+	device/samsung/u8500-common/usr/share/alsa/pcm/center_lfe.conf:system/usr/share/alsa/pcm/center_lfe.conf \
+	device/samsung/u8500-common/usr/share/alsa/pcm/default.conf:system/usr/share/alsa/pcm/default.conf \
+	device/samsung/u8500-common/usr/share/alsa/pcm/dmix.conf:system/usr/share/alsa/pcm/dmix.conf \
+	device/samsung/u8500-common/usr/share/alsa/pcm/dpl.conf:system/usr/share/alsa/pcm/dpl.conf \
+	device/samsung/u8500-common/usr/share/alsa/pcm/dsnoop.conf:system/usr/share/alsa/pcm/dsnoop.conf \
+	device/samsung/u8500-common/usr/share/alsa/pcm/front.conf:system/usr/share/alsa/pcm/front.conf \
+	device/samsung/u8500-common/usr/share/alsa/pcm/iec958.conf:system/usr/share/alsa/pcm/iec958.conf \
+	device/samsung/u8500-common/usr/share/alsa/pcm/modem.conf:system/usr/share/alsa/pcm/modem.conf \
+	device/samsung/u8500-common/usr/share/alsa/pcm/rear.conf:system/usr/share/alsa/pcm/rear.conf \
+	device/samsung/u8500-common/usr/share/alsa/pcm/side.conf:system/usr/share/alsa/pcm/side.conf \
+	device/samsung/u8500-common/usr/share/alsa/pcm/surround40.conf:system/usr/share/alsa/pcm/surround40.conf \
+	device/samsung/u8500-common/usr/share/alsa/pcm/surround41.conf:system/usr/share/alsa/pcm/surround41.conf \
+	device/samsung/u8500-common/usr/share/alsa/pcm/surround50.conf:system/usr/share/alsa/pcm/surround50.conf \
+	device/samsung/u8500-common/usr/share/alsa/pcm/surround51.conf:system/usr/share/alsa/pcm/surround51.conf \
+	device/samsung/u8500-common/usr/share/alsa/pcm/surround71.conf:system/usr/share/alsa/pcm/surround71.conf
 
 # configuration files
 PRODUCT_COPY_FILES += \
-	device/samsung/c1-common/etc/media_profiles.xml:system/etc/media_profiles.xml \
-	device/samsung/c1-common/sec_mm/sec_omx/sec_omx_core/secomxregistry:system/etc/secomxregistry \
+	device/samsung/u8500-common/etc/media_profiles.xml:system/etc/media_profiles.xml \
+#	device/samsung/u8500-common/sec_mm/sec_omx/sec_omx_core/secomxregistry:system/etc/secomxregistry \
 
 # These are the OpenMAX IL modules
-PRODUCT_PACKAGES += \
-	libSEC_OMX_Core.smdkv310 \
-	libOMX.SEC.AVC.Decoder.smdkv310 \
-	libOMX.SEC.M4V.Decoder.smdkv310 \
-	libOMX.SEC.M4V.Encoder.smdkv310 \
-	libOMX.SEC.AVC.Encoder.smdkv310
+#PRODUCT_PACKAGES += \
+#	libSEC_OMX_Core.smdkv310 \
+#	libOMX.SEC.AVC.Decoder.smdkv310 \
+#	libOMX.SEC.M4V.Decoder.smdkv310 \
+#	libOMX.SEC.M4V.Encoder.smdkv310 \
+#	libOMX.SEC.AVC.Encoder.smdkv310
 
 
