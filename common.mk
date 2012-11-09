@@ -68,25 +68,6 @@ PRODUCT_COPY_FILES += \
 	device/samsung/u8500-common/ueventd.u8500.rc:root/ueventd.rc \
 	device/samsung/u8500-common/etc/init.d/10soundbooster:system/etc/init.d/10soundbooster
 
-# mDNIe
-#PRODUCT_COPY_FILES += \
-#	device/samsung/u8500-common/etc/mdnie_tune_bypass_mode:system/etc/mdnie_tune_bypass_mode \
-#	device/samsung/u8500-common/etc/mdnie_tune_camera_mode:system/etc/mdnie_tune_camera_mode \
-#	device/samsung/u8500-common/etc/mdnie_tune_camera_outdoor_mode:system/etc/mdnie_tune_camera_outdoor_mode \
-#	device/samsung/u8500-common/etc/mdnie_tune_dynamic_mode:system/etc/mdnie_tune_dynamic_mode \
-#	device/samsung/u8500-common/etc/mdnie_tune_gallery_mode:system/etc/mdnie_tune_gallery_mode \
-#	device/samsung/u8500-common/etc/mdnie_tune_movie_mode:system/etc/mdnie_tune_movie_mode \
-#	device/samsung/u8500-common/etc/mdnie_tune_outdoor_mode:system/etc/mdnie_tune_outdoor_mode \
-#	device/samsung/u8500-common/etc/mdnie_tune_standard_mode:system/etc/mdnie_tune_standard_mode \
-#	device/samsung/u8500-common/etc/mdnie_tune_ui_dynamic_mode:system/etc/mdnie_tune_ui_dynamic_mode \
-#	device/samsung/u8500-common/etc/mdnie_tune_ui_movie_mode:system/etc/mdnie_tune_ui_movie_mode \
-#	device/samsung/u8500-common/etc/mdnie_tune_ui_standard_mode:system/etc/mdnie_tune_ui_standard_mode \
-#	device/samsung/u8500-common/etc/mdnie_tune_video_cold_mode:system/etc/mdnie_tune_video_cold_mode \
-#	device/samsung/u8500-common/etc/mdnie_tune_video_cold_outdoor_mode:system/etc/mdnie_tune_video_cold_outdoor_mode \
-#	device/samsung/u8500-common/etc/mdnie_tune_video_mode:system/etc/mdnie_tune_video_mode \
-#	device/samsung/u8500-common/etc/mdnie_tune_video_warm_mode:system/etc/mdnie_tune_video_warm_mode \
-#	device/samsung/u8500-common/etc/mdnie_tune_video_warm_outdoor_mode:system/etc/mdnie_tune_video_warm_outdoor_mode
-
 # Configuration files for audio
 PRODUCT_COPY_FILES += \
 	device/samsung/u8500-common/etc/audio/soundbooster.txt:system/etc/audio/soundbooster.txt \
