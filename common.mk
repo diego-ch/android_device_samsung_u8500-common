@@ -63,9 +63,6 @@ PRODUCT_COPY_FILES := \
 
 # Init files
 PRODUCT_COPY_FILES += \
-	device/samsung/u8500-common/init.rc:root/init.rc \
-	device/samsung/u8500-common/lpm.rc:root/lpm.rc \
-	device/samsung/u8500-common/init.goldfish.rc:root/init.goldfish.rc \
 	device/samsung/u8500-common/init.u8500.rc:root/init.u8500.rc \
 	device/samsung/u8500-common/prerecovery.rc:root/prerecovery.rc \
 	device/samsung/u8500-common/ueventd.u8500.rc:root/ueventd.rc \
