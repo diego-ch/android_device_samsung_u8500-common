@@ -41,16 +41,10 @@ DEVICE_PACKAGE_OVERLAYS += device/samsung/u8500-common/overlay
 
 # Libs
 PRODUCT_PACKAGES := \
-	gps.smdkv310 \
-	sensors.smdkv310 \
-	lights.smdkv310 \
-	mediaserver.smdkv310 \
-	overlay.smdkv310 \
 	libstagefrighthw \
 	libexifa \
 	libjpega \
-	com.android.future.usb.accessory \
-	bdaddr_read
+	com.android.future.usb.accessory
 
 # These are the hardware-specific configuration files
 PRODUCT_COPY_FILES := \
