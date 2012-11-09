@@ -1,6 +1,246 @@
 on early-init
     device mtd@misc 0460 radio diag
 
+on init
+# setup the global environment
+    export EXTERNAL_STORAGE /mnt/sdcard
+    export PHONE_STORAGE /mnt/emmc
+
+# create mountpoints
+    mkdir /mnt 0775 root system
+    mkdir /mnt/sdcard 0000 system system
+    mkdir /mnt/emmc 0000 system system
+    mkdir /mnt/usbdisk 0000 system system
+
+    mkdir /modemfs 0771 system system
+    mkdir /mnt/.lfs 0755 root root
+    mkdir /efs 0775 radio system
+    mkdir /tmp
+
+# Backwards Compat - XXX: Going away in G*
+    symlink /mnt/sdcard /sdcard
+    symlink /mnt/emmc /emmc
+    symlink /mnt/usbdisk /usbdisk
+
+on fs
+# mount mtd partitions
+    # Mount /system rw first to give the filesystem a chance to save a checkpoint
+    mount ext4 /dev/block/mmcblk0p3 /system rw
+
+    # Start CSPSA before synchronously running the factory reset utility that
+    # checks the factory reset triggers in sysfs and CSPSA and then formats
+    # the block device belonging to /data.
+    start cspsa
+    exec /system/bin/logwrapper /system/bin/factoryreset -f /sys/socinfo/reset_reason -r factory-reset -c CSPSA0 -p 0xfffffffc:31 /dev/block/mmcblk0p4
+
+    # Once any factory reset is completed (this is why exec is used above) it is
+    # OK to mount the remaining file system volumes.
+
+    mount ext4 /dev/block/mmcblk0p2 /modemfs nosuid nodev
+    mount ext4 /dev/block/mmcblk0p4 /cache nosuid nodev
+    mount ext4 /dev/block/mmcblk0p7 /efs nosuid nodev noatime
+
+## for ODE
+    wait /dev/block/mmcblk0p5
+    mount ext4 /dev/block/mmcblk0p5 /data nosuid crypt nodev nodelalloc noauto_da_alloc
+
+    # We chown/chmod /modemfs again so because mount is run as root + defaults
+    mount ext4 /dev/block/mmcblk0p2 /modemfs nosuid nodev
+
+on post-fs
+    chown system system /modemfs
+    chown root root /modemfs/CONF
+    chmod 0755 /modemfs/CONF
+    chown root root /modemfs/CONF/MCE
+    chmod 0755 /modemfs/CONF/MCE
+    chown radio radio /modemfs/CONF/MCE/MCE.CFG
+    chmod 0644 /modemfs/CONF/MCE/MCE.CFG
+    chown root root /modemfs/PERM
+    chmod 0755 /modemfs/PERM
+    chown root root /modemfs/PERM/PROT
+    chmod 0755 /modemfs/PERM/PROT
+    chown root root /modemfs/PERM/PROT/LABEP.CFG
+    chmod 0644 /modemfs/PERM/PROT/LABEP.CFG
+    chown root root /modemfs/PERM/PROT/PPVALUES.DAT
+    chmod 0644 /modemfs/PERM/PROT/PPVALUES.DAT
+
+    chown radio system /efs
+    chmod 0775 /efs
+    chown radio system /efs/FactoryApp
+    chmod 0770 /efs/FactoryApp
+    chown radio system /efs/imei
+    chmod 0770 /efs/imei
+    chown system system /efs/bluetooth
+    chown system system /efs/wifi
+
+    chown root system /dev/mmc328x
+    chown root system /dev/bma222
+    chown root system /dev/ecompass_ctrl
+
+    chmod 0666 /dev/mmc328x
+    chmod 0666 /dev/bma222
+    chmod 0666 /dev/ecompass_ctrl
+
+# Change permission for magnetic sensor rev02
+    chown system input /sys/class/input/input6/delay
+    chown system input /sys/class/input/input6/enable
+    chown system input /sys/class/input/input6/filter_enable
+    chown system input /sys/class/input/input6/filter_len
+    chown system input /sys/class/input/input6/filter_threshold
+    chown system input /sys/class/input/input6/filter_noise
+    chown system input /sys/class/input/input6/data
+    chown system input /sys/class/input/input6/status
+    chown system input /sys/class/input/input6/wake
+    chown system input /sys/class/input/input6/position
+
+    chown system input /sys/class/input/input7/threshold
+    chown system input /sys/class/input/input7/distortion
+    chown system input /sys/class/input/input7/shape
+    chown compass input /sys/class/input/input7/offsets
+
+# orientation    
+    chown system input /sys/class/input/input8/enable    
+    chown system input /sys/class/input/input8/delay    
+    chown system input /sys/class/input/input8/wake    
+    chown system input /sys/class/input/input8/data    
+    chown system input /sys/class/input/input8/status    
+
+    write /sys/class/input7/filter_enable 0
+    
+# Change permission for accelerometer
+    chown system input /sys/class/sensors/accelerometer_sensor/raw_data
+    chown system system /sys/class/sensors/accelerometer_sensor/calibration
+
+    # Change permission for gyro_sensor
+    chown system system /sys/class/sensors/gyro_sensor/temperature
+
+    mkdir /data/misc/sensors 0777 system system
+
+# We need to decide j4fs's partition number(mmcblk0pX)
+    insmod /lib/modules/2.6.35.7/kernel/drivers/samsung/j4fs/j4fs.ko
+    mount j4fs /dev/block/mmcblk0p1 /mnt/.lfs wait
+
+    insmod /lib/modules/2.6.35.7/kernel/drivers/samsung/param/param.ko
+    insmod /lib/modules/2.6.35.7/kernel/drivers/bluetooth/bthid/bthid.ko
+    insmod /lib/modules/2.6.35.7/cifs.ko
+
+    # USB Device permission
+    chown system system /sys/devices/platform/android_usb/UsbMenuSel
+    chown system system /sys/devices/platform/android_usb/tethering
+    chown system radio /sys/devices/platform/android_usb/phonet
+
+    # give system access to sterc_script when enabling usb nap
+    copy -u /system/etc/psdata/sterc_conf /data/misc/psdata/sterc_conf
+    copy -u /system/etc/psdata/sterc_script_connect /data/misc/psdata/sterc_script_connect
+    copy -u /system/etc/psdata/sterc_script_disconnect /data/misc/psdata/sterc_script_disconnect
+    chmod 0660 /data/misc/psdata/sterc_conf
+    chmod 0500 /data/misc/psdata/sterc_script_connect
+    chmod 0500 /data/misc/psdata/sterc_script_disconnect
+
+    # give system access to stepscc_conf
+    copy -u /system/etc/psdata/stepscc_conf /data/misc/psdata/stepscc_conf
+    chmod 0660 /data/misc/psdata/stepscc_conf
+    chown root radio /data/misc/psdata/stepscc_conf
+
+ # give system access to wpa_supplicant.conf for backup and restore
+    mkdir /data/misc/wifi 0770 wifi system
+    chmod 0770 /data/misc/wifi
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+
+    # create csc file for voice mail number
+    mkdir /data/misc/radio 0775 radio radio
+
+    # Setup paths used for socket communication with the dhcp daemon(dhcpd)
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    mkdir /data/wifi 0770 wifi wifi
+    chmod 0660 /data/wifi/bcm_supp.conf
+    mkdir /data/local 0771 shell shell
+    mkdir /data/local/tmp 0771 shell shell
+    mkdir /data/data 0771 system system
+    mkdir /data/app-private 0771 system system
+    mkdir /data/app 0771 system system
+    mkdir /data/property 0700 root root
+
+   # for TRP/TIS
+    write /data/.psm.info 1
+    chown system system /data/.psm.info
+    chmod 0600 /data/.psm.info
+
+    # STE: set proper access mode to NMF CM devices
+    chmod 0666 /dev/cm_channel
+    chmod 0666 /dev/cm_control
+
+    # STE: set proper access mode to trace device
+    chmod 0666 /dev/stm
+
+    chown root root /dev/rn5t592
+    chmod 777 /dev/rn5t592
+    
+    # STE: set proper access mode to modem driver
+    chmod 0666 /dev/modemaudio
+
+    # STE: set proper access mode for camera and flash devices
+    chmod 0666 /dev/mmio_camera
+    #chmod 0666 /dev/camera_flash
+
+    # STE: set proper access mode to hwmem
+    chmod 666 /dev/hwmem
+
+    # STE: set proper access mode to PWR QOS devices
+    chmod 666 /dev/ape_opp
+    chmod 666 /dev/ddr_opp
+
+    # STE: set proper access mode to camera i2c
+    chmod 666 /dev/i2c-2
+
+    # STE: Load Mali kernel driver
+    chown system graphics /dev/mali
+    chmod 666 /dev/mali
+
+    # STE: Change the permissions of /dev/b2r2 so that it is accessible by copybit
+    chmod 0666 /dev/b2r2_blt
+
+    #STE: Change the permissions of /dev/disp0 so that it is accessible by overlay module
+    chmod 0666 /dev/disp0
+
+    # STE: Change the permission of the AT USB device so that ATC can use it
+    chown root radio /dev/ttyGS0
+    chmod 0060 /dev/ttyGS0
+
+    #STE: create var/run, var/lib for avahi
+    mkdir /var
+    mkdir /var/run
+    mkdir /var/lib
+
+    # STE: Set script permission
+    chmod 777 /system/etc/ste_init.sh
+
+# STE: Modem reset permission change to radio
+    chown root radio /system/bin/mreset
+    chmod 4750 /system/bin/mreset
+
+# Samsung: ensure read/write access to sensor control device files
+    chmod 0666 /dev/gp2a_prox
+    chmod 0666 /dev/gp2a_light
+    chmod 0666 /dev/mpu60x0_gyro
+    chmod 0666 /dev/mpu60x0_accel
+    chmod 0666 /dev/mmc3280
+
+# Immersion changes
+    chmod 0666 /dev/tspdrv
+    chown root root /dev/tspdrv
+
+# Remount /system ro to protect the filesystem
+    mount ext4 /dev/block/mmcblk0p3 /system ro remount
+
+# STE: Set permissions for wake locks before services are launched that use them
+    chown radio system /sys/power/state
+    chown radio system /sys/power/wake_lock
+    chown radio system /sys/power/wake_unlock
+    chmod 0660 /sys/power/state
+    chmod 0660 /sys/power/wake_lock
+    chmod 0660 /sys/power/wake_unlock
+
 on boot
 # unmap left alt to avoid console switch
     setkey 0x0 0x38 0x0
@@ -23,42 +263,170 @@ on boot
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
 
-    # bluetooth power up/down interface
-#    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
-#    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
-#    chmod 0660                /sys/class/rfkill/rfkill0/state
+    setprop wifi.interface "eth0"
 
-on property:init.svc.wpa_supplicant=stopped
-    stop dhcpcd
+    # Permissions for System Server and daemons.
+    chown radio system /sys/android_power/state
+    chown radio system /sys/android_power/request_state
+    chown radio system /sys/android_power/acquire_full_wake_lock
+    chown radio system /sys/android_power/acquire_partial_wake_lock
+    chown radio system /sys/android_power/release_wake_lock
+    chown system system /sys/class/timed_output/vibrator/enable
+    chown system system /sys/class/leds/keyboard-backlight/brightness
+    chown system system /sys/class/backlight/pri_lcd_bl/brightness
+    chown system system /sys/class/backlight/pwm-backlight/brightness
+    chown system system /sys/class/leds/button-backlight/brightness
+    chown system radio /sys/class/backlight/pwm-backlight/device/lcd_power
+    chown system system /sys/class/backlight/pwm-backlight/device/panel_id
+    chown system system /sys/class/backlight/pwm-backlight/device/acl_set
+    chown system system /sys/class/backlight/pwm-backlight/device/gamma_mode
+    chown system system /sys/class/backlight/pwm-backlight/device/gamma_table
+    chown system system /sys/class/timed_output/vibrator/enable
+    chown radio radio /sys/class/usb_switch/FSA_SWITCH/jig_smd
+    chown radio system /sys/class/usb_switch/FSA_SWITCH/smd_wakelock 
+    chown system system /sys/module/sco/parameters/disable_esco
+    chown system system /sys/kernel/ipv4/tcp_wmem_min
+    chown system system /sys/kernel/ipv4/tcp_wmem_def
+    chown system system /sys/kernel/ipv4/tcp_wmem_max
+    chown system system /sys/kernel/ipv4/tcp_rmem_min
+    chown system system /sys/kernel/ipv4/tcp_rmem_def
+    chown system system /sys/kernel/ipv4/tcp_rmem_max
+    chown radio system /sys/class/sec/sec_touchkey/touch_sensitivity
+    chown root radio /proc/cmdline
+    chown system radio /sys/class/sec/sec_touchscreen/tsp_firm_update
+    chown system radio /sys/class/sec/sec_touchscreen/tsp_threshold
+    chown system radio /sys/class/sec/tsp_noise_test/disp_all_refdata
+    chown system radio /sys/class/sec/tsp_noise_test/disp_all_deltadata
 
-# compass/accelerometer daemon
-#service akmd /system/bin/akmd
-#    user compass
-#    group compass misc input
+# ST-Ericsson Set radio device and parameters permissions
+    chown system system /sys/module/radio_cg2900/parameters/band
+    chown system system /sys/module/radio_cg2900/parameters/grid
+    chmod 0660 /sys/module/radio_cg2900/parameters/band
+    chmod 0660 /sys/module/radio_cg2900/parameters/grid
+    # Enable enhanced retransmission mode for L2CAP
+    write /sys/module/l2cap/parameters/enable_ertm 1
 
-#service wlan_loader /system/bin/wlan_loader \
-#    -f /system/etc/wifi/Fw1251r1c.bin -e /proc/calibration \
-#    -i /system/etc/wifi/tiwlan.ini
-#    disabled
-#    oneshot
+# permission for GPS library
+    chown root system /dev/ttyAMA1
+    chmod 0660 dev/ttyAMA1
+    chown root system sys/class/sec/gps/GPS_ON_OFF/value
+    chmod 0664 sys/class/sec/gps/GPS_ON_OFF/value
+    chown root system sys/class/sec/gps/GPS_nRST/value
+    chmod 0664 sys/class/sec/gps/GPS_nRST/value
 
-#service wpa_supplicant /system/bin/wpa_supplicant \
-#    -Dtiwlan0 -itiwlan0 -c/data/misc/wifi/wpa_supplicant.conf
-#    user wifi
-#    group wifi inet
-#    socket wpa_tiwlan0 dgram 660 wifi wifi
-#    disabled
-#    oneshot
+# bluetooth power up/down interface
+    chown bluetooth bluetooth /dev/ttyAMA0
+    chmod 0660 /dev/ttyAMA0
+    chmod 0660 /sys/class/rfkill/rfkill0/state
+    chmod 0660 /sys/class/rfkill/rfkill1/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill1/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill1/type
 
-# for the moment, while debugging dhcpcd, logwrapper is
-# used to get its output to appear in the logs. This will
-# be removed before shipping.
-#service dhcpcd /system/bin/logwrapper dhcpcd -d tiwlan0
-#    disabled
-#    oneshot
+#camera factory
+    chown system system /sys/class/sec/sec_cam/camtype
+    chown system system /sys/class/sec/flash/enable
+    chown system system /sys/class/camera/front/front_flash
+    chown system system /sys/class/camera/rear/rear_flash    
+    chown system system /sys/class/camera/front/front_camfw
+    chown system system /sys/class/camera/rear/rear_camfw
+    chown system system /sys/class/camera/front/front_camtype
+    chown system system /sys/class/camera/rear/rear_camtype
+	
+    class_start modem
+    class_start default
 
-#service hciattach /system/bin/hciattach \
-#    -n -s 115200 /dev/ttyHS0 texas 4000000 flow
-#    user bluetooth
-#    group bluetooth net_bt_admin
-#    disabled
+# Battery Calibration
+    chown system system /sys/class/power_supply/battery/batt_vol_adc_cal
+    chown system radio /sys/class/power_supply/battery/fg_reset_soc
+
+# camera debug 
+    setprop persist.debug.extcamera.level 777
+    setprop debug.libcamera.level 255
+
+#STE: Copy RF trim data from CSPSA, and start the Modem Storage Agent (MSA) service
+service modem /system/bin/sh /system/etc/ste_modem.sh
+    class modem-u8500
+    user root
+
+#STE: Modem-supervisor
+service modem-supervisor /system/bin/modem-supervisor -f /dev/dbx500_mloader_fw -i /sys/devices/platform/ab8500-i2c.0/chip_id -c monitor
+    class modem-u8500
+    user root
+
+#STE: Creating Modem Security daemon
+service copsd /system/bin/copsdaemon
+    class modem-core
+    user root
+
+#STE: Modem_log_relay
+service modem_log_relay /system/bin/modem_log_relay --ctrl_port=2001 --data_port=2002 --inv_port=2003 --report_port=2005
+    class modem
+    user root
+
+service admsrv /system/bin/logwrapper /system/bin/admsrv
+    user root
+    group system audio inet net_bt net_bt_admin net_raw shell
+    capability NET_ADMIN NET_RAW SYS_NICE
+    onrestart restart media
+    ioprio rt 4
+
+#lkj add for MTV renderer
+service mtvmfservice /system/bin/mtvmfservice
+    user system
+    group system graphics
+
+service hciattach /system/bin/logwrapper /system/bin/hciattach -hb 3000000 -hp /dev/ttyAMA0 -lpm 1
+    user root
+    group bluetooth net_bt_admin
+    disabled
+    oneshot
+
+service geomagneticd /system/bin/geomagneticd6x
+    user compass
+    group system input
+
+service orientationd /system/bin/orientationd6x 
+    user compass 
+    group system input    group system input
+
+# Wifi
+service wpa_supplicant /system/bin/wpa_supplicant -Dwext -ieth0 -c/data/wifi/bcm_supp.conf
+    class main
+    socket wpa_eth0 dgram 0660 wifi wifi
+    disabled
+    oneshot
+
+# STE, AT daemon
+service atd /system/bin/logwrapper /system/bin/at_core normal
+    class modem
+    user root
+    group radio audio
+
+# TA Loader
+service ta_load /system/bin/ta_loader
+    user root
+    group radio
+
+# AT Distributor for factory test
+service at_distributor /system/bin/logwrapper /system/bin/at_distributor
+    user root
+    group radio log
+
+# Immersion changes
+service immvibed /system/bin/immvibed
+    user shell
+    group shell
+    oneshot
+
+service kexec /system/xbin/kexec.dyn -p
+    oneshot
+
+service ux500-post-boot /system/bin/sh /init.ux500.post_boot.sh
+    user root
+    disabled
+    oneshot
+
+on property:dev.bootcomplete=1
+    start ux500-post-boot
