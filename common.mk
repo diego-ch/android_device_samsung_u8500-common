@@ -55,6 +55,7 @@ PRODUCT_PACKAGES := \
 # These are the hardware-specific configuration files
 PRODUCT_COPY_FILES := \
 	device/samsung/u8500-common/configs/asound.conf:system/etc/asound.conf \
+	device/samsung/u8500-common/configs/cspsa.conf:system/etc/cspsa.conf \
 	device/samsung/u8500-common/configs/gps.conf:system/etc/gps.conf \
 	device/samsung/u8500-common/configs/nvram_net.txt:system/etc/nvram_net.txt \
 	device/samsung/u8500-common/configs/sirfgps.conf:system/etc/sirfgps.conf \
@@ -66,10 +67,6 @@ PRODUCT_COPY_FILES += \
 	device/samsung/u8500-common/rootdir/init.u8500.rc:root/init.u8500.rc \
 	device/samsung/u8500-common/rootdir/prerecovery.rc:root/prerecovery.rc \
 	device/samsung/u8500-common/rootdir/ueventd.u8500.rc:root/ueventd.u8500.rc
-
-# Configuration files for audio
-PRODUCT_COPY_FILES += \
-	device/samsung/u8500-common/configs/audio/soundbooster.txt:system/etc/audio/soundbooster.txt
 
 # Alsa configuration files
 PRODUCT_COPY_FILES += \
