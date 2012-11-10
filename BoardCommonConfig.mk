@@ -102,4 +102,4 @@ BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 
 # Use the non-open-source parts, if they're present
--include vendor/samsung/janice/BoardConfigVendor.mk
+$(call inherit-product-if-exists, vendor/samsung/u8500-common/BoardConfigVendor.mk)
