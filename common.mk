@@ -34,10 +34,12 @@
 # and is used by people who have access to binary versions of the drivers
 # but not to the original vendor tree. Be sure to update both.
 
+COMMON_PATH := device/samsung/u8500-common
+
 # These is the hardware-specific overlay, which points to the location
 # of hardware-specific resource overrides, typically the frameworks and
 # application settings that are stored in resourced.
-DEVICE_PACKAGE_OVERLAYS += device/samsung/u8500-common/overlay
+DEVICE_PACKAGE_OVERLAYS += $(COMMON_PATH)/overlay
 
 # Libs
 PRODUCT_PACKAGES := \
@@ -48,40 +50,17 @@ PRODUCT_PACKAGES := \
 
 # These are the hardware-specific configuration files
 PRODUCT_COPY_FILES := \
-	device/samsung/u8500-common/configs/asound.conf:system/etc/asound.conf \
-	device/samsung/u8500-common/configs/cspsa.conf:system/etc/cspsa.conf \
-	device/samsung/u8500-common/configs/gps.conf:system/etc/gps.conf \
-	device/samsung/u8500-common/configs/nvram_net.txt:system/etc/nvram_net.txt \
-	device/samsung/u8500-common/configs/sirfgps.conf:system/etc/sirfgps.conf \
-	device/samsung/u8500-common/configs/vold.fstab:system/etc/vold.fstab \
-	device/samsung/u8500-common/configs/egl.cfg:system/lib/egl/egl.cfg
+	$(COMMON_PATH)/configs/asound.conf:system/etc/asound.conf \
+	$(COMMON_PATH)/configs/cspsa.conf:system/etc/cspsa.conf \
+	$(COMMON_PATH)/configs/gps.conf:system/etc/gps.conf \
+	$(COMMON_PATH)/configs/nvram_net.txt:system/etc/nvram_net.txt \
+	$(COMMON_PATH)/configs/sirfgps.conf:system/etc/sirfgps.conf \
+	$(COMMON_PATH)/configs/vold.fstab:system/etc/vold.fstab \
+	$(COMMON_PATH)/configs/egl.cfg:system/lib/egl/egl.cfg \
+	$(COMMON_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
 
 # Init files
 PRODUCT_COPY_FILES += \
-	device/samsung/u8500-common/rootdir/init.u8500.rc:root/init.u8500.rc \
-	device/samsung/u8500-common/rootdir/prerecovery.rc:root/prerecovery.rc \
-	device/samsung/u8500-common/rootdir/ueventd.u8500.rc:root/ueventd.u8500.rc
-
-# Alsa configuration files
-PRODUCT_COPY_FILES += \
-	device/samsung/u8500-common/usr/share/alsa/alsa.conf:system/usr/share/alsa/alsa.conf \
-	device/samsung/u8500-common/usr/share/alsa/cards/aliases.conf:system/usr/share/alsa/cards/aliases.conf \
-	device/samsung/u8500-common/usr/share/alsa/pcm/center_lfe.conf:system/usr/share/alsa/pcm/center_lfe.conf \
-	device/samsung/u8500-common/usr/share/alsa/pcm/default.conf:system/usr/share/alsa/pcm/default.conf \
-	device/samsung/u8500-common/usr/share/alsa/pcm/dmix.conf:system/usr/share/alsa/pcm/dmix.conf \
-	device/samsung/u8500-common/usr/share/alsa/pcm/dpl.conf:system/usr/share/alsa/pcm/dpl.conf \
-	device/samsung/u8500-common/usr/share/alsa/pcm/dsnoop.conf:system/usr/share/alsa/pcm/dsnoop.conf \
-	device/samsung/u8500-common/usr/share/alsa/pcm/front.conf:system/usr/share/alsa/pcm/front.conf \
-	device/samsung/u8500-common/usr/share/alsa/pcm/iec958.conf:system/usr/share/alsa/pcm/iec958.conf \
-	device/samsung/u8500-common/usr/share/alsa/pcm/modem.conf:system/usr/share/alsa/pcm/modem.conf \
-	device/samsung/u8500-common/usr/share/alsa/pcm/rear.conf:system/usr/share/alsa/pcm/rear.conf \
-	device/samsung/u8500-common/usr/share/alsa/pcm/side.conf:system/usr/share/alsa/pcm/side.conf \
-	device/samsung/u8500-common/usr/share/alsa/pcm/surround40.conf:system/usr/share/alsa/pcm/surround40.conf \
-	device/samsung/u8500-common/usr/share/alsa/pcm/surround41.conf:system/usr/share/alsa/pcm/surround41.conf \
-	device/samsung/u8500-common/usr/share/alsa/pcm/surround50.conf:system/usr/share/alsa/pcm/surround50.conf \
-	device/samsung/u8500-common/usr/share/alsa/pcm/surround51.conf:system/usr/share/alsa/pcm/surround51.conf \
-	device/samsung/u8500-common/usr/share/alsa/pcm/surround71.conf:system/usr/share/alsa/pcm/surround71.conf
-
-# configuration files
-PRODUCT_COPY_FILES += \
-	device/samsung/u8500-common/etc/media_profiles.xml:system/etc/media_profiles.xml
+	$(COMMON_PATH)/rootdir/init.u8500.rc:root/init.u8500.rc \
+	$(COMMON_PATH)/rootdir/prerecovery.rc:root/prerecovery.rc \
+	$(COMMON_PATH)/rootdir/ueventd.u8500.rc:root/ueventd.u8500.rc
