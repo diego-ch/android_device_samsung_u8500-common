@@ -64,3 +64,6 @@ PRODUCT_COPY_FILES += \
 	$(COMMON_PATH)/rootdir/init.u8500.rc:root/init.u8500.rc \
 	$(COMMON_PATH)/rootdir/prerecovery.rc:root/prerecovery.rc \
 	$(COMMON_PATH)/rootdir/ueventd.u8500.rc:root/ueventd.u8500.rc
+
+# Non open-source common parts
+$(call inherit-product-if-exists, vendor/samsung/u8500-common/common-vendor.mk)
