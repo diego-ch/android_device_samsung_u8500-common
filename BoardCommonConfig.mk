@@ -20,14 +20,12 @@
 # Set this up here so that BoardVendorConfig.mk can override it
 BOARD_USES_GENERIC_AUDIO := false
 BOARD_PREBUILT_LIBAUDIO := false
-BOARD_USES_SAMSUNG_SEPARATED_STREAM := true
+BOARD_USES_ALSA_AUDIO := true
+#BOARD_USES_SAMSUNG_SEPARATED_STREAM := true
 
 TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 BOARD_USES_LIBSECRIL_STUB := true
-
-# Use the non-open-source parts, if they're present
--include vendor/samsung/janice/BoardConfigVendor.mk
 
 # Platform
 TARGET_CPU_ABI := armeabi-v7a
@@ -103,5 +101,5 @@ BOARD_USES_MMCUTILS := true
 BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 
-# Include aries specific stuff
--include device/samsung/u8500-common/Android.mk
+# Use the non-open-source parts, if they're present
+-include vendor/samsung/janice/BoardConfigVendor.mk
