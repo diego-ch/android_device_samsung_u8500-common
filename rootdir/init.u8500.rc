@@ -117,12 +117,11 @@ on post-fs
     mkdir /data/misc/sensors 0777 system system
 
 # We need to decide j4fs's partition number(mmcblk0pX)
-    insmod /lib/modules/2.6.35.7/kernel/drivers/samsung/j4fs/j4fs.ko
+    insmod /lib/modules/j4fs.ko
     mount j4fs /dev/block/mmcblk0p1 /mnt/.lfs wait
 
-    insmod /lib/modules/2.6.35.7/kernel/drivers/samsung/param/param.ko
-    insmod /lib/modules/2.6.35.7/kernel/drivers/bluetooth/bthid/bthid.ko
-    insmod /lib/modules/2.6.35.7/cifs.ko
+    insmod /lib/modules/param.ko
+    insmod /lib/modules/bthid.ko
 
     # USB Device permission
     chown system system /sys/devices/platform/android_usb/UsbMenuSel
