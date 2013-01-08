@@ -28,25 +28,25 @@ TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_ARCH_VARIANT_CPU := cortex-a9
 ARCH_ARM_HAVE_NEON := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
-EXYNOS4210_ENHANCEMENTS := true
+#EXYNOS4210_ENHANCEMENTS := true
 BOARD_USES_SKTEXTBOX := true
 
-ifdef EXYNOS4210_ENHANCEMENTS
-COMMON_GLOBAL_CFLAGS += -DEXYNOS4_ENHANCEMENTS
-COMMON_GLOBAL_CFLAGS += -DEXYNOS4210_ENHANCEMENTS
-COMMON_GLOBAL_CFLAGS += -DSURFACEFLINGER_FORCE_SCREEN_RELEASE
-endif
+#ifdef EXYNOS4210_ENHANCEMENTS
+#COMMON_GLOBAL_CFLAGS += -DEXYNOS4_ENHANCEMENTS
+#COMMON_GLOBAL_CFLAGS += -DEXYNOS4210_ENHANCEMENTS
+#COMMON_GLOBAL_CFLAGS += -DSURFACEFLINGER_FORCE_SCREEN_RELEASE
+#endif
 
-TARGET_BOARD_PLATFORM := exynos4
-TARGET_SOC := exynos4210
-TARGET_BOOTLOADER_BOARD_NAME := smdk4210
+TARGET_BOARD_PLATFORM := montblanc
+TARGET_SOC := u8500
+TARGET_BOOTLOADER_BOARD_NAME := montblanc
 
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
 
 TARGET_PROVIDES_INIT := true
 TARGET_PROVIDES_INIT_TARGET_RC := true
-TARGET_RECOVERY_INITRC := device/samsung/galaxys2-common/recovery.rc
+TARGET_RECOVERY_INITRC := device/samsung/u8500-common/recovery.rc
 
 BOARD_NAND_PAGE_SIZE := 4096
 BOARD_NAND_SPARE_SIZE := 128
@@ -60,17 +60,17 @@ TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.4.3
 
 # Filesystem
 TARGET_USERIMAGES_USE_EXT4 := true
-BOARD_BOOTIMAGE_PARTITION_SIZE := 8388608
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 536870912
+BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 641728512
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 2147483648
 BOARD_FLASH_BLOCK_SIZE := 4096
 
 # Releasetools
-TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/samsung/galaxys2-common/releasetools/galaxys2_ota_from_target_files
-TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/samsung/galaxys2-common/releasetools/galaxys2_img_from_target_files
+TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/samsung/u8500-common/releasetools/u8500_ota_from_target_files
+TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/samsung/u8500-common/releasetools/u8500_img_from_target_files
 
 # Graphics
-BOARD_EGL_CFG := device/samsung/galaxys2-common/configs/egl.cfg
+BOARD_EGL_CFG := device/samsung/u8500-common/configs/egl.cfg
 USE_OPENGL_RENDERER := true
 
 # Enable WEBGL in WebKit
@@ -78,24 +78,24 @@ ENABLE_WEBGL := true
 
 # HWComposer
 BOARD_USES_HWCOMPOSER := true
-BOARD_USE_SECTVOUT := true
+#BOARD_USE_SECTVOUT := true
 BOARD_USES_FIMGAPI := true
 
 # OMX
-BOARD_USE_SAMSUNG_COLORFORMAT := true
-BOARD_FIX_NATIVE_COLOR_FORMAT := true
-BOARD_HAVE_CODEC_SUPPORT := SAMSUNG_CODEC_SUPPORT
-COMMON_GLOBAL_CFLAGS += -DSAMSUNG_CODEC_SUPPORT
-BOARD_NONBLOCK_MODE_PROCESS := true
-BOARD_USE_STOREMETADATA := true
-BOARD_USE_METADATABUFFERTYPE := true
-BOARD_USES_MFC_FPS := true
+#BOARD_USE_SAMSUNG_COLORFORMAT := true
+#BOARD_FIX_NATIVE_COLOR_FORMAT := true
+#BOARD_HAVE_CODEC_SUPPORT := SAMSUNG_CODEC_SUPPORT
+#COMMON_GLOBAL_CFLAGS += -DSAMSUNG_CODEC_SUPPORT
+#BOARD_NONBLOCK_MODE_PROCESS := true
+#BOARD_USE_STOREMETADATA := true
+#BOARD_USE_METADATABUFFERTYPE := true
+#BOARD_USES_MFC_FPS := true
 
 # Audio
-BOARD_USE_YAMAHAPLAYER := true
-BOARD_USE_SAMSUNG_SEPARATEDSTREAM := true
-BOARD_HAS_SAMSUNG_VOLUME_BUG := true
-COMMON_GLOBAL_CFLAGS += -DICS_AUDIO_BLOB
+#BOARD_USE_YAMAHAPLAYER := true
+#BOARD_USE_SAMSUNG_SEPARATEDSTREAM := true
+#BOARD_HAS_SAMSUNG_VOLUME_BUG := true
+#COMMON_GLOBAL_CFLAGS += -DICS_AUDIO_BLOB
 
 # RIL
 BOARD_MOBILEDATA_INTERFACE_NAME := "pdp0"
@@ -133,25 +133,25 @@ BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_VOLD_MAX_PARTITIONS := 12
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 BOARD_VOLD_DISC_HAS_MULTIPLE_MAJORS := true
-TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/s3c-usbgadget/gadget/lun%d/file"
+TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/musb-ux500.0/musb-hdrc/gadget/lun%d/file"
 
 # Recovery
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/galaxys2-common/recovery/recovery_keys.c
-BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/galaxys2-common/recovery/graphics.c
+BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/u8500-common/recovery/recovery_keys.c
+BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/u8500-common/recovery/graphics.c
 BOARD_UMS_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun0/file"
 BOARD_USES_MMCUTILS := true
 BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_SUPPRESS_EMMC_WIPE := true
 
-TARGET_SPECIFIC_HEADER_PATH := device/samsung/galaxys2-common/overlay/include
+TARGET_SPECIFIC_HEADER_PATH := device/samsung/u8500-common/overlay/include
 
 # Charging mode
-BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
+BOARD_CHARGING_MODE_BOOTING_LPM := /sys/devices/virtual/power_supply/battery/batt_lp_charging
 BOARD_BATTERY_DEVICE_NAME := "battery"
-BOARD_CHARGER_RES := device/samsung/galaxys2-common/res/charger
+BOARD_CHARGER_RES := device/samsung/u8500-common/res/charger
 
-BOARD_CUSTOM_BOOTIMG_MK := device/samsung/galaxys2-common/shbootimg.mk
+BOARD_CUSTOM_BOOTIMG_MK := device/samsung/u8500-common/shbootimg.mk
 
 # Use the non-open-source parts, if they're present
--include vendor/samsung/galaxys2-common/BoardConfigVendor.mk
+-include vendor/samsung/u8500-common/BoardConfigVendor.mk

@@ -13,22 +13,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-DEVICE_PACKAGE_OVERLAYS := device/samsung/galaxys2-common/overlay
+DEVICE_PACKAGE_OVERLAYS := device/samsung/u8500-common/overlay
 
 # Init files
 PRODUCT_COPY_FILES := \
-    device/samsung/galaxys2-common/lpm.rc:root/lpm.rc \
-    device/samsung/galaxys2-common/init.smdk4210.usb.rc:root/init.smdk4210.usb.rc \
-    device/samsung/galaxys2-common/init.smdk4210.rc:root/init.smdk4210.rc \
-    device/samsung/galaxys2-common/ueventd.smdk4210.rc:root/ueventd.smdk4210.rc
+    device/samsung/u8500-common/lpm.rc:root/lpm.rc \
+    device/samsung/u8500-common/init.smdk4210.usb.rc:root/init.smdk4210.usb.rc \
+    device/samsung/u8500-common/init.smdk4210.rc:root/init.smdk4210.rc \
+    device/samsung/u8500-common/ueventd.smdk4210.rc:root/ueventd.smdk4210.rc
 
 # Audio
 PRODUCT_COPY_FILES += \
-    device/samsung/galaxys2-common/configs/asound.conf:system/etc/asound.conf
+    device/samsung/u8500-common/configs/asound.conf:system/etc/asound.conf
 
 # Vold and Storage
 PRODUCT_COPY_FILES += \
-    device/samsung/galaxys2-common/configs/vold.fstab:system/etc/vold.fstab
+    device/samsung/u8500-common/configs/vold.fstab:system/etc/vold.fstab
 
 # Bluetooth configuration files
 PRODUCT_COPY_FILES += \
@@ -36,8 +36,8 @@ PRODUCT_COPY_FILES += \
 
 # Wifi
 PRODUCT_COPY_FILES += \
-    device/samsung/galaxys2-common/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
-    device/samsung/galaxys2-common/configs/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
+    device/samsung/u8500-common/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
+    device/samsung/u8500-common/configs/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
 
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
@@ -47,23 +47,23 @@ $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4330
 
 # Gps
 PRODUCT_COPY_FILES += \
-    device/samsung/galaxys2-common/configs/gps.conf:system/etc/gps.conf \
-    device/samsung/galaxys2-common/configs/sirfgps.conf:system/etc/sirfgps.conf
+    device/samsung/u8500-common/configs/gps.conf:system/etc/gps.conf \
+    device/samsung/u8500-common/configs/sirfgps.conf:system/etc/sirfgps.conf
 
 # Packages
 PRODUCT_PACKAGES := \
 	audio.a2dp.default \
 	libaudiohw_legacy \
-    camera.exynos4 \
-    libsurfaceflinger_client \
-    com.android.future.usb.accessory \
-    SamsungServiceMode \
-    Torch \
-    TvOut
+#	camera.exynos4 \
+	libsurfaceflinger_client \
+	com.android.future.usb.accessory \
+	SamsungServiceMode \
+	Torch \
+#	TvOut
 
 # HAL
 PRODUCT_PACKAGES += \
-    lights.exynos4 \
+#    lights.exynos4 \
     libhwconverter \
     libs5pjpeg \
     libfimg
@@ -74,31 +74,31 @@ PRODUCT_PACKAGES += \
     charger_res_images
 
 # MFC API
-PRODUCT_PACKAGES += \
-    libsecmfcapi
+#PRODUCT_PACKAGES += \
+#    libsecmfcapi
 
 # OMX
-PRODUCT_PACKAGES += \
-    libstagefrighthw \
-    libseccscapi \
-    libsecbasecomponent \
-    libsecosal \
-    libSEC_OMX_Resourcemanager \
-    libSEC_OMX_Core \
-    libSEC_OMX_Vdec \
-    libOMX.SEC.AVC.Decoder \
-    libOMX.SEC.M4V.Decoder \
-    libOMX.SEC.WMV.Decoder \
-    libOMX.SEC.VP8.Decoder \
-    libSEC_OMX_Venc \
-    libOMX.SEC.AVC.Encoder \
-    libOMX.SEC.M4V.Encoder \
-    libSEC_OMX_Adec \
-    libOMX.SEC.MP3.Decoder
+#PRODUCT_PACKAGES += \
+#    libstagefrighthw \
+#    libseccscapi \
+#    libsecbasecomponent \
+#    libsecosal \
+#    libSEC_OMX_Resourcemanager \
+#    libSEC_OMX_Core \
+#    libSEC_OMX_Vdec \
+#    libOMX.SEC.AVC.Decoder \
+#    libOMX.SEC.M4V.Decoder \
+#    libOMX.SEC.WMV.Decoder \
+#    libOMX.SEC.VP8.Decoder \
+#    libSEC_OMX_Venc \
+#    libOMX.SEC.AVC.Encoder \
+#    libOMX.SEC.M4V.Encoder \
+#    libSEC_OMX_Adec \
+#    libOMX.SEC.MP3.Decoder
 
 PRODUCT_COPY_FILES += \
-    device/samsung/galaxys2-common/configs/media_codecs.xml:system/etc/media_codecs.xml \
-    device/samsung/galaxys2-common/configs/media_profiles.xml:system/etc/media_profiles.xml
+    device/samsung/u8500-common/configs/media_codecs.xml:system/etc/media_codecs.xml \
+    device/samsung/u8500-common/configs/media_profiles.xml:system/etc/media_profiles.xml
 
 # RIL
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -168,9 +168,9 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 
 # Include exynos4 platform specific parts
-TARGET_HAL_PATH := hardware/samsung/exynos4/hal
-TARGET_OMX_PATH := hardware/samsung/exynos/multimedia/openmax
-$(call inherit-product, hardware/samsung/exynos4210.mk)
+#TARGET_HAL_PATH := hardware/samsung/exynos4/hal
+#TARGET_OMX_PATH := hardware/samsung/exynos/multimedia/openmax
+#$(call inherit-product, hardware/samsung/exynos4210.mk)
 
 # Use the non-open-source parts, if they're present
--include vendor/samsung/galaxys2-common/common-vendor.mk
+-include vendor/samsung/u8500-common/common-vendor.mk
