@@ -18,9 +18,11 @@ DEVICE_PACKAGE_OVERLAYS := device/samsung/u8500-common/overlay
 # Init files
 PRODUCT_COPY_FILES := \
     device/samsung/u8500-common/lpm.rc:root/lpm.rc \
-    device/samsung/u8500-common/init.smdk4210.usb.rc:root/init.smdk4210.usb.rc \
-    device/samsung/u8500-common/init.smdk4210.rc:root/init.smdk4210.rc \
-    device/samsung/u8500-common/ueventd.smdk4210.rc:root/ueventd.smdk4210.rc
+    device/samsung/u8500-common/prerecovery.rc:root/prerecovery.rc \
+    device/samsung/u8500-common/init.trace.rc:root/init.trace.rc \
+    device/samsung/u8500-common/init.samsungjanice.usb.rc:root/init.samsungjanice.usb.rc \
+    device/samsung/u8500-common/init.samsungjanice.rc:root/init.samsungjanice.rc \
+    device/samsung/u8500-common/ueventd.samsungjanice.rc:root/ueventd.samsungjanice.rc
 
 # Audio
 PRODUCT_COPY_FILES += \
