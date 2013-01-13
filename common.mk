@@ -22,6 +22,7 @@ PRODUCT_COPY_FILES := \
     device/samsung/u8500-common/init.trace.rc:root/init.trace.rc \
     device/samsung/u8500-common/init.samsungjanice.usb.rc:root/init.samsungjanice.usb.rc \
     device/samsung/u8500-common/init.samsungjanice.rc:root/init.samsungjanice.rc \
+    device/samsung/u8500-common/init.rc:root/init.rc \
     device/samsung/u8500-common/ueventd.samsungjanice.rc:root/ueventd.samsungjanice.rc
 
 # Audio
