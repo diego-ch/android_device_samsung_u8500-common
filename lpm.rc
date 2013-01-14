@@ -35,7 +35,7 @@ on early-fs
 	# checks the factory reset triggers in sysfs and CSPSA and then formats
 	# the block device belonging to /data.
 	start cspsa
-	exec /system/bin/logwrapper /system/bin/factoryreset -f /sys/socinfo/reset_reason -r factory-reset -c CSPSA0 -p 0xfffffffc:31 /dev/block/mmcblk0p4
+	#exec /system/bin/logwrapper /system/bin/factoryreset -f /sys/socinfo/reset_reason -r factory-reset -c CSPSA0 -p 0xfffffffc:31 /dev/block/mmcblk0p4
 	
 	# loke4
   	#mount ext4 /dev/block/mmcblk0p12 /modemfs wait noatime nosuid nodev
