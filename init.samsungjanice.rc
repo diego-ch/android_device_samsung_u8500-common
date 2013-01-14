@@ -1,34 +1,31 @@
 # NOTE: This file contains ST-Ericsson related additions/modifications/deletions to init.rc
 #       Commented out lines are kept for reference.
 
-import /init.samsungjanice.usb.rc
-import /init.trace.rc
+import init.samsungjanice.usb.rc
+import init.trace.rc
 
 on early-init
 
     export EXTERNAL_STORAGE /storage/sdcard0
-    mkdir /storage 0550 system sdcard_r
-    mkdir /storage/sdcard0 0000 system system
+    export SECONDARY_STORAGE /storage/sdcard1
 
+    mkdir /storage 0775 system system
+    mkdir /storage/sdcard0 0775 system system
+    mkdir /storage/sdcard1 0775 system system
+    mkdir /storage/usbdisk0 0775 system system
+    mkdir /efs 0771 radio system
+    mkdir /modemfs 0771 system system
+    mkdir /preload 0771 system system
+    mkdir /mnt 0775 root system
+    mkdir /mnt/.lfs 0755 root root
+
+    # for backwards compatibility
     symlink /storage/sdcard0 /sdcard
     symlink /storage/sdcard0 /mnt/sdcard
-# map "real" external storages paths also in same way. backwards compatibility.
-    symlink /storage/extSdCard /mnt/extSdCard
-    symlink /storage/UsbDriveA /mnt/UsbDriveA
-    symlink /storage/UsbDriveB /mnt/UsbDriveB
-    symlink /storage/UsbDriveC /mnt/UsbDriveC
-    symlink /storage/UsbDriveD /mnt/UsbDriveD
-    symlink /storage/UsbDriveE /mnt/UsbDriveE
-    symlink /storage/UsbDriveF /mnt/UsbDriveF
-
-    export SECONDARY_STORAGE /storage/extSdCard:/storage/UsbDriveA:/storage/UsbDriveB:/storage/UsbDriveC:/storage/UsbDriveD:/storage/UsbDriveE:/storage/UsbDriveF
-    mkdir /storage/extSdCard 0000 system system
-    mkdir /storage/UsbDriveA 0000 system system
-    mkdir /storage/UsbDriveB 0000 system system
-    mkdir /storage/UsbDriveC 0000 system system
-    mkdir /storage/UsbDriveD 0000 system system
-    mkdir /storage/UsbDriveE 0000 system system
-    mkdir /storage/UsbDriveF 0000 system system
+    symlink /storage/sdcard1 /extSdCard
+    symlink /storage/sdcard1 /mnt/extSdCard
+    symlink /storage/usbdisk0 /usbdisk0
+    symlink /storage/usbdisk0 /mnt/usbdisk0
 
 on init
 
@@ -42,18 +39,11 @@ on init
 	export VIBE_PIPE_PATH /dev/pipes
 	mkdir /dev/pipes 0771 shell shell
 
-    mkdir /system 0775 system system
-    mkdir /modemfs 0771 system system
-    mkdir /efs 0775 radio system
-    mkdir /preload 0771 system system
     # Shared memory file system
     mkdir /dev/shm 0700 root system
 
     # create /tmp directory needed by psccd and CSPSA
     mkdir /tmp
-
-    # J4FS(lfs) mount points.
-    mkdir /mnt/.lfs 0755 root root
 
     # mount debugfs in order for Audio ADM component to retrieve debug information
     mkdir /debug
@@ -74,14 +64,14 @@ on fs
     setprop ro.crypto.fuse_sdcard false
 	
 # for LogMeIn
-    mount ext4 /dev/block/mmcblk0p3 /system rw wait noatime errors=panic remount
+    mount ext4 /dev/block/mmcblk0p3 /system rw wait noatime remount
 
     chown graphics /system/bin/RescueStarter
     chmod 0755 /system/bin/RescueStarter
     chown graphics /system/bin/RescueServer
     chmod 0755 /system/bin/RescueServer
 
-    mount ext4 /dev/block/mmcblk0p3 /system ro wait noatime errors=panic remount
+    mount ext4 /dev/block/mmcblk0p3 /system ro wait noatime remount
 
     # Start CSPSA before synchronously running the factory reset utility that
     # checks the factory reset triggers in sysfs and CSPSA and then formats
@@ -91,7 +81,7 @@ on fs
 
 on post-fs
 
-    symlink /dev/block/mmcblk0p19 /dev/block/param
+    symlink /dev/block/mmcblk0p1 /dev/block/param
 
     # once everything is setup, no need to modify /
     chown system system /system
@@ -226,23 +216,21 @@ on post-fs
     # Change permission for gyro_sensor
     chown system system /sys/class/sensors/gyro_sensor/temperature
 
-    # Install Kernel Module
-    insmod /lib/modules/j4fs.ko
-    # We need to decide j4fs's partition number(mmcblk0pX)
-    # loke4
-    #mount j4fs /dev/block/mmcblk0p19 /mnt/.lfs wait
-    # loke3
-    mount j4fs /dev/block/mmcblk0p1 /mnt/.lfs wait
-
-    insmod /lib/modules/param.ko
-    write /sys/class/power_supply/battery/batt_reinit_capacity 1
-    insmod /lib/modules/bthid.ko
-
-    # loading exFAT-fs drivers
-    insmod /lib/modules/exfat_core.ko
-    insmod /lib/modules/exfat_fs.ko
-
 on post-fs-data
+
+# insmod kernel modules
+	insmod /lib/modules/j4fs.ko
+	insmod /lib/modules/param.ko
+
+	write /sys/class/power_supply/battery/batt_reinit_capacity 1
+	insmod /lib/modules/bthid.ko
+
+	# loading exFAT-fs drivers
+	insmod /lib/modules/exfat_core.ko
+	insmod /lib/modules/exfat_fs.ko
+
+# mount param.lfs
+	mount j4fs /dev/block/mmcblk0p1 /mnt/.lfs wait
 
     # we will remap this as /mnt/sdcard with the sdcard fuse tool
     mkdir /data/media 0775 media_rw media_rw
