@@ -30,14 +30,13 @@ on early-init
 on init
 
     # setup the global environment
-    export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/framework2.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar:/system/framework/sec_edm.jar:/system/framework/seccamera.jar
     export LD_LIBRARY_PATH /system/lib:/lib:/usr/lib:/system/lib/ste_omxcomponents/:/vendor/lib
     export OMX_STE_ENS_COMPONENTS_DIR /system/lib/ste_omxcomponents/
     export OMX_BELLAGIO_LOADER_REGISTRY /system/omxloaders
 
-	# Vibetonz
-	export VIBE_PIPE_PATH /dev/pipes
-	mkdir /dev/pipes 0771 shell shell
+    # Vibetonz
+    export VIBE_PIPE_PATH /dev/pipes
+    mkdir /dev/pipes 0771 shell shell
 
     # Shared memory file system
     mkdir /dev/shm 0700 root system
@@ -230,7 +229,7 @@ on post-fs-data
 	insmod /lib/modules/exfat_fs.ko
 
 # mount param.lfs
-	mount j4fs /dev/block/mmcblk0p1 /mnt/.lfs wait
+    mount j4fs /dev/block/mmcblk0p1 /mnt/.lfs wait
 
     # we will remap this as /mnt/sdcard with the sdcard fuse tool
     mkdir /data/media 0775 media_rw media_rw
