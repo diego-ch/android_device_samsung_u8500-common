@@ -1,11 +1,6 @@
-# NOTE: This file contains ST-Ericsson related additions/modifications/deletions to init.rc
-#       Commented out lines are kept for reference.
-
 import init.samsungjanice.usb.rc
-import init.trace.rc
 
 on early-init
-
     export EXTERNAL_STORAGE /storage/sdcard0
     export SECONDARY_STORAGE /storage/sdcard1
 
@@ -28,10 +23,9 @@ on early-init
     symlink /storage/usbdisk0 /mnt/usbdisk0
 
 on init
-
     # setup the global environment
     export LD_LIBRARY_PATH /system/lib:/lib:/usr/lib:/system/lib/ste_omxcomponents:/vendor/lib
-    export OMX_STE_ENS_COMPONENTS_DIR /system/lib/ste_omxcomponents/
+    export OMX_STE_ENS_COMPONENTS_DIR /system/lib/ste_omxcomponents
     export OMX_BELLAGIO_LOADER_REGISTRY /system/omxloaders
 
     # Vibetonz
@@ -50,23 +44,22 @@ on init
 
 
 on fs
+# mount ext4 partitions
+   mount ext4 /dev/block/mmcblk0p3 /system noatime wait ro
+   mount ext4 /dev/block/mmcblk0p4 /cache nosuid nodev noatime wait
+   mount ext4 /dev/block/mmcblk0p5 /data nosuid nodev noatime wait noauto_da_alloc
+   mount ext4 /dev/block/mmcblk0p9 /preload nosuid nodev noatime wait
 
-    # mount ext4 partitions
-	mount ext4 /dev/block/mmcblk0p3 /system noatime wait ro
-	mount ext4 /dev/block/mmcblk0p4 /cache nosuid nodev noatime wait
-	mount ext4 /dev/block/mmcblk0p5 /data nosuid nodev noatime wait noauto_da_alloc
-	mount ext4 /dev/block/mmcblk0p9 /preload nosuid nodev noatime wait
-
-	mount ext4 /dev/block/mmcblk0p7 /efs nosuid nodev noatime wait
-	mount ext4 /dev/block/mmcblk0p2 /modemfs nosuid nodev noatime wait
+   mount ext4 /dev/block/mmcblk0p7 /efs nosuid nodev noatime wait
+   mount ext4 /dev/block/mmcblk0p2 /modemfs nosuid nodev noatime wait
 		
-    setprop ro.crypto.fuse_sdcard false
+   setprop ro.crypto.fuse_sdcard false
 
-    # Start CSPSA before synchronously running the factory reset utility that
-    # checks the factory reset triggers in sysfs and CSPSA and then formats
-    # the block device belonging to /data.
-    start cspsa
-    #exec /system/bin/logwrapper /system/bin/factoryreset -f /sys/socinfo/reset_reason -r factory-reset -c CSPSA0 -p 0xfffffffc:31 /dev/block/mmcblk0p5
+   # Start CSPSA before synchronously running the factory reset utility that
+   # checks the factory reset triggers in sysfs and CSPSA and then formats
+   # the block device belonging to /data.
+   start cspsa
+   #exec /system/bin/logwrapper /system/bin/factoryreset -f /sys/socinfo/reset_reason -r factory-reset -c CSPSA0 -p 0xfffffffc:31 /dev/block/mmcblk0p5
 
 on post-fs
 
@@ -206,22 +199,18 @@ on post-fs
     chown system system /sys/class/sensors/gyro_sensor/temperature
 
 on post-fs-data
-
 # insmod kernel modules
-	insmod /system/lib/modules/j4fs.ko
-	insmod /system/lib/modules/param.ko
+    insmod /system/lib/modules/j4fs.ko
+    insmod /system/lib/modules/param.ko
 
-	write /sys/class/power_supply/battery/batt_reinit_capacity 1
-	insmod /system/lib/modules/bthid.ko
+    write /sys/class/power_supply/battery/batt_reinit_capacity 1
+    insmod /system/lib/modules/bthid.ko
 
 # mount param.lfs
     mount j4fs /dev/block/mmcblk0p1 /mnt/.lfs wait
 
-    # we will remap this as /mnt/sdcard with the sdcard fuse tool
-    mkdir /data/media 0775 media_rw media_rw
-    chown media_rw media_rw /data/media
 
-    # give system access to wpa_supplicant.conf for backup and restore
+# give system access to wpa_supplicant.conf for backup and restore
     mkdir /data/misc/wifi 0770 wifi system
     mkdir /efs/wifi 0775 radio system
     mkdir /efs/bluetooth 0775 radio system
@@ -253,8 +242,7 @@ on post-fs-data
     chmod 0775 /data/anr
 
 
-#[ SEC_MM_DRM
-    # DRM directory creation
+# DRM directory creation
     mkdir /system/etc/security/.drm 0775
     chown root root /system/etc/security/.drm
     chmod 0775 /system/etc/security/.drm
@@ -283,7 +271,7 @@ on post-fs-data
     chmod 0775 /efs/.files/.dx1
     chmod 0775 /efs/.files/.dm33
     chmod 0775 /efs/.files/.mp301
-#]
+
 
     # create basic filesystem structure
     mkdir /data/misc/psdata
@@ -378,14 +366,11 @@ on boot
     chmod 0664 /sys/class/rfkill/rfkill0/soft
     chmod 0664 /sys/class/rfkill/rfkill0/type
     setprop service.brcm.bt.pbap_mode btld
-#    copy /system/etc/local.prop /data/local.prop
-#    chown system bluetooth /data/local.prop
-#    chmod 0660 /data/local.prop
     chown bluetooth /dev/ttyAMA0
     chmod 0660 /dev/ttyAMA0
 
 #Set property to change the decoder profile level to 4.1
-	setprop ste.video.decoder.h264.def.lev 4.1   
+    setprop ste.video.decoder.h264.def.lev 4.1
 
 # debugfs
     mount debugfs /sys/kernel/debug /sys/kernel/debug
@@ -453,8 +438,8 @@ on boot
     chown system system /sys/class/sec/sec_touchkey/brightness
 
 # MTP device permission
-	chmod 0660 /dev/usb_mtp_gadget
-	chown system system /dev/usb_mtp_gadget
+    chmod 0660 /dev/usb_mtp_gadget
+    chown system system /dev/usb_mtp_gadget
 
     # camera factory
     chown system system /sys/class/sec/sec_cam/camtype
@@ -506,16 +491,6 @@ service mobex-daemon /system/bin/npsmobex
     class main
     user system
     group system radio inet sdcard_rw
-
-service drm /system/bin/drmserver
-    class main
-    user drm
-# [ SEC_MM_DRM
-# fix
-    group system drm inet drmrpc sdcard_r sdcard_rw media_rw radio
-# org
-#   group drm system inet drmrpc sdcard_r
-# ]
 
 # Make sure we startup btld before hcid
 service btld /system/bin/logwrapper /system/bin/btld -hb 3000000 -hp /dev/ttyAMA0 -lpm 1
@@ -678,12 +653,6 @@ service orientationd /system/bin/orientationd6x
     user compass
     group system input    group system input
 
-on property:init.svc.wpa_supplicant=stopped
-    stop dhcpcd
-
-on property:init.svc.dhcpcd=stopped
-    stop dhcpcd
-
 
 # AT daemon
 service atd /system/bin/at_core -mode normal -serial ttyAMA2
@@ -712,14 +681,4 @@ service battery_params /system/xbin/battery_params
 service usbid_init /system/bin/usbid_init.sh
     class main
     oneshot
-
-service dhcpcd_bnep0 /system/bin/dhcpcd -ABKL
-	class main
-	disabled
-	oneshot
-
-service iprenew_bnep0 /system/bin/dhcpcd -n
-	class main
-	disabled
-	oneshot
 
