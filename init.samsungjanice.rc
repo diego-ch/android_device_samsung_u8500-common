@@ -61,16 +61,6 @@ on fs
 	mount ext4 /dev/block/mmcblk0p2 /modemfs nosuid nodev noatime wait
 		
     setprop ro.crypto.fuse_sdcard false
-	
-# for LogMeIn
-    mount ext4 /dev/block/mmcblk0p3 /system rw wait noatime remount
-
-    chown graphics /system/bin/RescueStarter
-    chmod 0755 /system/bin/RescueStarter
-    chown graphics /system/bin/RescueServer
-    chmod 0755 /system/bin/RescueServer
-
-    mount ext4 /dev/block/mmcblk0p3 /system ro wait noatime remount
 
     # Start CSPSA before synchronously running the factory reset utility that
     # checks the factory reset triggers in sysfs and CSPSA and then formats
@@ -618,12 +608,6 @@ service macloader /system/bin/macloader
     oneshot
 # end of wifi
 
-service powersnd /system/bin/samsungpowersoundplay
-    class main
-    user media
-    group system
-    oneshot
-
 # for bluetooth
 service hciattach /system/bin/logwrapper /system/bin/brcm_patchram_plus --enable_hci --enable_lpm --no2bytes --tosleep 5000 \
     --baudrate 3000000 -use_baudrate_for_download --patchram /system/bin/bcm4330.hcd /dev/ttyAMA0 -d
@@ -637,10 +621,6 @@ service hciattach /system/bin/logwrapper /system/bin/brcm_patchram_plus --enable
 service bt_dut_cmd /system/bin/bcm_dut
     group bluetooth net_bt_admin
     disabled
-    oneshot
-
-service flash_recovery /system/bin/logwrapper /system/etc/install-recovery.sh
-    class main
     oneshot
 
 # Crash Safe Parameter Storage Area, serving production parameter requests from clients.
@@ -743,8 +723,3 @@ service iprenew_bnep0 /system/bin/dhcpcd -n
 	disabled
 	oneshot
 
-# for LogMeIn
-    service RescueStarter /system/bin/RescueStarter
-    class core
-    user graphics
-    group input graphics
