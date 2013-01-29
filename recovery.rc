@@ -32,8 +32,6 @@ on early-fs
     mkdir /mnt/.lfs 0755 root root
 
     insmod /system/lib/modules/j4fs.ko
-    # We need to decide j4fs's partition number(mmcblk0pX)
-    # loke4
     mount j4fs /dev/block/mmcblk0p1 /mnt/.lfs wait
 
     insmod /system/lib/modules/param.ko
@@ -74,6 +72,8 @@ on property:ro.debuggable=1
     write /sys/class/android_usb/android0/iManufacturer $ro.product.manufacturer
     write /sys/class/android_usb/android0/iProduct $ro.product.model
     write /sys/class/android_usb/android0/iSerial $ro.serialno
+    write /sys/devices/platform/ab8500-i2c.0/ab8500-usb.0/boot_time_device 1
+    write /sys/devices/platform/ab8505-i2c.0/ab8500-usb.0/boot_time_device 1
     start adbd
     setprop service.adb.root 1
 
