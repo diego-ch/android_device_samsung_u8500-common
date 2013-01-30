@@ -24,6 +24,10 @@ PRODUCT_COPY_FILES := \
     device/samsung/u8500-common/init.samsungjanice.rc:root/init.samsungjanice.rc \
     device/samsung/u8500-common/ueventd.samsungjanice.rc:root/ueventd.samsungjanice.rc
 
+# Cspsa
+PRODUCT_COPY_FILES := \
+    device/samsung/u8500-common/configs/cspsa.conf:system/etc/cspsa.conf
+
 # Audio
 PRODUCT_COPY_FILES += \
     device/samsung/u8500-common/configs/asound.conf:system/etc/asound.conf
