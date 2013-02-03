@@ -32,9 +32,9 @@ on init
 on early-fs
 
     mount ext4 /dev/block/mmcblk0p3 /system wait ro
-    insmod /lib/modules/j4fs.ko
+    insmod /system/lib/modules/j4fs.ko
     mount j4fs /dev/block/mmcblk0p1 /mnt/.lfs wait rw
-    insmod /lib/modules/param.ko
+    insmod /system/lib/modules/param.ko
 
 on fs
     mount tmpfs tmpfs /tmp
