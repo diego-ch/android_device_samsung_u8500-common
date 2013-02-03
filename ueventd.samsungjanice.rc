@@ -17,7 +17,7 @@
 
 # Sensor i2c
 /dev/i2c-2                0660   media      system
-/dev/i2c-4		  0660	 system		system
+/dev/i2c-4                0660   system     system
 # PWR QOS devices
 /dev/ape_opp              0660   media      system
 /dev/ddr_opp              0660   media      system
@@ -41,7 +41,7 @@
 /dev/ttyGS0               0060   root       radio
 
 #permission for dun
-/dev/dun               0660   system     system
+/dev/dun                  0660   system     system
 
 # modem storage pipe
 /dev/rpc                  0600   radio      radio
@@ -52,6 +52,6 @@
 /dev/block/mmcblk0p19     0660   system     system
 
 # Sensors
-/dev/mpu		  0660   system     system
-/dev/mpuirq		  0660   system     system
-/dev/timerirq		  0660   system     system
+/dev/mpu                  0660   system     system
+/dev/mpuirq               0660   system     system
+/dev/timerirq             0660   system     system
