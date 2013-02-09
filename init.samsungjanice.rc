@@ -24,11 +24,8 @@ on early-init
     symlink /storage/usbdisk0 /mnt/usbdisk0
 
 on init
-
-    # setup the global environment
-    export LD_LIBRARY_PATH /system/lib:/lib:/usr/lib:/system/lib/ste_omxcomponents/:/vendor/lib
     export OMX_STE_ENS_COMPONENTS_DIR /system/lib/ste_omxcomponents/
-    export OMX_BELLAGIO_LOADER_REGISTRY /system/omxloaders
+    export OMX_BELLAGIO_LOADER_REGISTRY /system/etc/omxloaders
 
     # Vibetonz
     export VIBE_PIPE_PATH /dev/pipes
@@ -48,13 +45,13 @@ on init
 on fs
 
     # mount ext4 partitions
-	mount ext4 /dev/block/mmcblk0p3 /system noatime wait ro
-	mount ext4 /dev/block/mmcblk0p4 /cache nosuid nodev noatime wait
-	mount ext4 /dev/block/mmcblk0p5 /data nosuid nodev noatime wait noauto_da_alloc
-	mount ext4 /dev/block/mmcblk0p9 /preload nosuid nodev noatime wait
+    mount ext4 /dev/block/mmcblk0p3 /system noatime wait ro
+    mount ext4 /dev/block/mmcblk0p4 /cache nosuid nodev noatime wait
+    mount ext4 /dev/block/mmcblk0p5 /data nosuid nodev noatime wait noauto_da_alloc
+    mount ext4 /dev/block/mmcblk0p9 /preload nosuid nodev noatime wait
 
-	mount ext4 /dev/block/mmcblk0p7 /efs nosuid nodev noatime wait
-	mount ext4 /dev/block/mmcblk0p2 /modemfs nosuid nodev noatime wait
+    mount ext4 /dev/block/mmcblk0p7 /efs nosuid nodev noatime wait
+    mount ext4 /dev/block/mmcblk0p2 /modemfs nosuid nodev noatime wait
 		
     # Start CSPSA before synchronously running the factory reset utility that
     # checks the factory reset triggers in sysfs and CSPSA and then formats
@@ -227,9 +224,6 @@ on post-fs-data
     chown system system /efs/wifi/.mac.info
     chmod 0664 /efs/wifi/.mac.info
 
-    # WIFI
-    setprop wifi.interface wlan0
-
     # FactoryTest files permission
     mkdir /efs/FactoryApp 0775
     chown radio system /efs/FactoryApp
@@ -378,7 +372,6 @@ on boot
 
 # debugfs
     mount debugfs /sys/kernel/debug /sys/kernel/debug
-
 
     # Set timeout value for rmnet stats.
     write /sys/devices/virtual/net/rmnet0/timeout_suspend 5000000

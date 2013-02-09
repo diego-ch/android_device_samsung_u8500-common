@@ -27,6 +27,10 @@ PRODUCT_COPY_FILES := \
 PRODUCT_COPY_FILES += \
     device/samsung/u8500-common/configs/cspsa.conf:system/etc/cspsa.conf
 
+# OMX Config
+PRODUCT_COPY_FILES += \
+    device/samsung/u8500-common/configs/omxloaders:system/etc/omxloaders
+
 # Audio
 PRODUCT_COPY_FILES += \
     device/samsung/u8500-common/configs/asound.conf:system/etc/asound.conf
