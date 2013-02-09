@@ -56,18 +56,6 @@ on fs
 	mount ext4 /dev/block/mmcblk0p7 /efs nosuid nodev noatime wait
 	mount ext4 /dev/block/mmcblk0p2 /modemfs nosuid nodev noatime wait
 		
-    setprop ro.crypto.fuse_sdcard false
-	
-# for LogMeIn
-    mount ext4 /dev/block/mmcblk0p3 /system rw wait noatime remount
-
-    chown graphics /system/bin/RescueStarter
-    chmod 0755 /system/bin/RescueStarter
-    chown graphics /system/bin/RescueServer
-    chmod 0755 /system/bin/RescueServer
-
-    mount ext4 /dev/block/mmcblk0p3 /system ro wait noatime remount
-
     # Start CSPSA before synchronously running the factory reset utility that
     # checks the factory reset triggers in sysfs and CSPSA and then formats
     # the block device belonging to /data.
