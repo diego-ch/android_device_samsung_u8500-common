@@ -17,7 +17,6 @@
 
 # This variable is set first, so it can be overridden
 # by BoardConfigVendor.mk
-BOARD_USES_GENERIC_AUDIO := false
 BOARD_USES_LIBSECRIL_STUB := true
 
 # Architecture
@@ -60,6 +59,11 @@ BOARD_FLASH_BLOCK_SIZE := 4096
 # Releasetools
 TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/samsung/u8500-common/releasetools/u8500_ota_from_target_files
 TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/samsung/u8500-common/releasetools/u8500_img_from_target_files
+
+# Audio
+BOARD_USES_GENERIC_AUDIO := false
+BOARD_USES_ALSA_AUDIO := true
+COMMON_GLOBAL_CFLAGS += -DSTE_AUDIO
 
 # Graphics
 BOARD_EGL_CFG := device/samsung/u8500-common/configs/egl.cfg
