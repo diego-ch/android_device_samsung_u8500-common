@@ -68,7 +68,6 @@ COMMON_GLOBAL_CFLAGS += -DSTE_AUDIO
 # Graphics
 BOARD_EGL_CFG := device/samsung/u8500-common/configs/egl.cfg
 USE_OPENGL_RENDERER := true
-COMMON_GLOBAL_CFLAGS += -DSTE_HARDWARE
 
 # Enable WEBGL in WebKit
 ENABLE_WEBGL := true
