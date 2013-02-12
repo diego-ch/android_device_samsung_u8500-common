@@ -36,7 +36,8 @@ PRODUCT_COPY_FILES += \
 
 # Audio
 PRODUCT_COPY_FILES += \
-    device/samsung/u8500-common/configs/asound.conf:system/etc/asound.conf
+    device/samsung/u8500-common/configs/asound.conf:system/etc/asound.conf \
+    device/samsung/u8500-common/configs/adm.sqlite-u8500:system/etc/adm.sqlite-u8500
 
 # Vold and Storage
 PRODUCT_COPY_FILES += \
