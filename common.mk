@@ -27,6 +27,9 @@ PRODUCT_COPY_FILES := \
 PRODUCT_COPY_FILES += \
     device/samsung/u8500-common/configs/cspsa.conf:system/etc/cspsa.conf
 
+# Usb Config
+    device/samsung/u8500-common/configs/usbid_init.sh:system/bin/usbid_init.sh
+
 # OMX Config
 PRODUCT_COPY_FILES += \
     device/samsung/u8500-common/configs/omxloaders:system/etc/omxloaders
