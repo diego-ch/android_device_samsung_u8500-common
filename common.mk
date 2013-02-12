@@ -23,11 +23,13 @@ PRODUCT_COPY_FILES := \
     device/samsung/u8500-common/init.samsungjanice.rc:root/init.samsungjanice.rc \
     device/samsung/u8500-common/ueventd.samsungjanice.rc:root/ueventd.samsungjanice.rc
 
-# Cspsa
+# Cspsa & Modem
 PRODUCT_COPY_FILES += \
-    device/samsung/u8500-common/configs/cspsa.conf:system/etc/cspsa.conf
+    device/samsung/u8500-common/configs/cspsa.conf:system/etc/cspsa.conf \
+    device/samsung/u8500-common/configs/ste_modem.sh:system/etc/ste_modem.sh
 
 # Usb Config
+PRODUCT_COPY_FILES += \
     device/samsung/u8500-common/configs/usbid_init.sh:system/bin/usbid_init.sh
 
 # OMX Config
@@ -37,6 +39,7 @@ PRODUCT_COPY_FILES += \
 # Audio
 PRODUCT_COPY_FILES += \
     device/samsung/u8500-common/configs/asound.conf:system/etc/asound.conf \
+    device/samsung/u8500-common/configs/audio_policy.conf:system/vendor/etc/audio_policy.conf \
     device/samsung/u8500-common/configs/adm.sqlite-u8500:system/etc/adm.sqlite-u8500
 
 # Vold and Storage
@@ -66,17 +69,14 @@ PRODUCT_COPY_FILES += \
 # Packages
 PRODUCT_PACKAGES := \
 	audio.a2dp.default \
+	audio.usb.default \
 	libaudiohw_legacy \
 	libsurfaceflinger_client \
+	FmRadioReceiver \
 	com.android.future.usb.accessory \
 	SamsungServiceMode \
+	Superuser \
 	Torch
-
-# HAL
-PRODUCT_PACKAGES += \
-    libhwconverter \
-    libs5pjpeg \
-    libfimg
 
 # Charger
 PRODUCT_PACKAGES += \
@@ -89,7 +89,6 @@ PRODUCT_COPY_FILES += \
 
 # RIL
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.telephony.ril_class=Smdk4210RIL \
     mobiledata.interfaces=pdp0,wlan0,gprs,ppp0 \
     ro.ril.hsxpa=1 \
     ro.ril.gprsclass=10
