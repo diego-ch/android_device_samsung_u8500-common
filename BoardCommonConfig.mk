@@ -33,6 +33,7 @@ ARCH_ARM_HAVE_TLS_REGISTER := true
 TARGET_SOC := u8500
 TARGET_BOARD_PLATFORM := montblanc
 TARGET_BOOTLOADER_BOARD_NAME := montblanc
+BOARD_USES_STE_HARDWARE := true
 
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
@@ -61,6 +62,7 @@ TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/samsung/u8500-common/relea
 # Graphics
 BOARD_EGL_CFG := device/samsung/u8500-common/configs/egl.cfg
 USE_OPENGL_RENDERER := true
+COMMON_GLOBAL_CFLAGS += -DSTE_HARDWARE
 
 # Enable WEBGL in WebKit
 ENABLE_WEBGL := true
