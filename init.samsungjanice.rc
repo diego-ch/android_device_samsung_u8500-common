@@ -23,8 +23,6 @@ on early-init
     symlink /storage/usbdisk0 /mnt/usbdisk0
 
 on init
-    # setup the global environment
-    export LD_LIBRARY_PATH /system/lib:/lib:/usr/lib:/system/lib/ste_omxcomponents:/vendor/lib
     export OMX_STE_ENS_COMPONENTS_DIR /system/lib/ste_omxcomponents
     export OMX_BELLAGIO_LOADER_REGISTRY /system/omxloaders
 
@@ -44,16 +42,14 @@ on init
 
 
 on fs
-# mount ext4 partitions
-   mount ext4 /dev/block/mmcblk0p3 /system noatime wait ro
-   mount ext4 /dev/block/mmcblk0p4 /cache nosuid nodev noatime wait
-   mount ext4 /dev/block/mmcblk0p5 /data nosuid nodev noatime wait noauto_da_alloc
-   mount ext4 /dev/block/mmcblk0p9 /preload nosuid nodev noatime wait
+   # mount ext4 partitions
+    mount ext4 /dev/block/mmcblk0p3 /system noatime wait ro
+    mount ext4 /dev/block/mmcblk0p4 /cache nosuid nodev noatime wait
+    mount ext4 /dev/block/mmcblk0p5 /data nosuid nodev noatime wait noauto_da_alloc
+    mount ext4 /dev/block/mmcblk0p9 /preload nosuid nodev noatime wait
 
-   mount ext4 /dev/block/mmcblk0p7 /efs nosuid nodev noatime wait
-   mount ext4 /dev/block/mmcblk0p2 /modemfs nosuid nodev noatime wait
-		
-   setprop ro.crypto.fuse_sdcard false
+    mount ext4 /dev/block/mmcblk0p7 /efs nosuid nodev noatime wait
+    mount ext4 /dev/block/mmcblk0p2 /modemfs nosuid nodev noatime wait
 
    # Start CSPSA before synchronously running the factory reset utility that
    # checks the factory reset triggers in sysfs and CSPSA and then formats
@@ -209,7 +205,6 @@ on post-fs-data
 # mount param.lfs
     mount j4fs /dev/block/mmcblk0p1 /mnt/.lfs wait
 
-
 # give system access to wpa_supplicant.conf for backup and restore
     mkdir /data/misc/wifi 0770 wifi system
     mkdir /efs/wifi 0775 radio system
@@ -222,9 +217,6 @@ on post-fs-data
     chown system system /efs/wifi/.mac.info
     chmod 0664 /efs/wifi/.mac.info
 
-    # WIFI
-    setprop wifi.interface wlan0
-
     # FactoryTest files permission
     mkdir /efs/FactoryApp 0775
     chown radio system /efs/FactoryApp
@@ -232,7 +224,6 @@ on post-fs-data
     write /efs/FactoryApp/factorymode ON
     chown system system /efs/FactoryApp/factorymode
     chmod 0744 /efs/FactoryApp/factorymode
-
 
 # SA, System SW, SAMSUNG create log directory
     mkdir /data/log 0775 system log
@@ -271,7 +262,6 @@ on post-fs-data
     chmod 0775 /efs/.files/.dx1
     chmod 0775 /efs/.files/.dm33
     chmod 0775 /efs/.files/.mp301
-
 
     # create basic filesystem structure
     mkdir /data/misc/psdata
@@ -314,9 +304,6 @@ on post-fs-data
 
     # Change permissions for modem_log_relay config file
     chmod 666 /modemfs/trace_auto.conf
-
-    # Set permission rights for ping
-    chmod 4755 /system/bin/ping
 
     # If there is no fs-post-data action in the init.<device>.rc file, you
     # must uncomment this line, otherwise encrypted filesystems
@@ -374,7 +361,6 @@ on boot
 
 # debugfs
     mount debugfs /sys/kernel/debug /sys/kernel/debug
-
 
     # Set timeout value for rmnet stats.
     write /sys/devices/virtual/net/rmnet0/timeout_suspend 5000000
@@ -455,31 +441,6 @@ on boot
     # Modem
     class_start modem
     class_start default
-
-service DR-daemon /system/bin/ddexe
-    class main
-    user root
-    group system radio inet net_raw
-
-service KIES-daemon /system/bin/kiesexe
-    class main
-    user root
-    group system radio inet net_raw
-
-service SMD-daemon /system/bin/smdexe
-    class main
-    user root
-    group system radio inet net_raw
-
-service DTT-daemon /system/bin/dttexe
-    class main
-    user root
-    group system radio inet net_raw
-
-service BCS-daemon /system/bin/connfwexe
-    class main
-    user root
-    group system radio inet net_raw
 
 service mobex-daemon /system/bin/npsmobex
     class main
@@ -608,7 +569,6 @@ service modem /system/bin/sh /system/etc/ste_modem.sh
 #    group radio
 
 # Modem-supervisor
-#service modem-supervisor /system/bin/modem-supervisor -r -f /dev/dbx500_mloader_fw -i /sys/devices/platform/ab8505-i2c.0/chip_id,/sys/devices/platform/ab8500-i2c.0/chip_id -c monitor
 service modem-supervisor /system/bin/modem-supervisor -f /dev/dbx500_mloader_fw -i /sys/devices/platform/ab8505-i2c.0/chip_id,/sys/devices/platform/ab8500-i2c.0/chip_id -c monitor
     class modem-u8500
     user root
@@ -640,8 +600,7 @@ service geomagneticd /system/bin/geomagneticd6x
 
 service orientationd /system/bin/orientationd6x
     user compass
-    group system input    group system input
-
+    group system input
 
 # AT daemon
 service atd /system/bin/at_core -mode normal -serial ttyAMA2
@@ -670,4 +629,3 @@ service battery_params /system/xbin/battery_params
 service usbid_init /system/bin/usbid_init.sh
     class main
     oneshot
-
