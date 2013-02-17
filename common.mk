@@ -69,6 +69,7 @@ PRODUCT_COPY_FILES += \
 # Packages
 PRODUCT_PACKAGES := \
 	audio.a2dp.default \
+	audio.usb.default \
 	libaudiohw_legacy \
 	libsurfaceflinger_client \
 	com.android.future.usb.accessory \
