@@ -31,6 +31,10 @@ PRODUCT_COPY_FILES := \
 PRODUCT_COPY_FILES += \
     device/samsung/u8500-common/configs/asound.conf:system/etc/asound.conf
 
+# OMX
+PRODUCT_COPY_FILES += \
+    device/samsung/u8500-common/configs/omxloaders:system/etc/omxloaders
+
 # Vold and Storage
 PRODUCT_COPY_FILES += \
     device/samsung/u8500-common/configs/vold.fstab:system/etc/vold.fstab

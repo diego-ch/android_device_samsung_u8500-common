@@ -24,7 +24,7 @@ on early-init
 
 on init
     export OMX_STE_ENS_COMPONENTS_DIR /system/lib/ste_omxcomponents
-    export OMX_BELLAGIO_LOADER_REGISTRY /system/omxloaders
+    export OMX_BELLAGIO_LOADER_REGISTRY /system/etc/omxloaders
 
     # Vibetonz
     export VIBE_PIPE_PATH /dev/pipes
