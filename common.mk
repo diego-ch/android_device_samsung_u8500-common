@@ -31,6 +31,7 @@ PRODUCT_COPY_FILES += \
 # Audio
 PRODUCT_COPY_FILES += \
     device/samsung/u8500-common/configs/adm.sqlite-u8500:system/etc/adm.sqlite-u8500 \
+    device/samsung/u8500-common/configs/audio_policy.conf:system/vendor/etc/audio_policy.conf \
     device/samsung/u8500-common/configs/asound.conf:system/etc/asound.conf
 
 # OMX
