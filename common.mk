@@ -23,9 +23,10 @@ PRODUCT_COPY_FILES := \
     device/samsung/u8500-common/init.samsungjanice.rc:root/init.samsungjanice.rc \
     device/samsung/u8500-common/ueventd.samsungjanice.rc:root/ueventd.samsungjanice.rc
 
-# Cspsa
-PRODUCT_COPY_FILES := \
-    device/samsung/u8500-common/configs/cspsa.conf:system/etc/cspsa.conf
+# Cspsa & Modem
+PRODUCT_COPY_FILES += \
+    device/samsung/u8500-common/configs/cspsa.conf:system/etc/cspsa.conf \
+    device/samsung/u8500-common/configs/ste_modem.sh:system/etc/ste_modem.sh
 
 # Audio
 PRODUCT_COPY_FILES += \
@@ -38,7 +39,7 @@ PRODUCT_COPY_FILES += \
 
 # USB
 PRODUCT_COPY_FILES += \
-    device/samsung/u8500-common/configs/usbid_init.sh:system/etc/usbid_init.sh
+    device/samsung/u8500-common/configs/usbid_init.sh:system/bin/usbid_init.sh
 
 # Vold and Storage
 PRODUCT_COPY_FILES += \
