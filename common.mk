@@ -35,6 +35,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/samsung/u8500-common/configs/omxloaders:system/etc/omxloaders
 
+# USB
+PRODUCT_COPY_FILES += \
+    device/samsung/u8500-common/configs/usbid_init.sh:system/etc/usbid_init.sh
+
 # Vold and Storage
 PRODUCT_COPY_FILES += \
     device/samsung/u8500-common/configs/vold.fstab:system/etc/vold.fstab
