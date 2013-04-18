@@ -23,7 +23,7 @@ on early-init
     symlink /storage/usbdisk0 /mnt/usbdisk0
 
 on init
-    export OMX_STE_ENS_COMPONENTS_DIR /system/lib/ste_omxcomponents
+    export OMX_STE_ENS_COMPONENTS_DIR /system/lib/ste_omxcomponents/
     export OMX_BELLAGIO_LOADER_REGISTRY /system/etc/omxloaders
 
     # Vibetonz
@@ -34,7 +34,7 @@ on init
     mkdir /dev/shm 0700 root system
 
     # create /tmp directory needed by psccd and CSPSA
-    mkdir /tmp
+    symlink /dev/socket /tmp
 
     # mount debugfs in order for Audio ADM component to retrieve debug information
     mkdir /debug
@@ -67,6 +67,21 @@ on post-fs
 
     chown radio radio /modemfs
     chmod 0771 /modemfs
+    chown radio radio /modemfs/APPL
+    mkdir /modemfs/APPL
+    chmod 0755 /modemfs/APPL
+    mkdir /modemfs/BOOT
+    chown radio radio /modemfs/BOOT
+    chmod 0755 /modemfs/BOOT
+    mkdir /modemfs/DO
+    chown radio radio /modemfs/DO
+    chmod 0755 /modemfs/DO
+    mkdir /modemfs/LOG
+    chown radio radio /modemfs/LOG
+    chmod 0755 /modemfs/LOG
+    mkdir /modemfs/TMP
+    chown radio radio /modemfs/TMP
+    chmod 0755 /modemfs/TMP
     chown radio radio /modemfs/CONF
     chmod 0755 /modemfs/CONF
     chown radio radio /modemfs/CONF/MCE
@@ -89,7 +104,7 @@ on post-fs
     chown radio system /efs/imei
     chmod 0770 /efs/imei
     chown radio system /efs/bluetooth
-    chown system system /efs/wifi
+    chown radio system /efs/wifi
 
     # Set permissions for wake locks before services are launched that use them
     chown system system /sys/power/state
@@ -99,6 +114,8 @@ on post-fs
     chmod 0660 /sys/power/state
     chmod 0660 /sys/power/wake_lock
     chmod 0660 /sys/power/wake_unlock
+
+    mkdir /data/mediaserver 0740 media media
 
     # Samsung Device permissions
     chown root system /dev/mmc328x
@@ -272,7 +289,7 @@ on post-fs-data
     chown root radio /data/misc/ril_config
 
     # Create directory for STE OMX debug logs
-    mkdir /data/ste-debug 0775 system system
+    mkdir /data/ste-debug 0777 root root
 
     # give system access to sterc_script when enabling usb nap
     copy -u /system/etc/psdata/sterc_conf /data/misc/psdata/sterc_conf
@@ -618,7 +635,7 @@ service at_distributor /system/bin/at_distributor
     user root
     group radio log
 
-service watchdog-kicker /system/xbin/watchdog-kicker -d /dev/watchdog -t 120
+service watchdog-kicker /system/xbin/watchdog -d /dev/watchdog -t 120
     class main
     oneshot
 

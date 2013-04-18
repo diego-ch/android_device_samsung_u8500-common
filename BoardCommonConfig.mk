@@ -17,6 +17,7 @@
 
 # This variable is set first, so it can be overridden
 # by BoardConfigVendor.mk
+TARGET_SPECIFIC_HEADER_PATH := device/samsung/u8500-common/overlay/include
 USE_CAMERA_STUB := true
 BOARD_USES_GENERIC_AUDIO := false
 BOARD_USES_LIBSECRIL_STUB := true
@@ -46,7 +47,7 @@ BOARD_NAND_PAGE_SIZE := 4096
 BOARD_NAND_SPARE_SIZE := 128
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_BASE := 0x40000000
-BOARD_KERNEL_CMDLINE := console=ttySAC2,115200 consoleblank=0
+BOARD_KERNEL_CMDLINE := root=/dev/ram0 init=init rw console=ttyAMA2,115200n8 mem=256M initrd=0x800000,72M
 
 # Filesystem
 TARGET_USERIMAGES_USE_EXT4 := true
@@ -55,11 +56,15 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 641728512
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 2147483648
 BOARD_FLASH_BLOCK_SIZE := 4096
 
+# OMX
+#BOARD_USES_PROPRIETARY_OMX := samsung
+
 # Releasetools
 TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/samsung/u8500-common/releasetools/u8500_ota_from_target_files
 TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/samsung/u8500-common/releasetools/u8500_img_from_target_files
 
 # Audio
+BOARD_USES_GENERIC_AUDIO := false
 BOARD_USES_ALSA_AUDIO := true
 COMMON_GLOBAL_CFLAGS += -DSTE_AUDIO
 
@@ -106,6 +111,7 @@ BOARD_LEGACY_NL80211_STA_EVENTS  := true
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
+USE_BLUETOOTH_SAP := true
 
 # Vold
 BOARD_VOLD_MAX_PARTITIONS := 12
@@ -122,7 +128,6 @@ BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_SUPPRESS_EMMC_WIPE := true
 
-TARGET_SPECIFIC_HEADER_PATH := device/samsung/u8500-common/overlay/include
 
 # Charging mode
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/devices/virtual/power_supply/battery/batt_lp_charging

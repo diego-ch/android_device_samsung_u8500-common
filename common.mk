@@ -13,13 +13,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 DEVICE_PACKAGE_OVERLAYS := device/samsung/u8500-common/overlay
+
+# Inherit from those products. Most specific first.
+$(call inherit-product, build/target/product/full_base_telephony.mk)
+$(call inherit-product, build/target/product/languages_full.mk)
+
+# The GPS config appropriate for this device
+$(call inherit-product, device/common/gps/gps_eu_supl.mk)
+
+# Use the Dalvik VM specific for devices with 1024 MB of RAM
+$(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
+
+# Use the non-open-source parts, if they're present
+$(call inherit-product, vendor/samsung/u8500-common/common-vendor.mk)
 
 # Init files
 PRODUCT_COPY_FILES := \
     device/samsung/u8500-common/lpm.rc:root/lpm.rc \
     device/samsung/u8500-common/prerecovery.rc:root/prerecovery.rc \
-    device/samsung/u8500-common/init.samsungjanice.usb.rc:root/init.samsungjanice.usb.rc \
     device/samsung/u8500-common/init.samsungjanice.rc:root/init.samsungjanice.rc \
     device/samsung/u8500-common/ueventd.samsungjanice.rc:root/ueventd.samsungjanice.rc
 
@@ -54,10 +67,12 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/samsung/u8500-common/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
     device/samsung/u8500-common/configs/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
+PRODUCT_PACKAGES += \
+    macloader
 
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
-    wifi.supplicant_scan_interval=15
+    wifi.supplicant_scan_interval=150
 
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4330/device-bcm.mk)
 
@@ -74,7 +89,11 @@ PRODUCT_PACKAGES := \
 	libsurfaceflinger_client \
 	com.android.future.usb.accessory \
 	SamsungServiceMode \
-	Torch
+	Torch \
+        libtinyalsa \
+        libaudioutils \
+        Superuser \
+        libnetcmdiface.so
 
 # Charger
 PRODUCT_PACKAGES += \
@@ -123,7 +142,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
     frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
     frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
-    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.xml:system/etc/permissions/android.hardware.touchscreen.xml \
@@ -148,8 +166,3 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
-
-$(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
-
-# Use the non-open-source parts, if they're present
--include vendor/samsung/u8500-common/common-vendor.mk
