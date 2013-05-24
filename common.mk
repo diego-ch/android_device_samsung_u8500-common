@@ -85,14 +85,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES := \
 	audio.a2dp.default \
 	audio.usb.default \
-	libaudiohw_legacy \
-	libsurfaceflinger_client \
 	com.android.future.usb.accessory \
 	SamsungServiceMode \
 	Torch \
         libtinyalsa \
         libaudioutils \
-        Superuser \
         libnetcmdiface.so
 
 # Charger
@@ -100,15 +97,11 @@ PRODUCT_PACKAGES += \
     charger \
     charger_res_images
 
+# OMX
 PRODUCT_COPY_FILES += \
     device/samsung/u8500-common/configs/media_codecs.xml:system/etc/media_codecs.xml \
     device/samsung/u8500-common/configs/media_profiles.xml:system/etc/media_profiles.xml
 
-# RIL
-PRODUCT_PROPERTY_OVERRIDES += \
-    mobiledata.interfaces=pdp0,wlan0,gprs,ppp0 \
-    ro.ril.hsxpa=1 \
-    ro.ril.gprsclass=10
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
@@ -166,3 +159,5 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
+    
+$(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
