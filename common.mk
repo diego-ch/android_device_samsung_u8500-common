@@ -34,7 +34,8 @@ PRODUCT_COPY_FILES := \
     device/samsung/u8500-common/lpm.rc:root/lpm.rc \
     device/samsung/u8500-common/prerecovery.rc:root/prerecovery.rc \
     device/samsung/u8500-common/init.samsungjanice.rc:root/init.samsungjanice.rc \
-    device/samsung/u8500-common/ueventd.samsungjanice.rc:root/ueventd.samsungjanice.rc
+    device/samsung/u8500-common/ueventd.samsungjanice.rc:root/ueventd.samsungjanice.rc \
+    device/samsung/u8500-common/init.samsungjanice.usb.rc:root/init.samsungjanice.usb.rc
 
 # Cspsa & Modem
 PRODUCT_COPY_FILES += \
