@@ -16,7 +16,7 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifneq ($(filter janice codina gavini,$(TARGET_DEVICE)),)
+ifneq ($(filter janice janicep codina gavini,$(TARGET_DEVICE)),)
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
