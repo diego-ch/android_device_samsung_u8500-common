@@ -17,6 +17,8 @@
 
 # This variable is set first, so it can be overridden
 # by BoardConfigVendor.mk
+USE_CAMERA_STUB := false
+BOARD_USES_GENERIC_AUDIO := false
 BOARD_USES_LIBSECRIL_STUB := true
 
 # Architecture
@@ -24,17 +26,20 @@ TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := true
 TARGET_ARCH_VARIANT := armv7-a-neon
+TARGET_ARCH_VARIANT_CPU := cortex-a9
+ARCH_ARM_HAVE_NEON := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
 
 # Flags
-TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
-TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
+TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
+TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 
 # Platform
 TARGET_SOC := u8500
 TARGET_BOARD_PLATFORM := montblanc
 TARGET_BOOTLOADER_BOARD_NAME := montblanc
 BOARD_USES_STE_HARDWARE := true
+COMMON_GLOBAL_CFLAGS += -DSTE_HARDWARE
 
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
@@ -43,27 +48,28 @@ TARGET_PROVIDES_INIT := true
 TARGET_PROVIDES_INIT_TARGET_RC := true
 TARGET_RECOVERY_INITRC := device/samsung/u8500-common/recovery.rc
 
-BOARD_NAND_PAGE_SIZE := 4096
-BOARD_NAND_SPARE_SIZE := 128
+# Kernel
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_BASE := 0x40000000
-BOARD_KERNEL_CMDLINE := console=ttySAC2,115200 consoleblank=0
+BOARD_KERNEL_CMDLINE := "console=ttySAC2,115200 consoleblank=0"
 
 # Filesystem
+BOARD_NAND_PAGE_SIZE := 4096
+BOARD_NAND_SPARE_SIZE := 128
+BOARD_FLASH_BLOCK_SIZE := 4096
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 641728512
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 2147483648
-BOARD_FLASH_BLOCK_SIZE := 4096
 
 # Releasetools
 TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/samsung/u8500-common/releasetools/u8500_ota_from_target_files
 TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/samsung/u8500-common/releasetools/u8500_img_from_target_files
 
 # Audio
-BOARD_USES_GENERIC_AUDIO := false
 BOARD_USES_ALSA_AUDIO := true
 COMMON_GLOBAL_CFLAGS += -DSTE_AUDIO
+COMMON_GLOBAL_CFLAGS += -DSAMSUNG_STE_AUDIO_BLOB
 
 # Graphics
 BOARD_EGL_CFG := device/samsung/u8500-common/configs/egl.cfg
@@ -79,7 +85,7 @@ BOARD_USES_HWCOMPOSER := true
 BOARD_MOBILEDATA_INTERFACE_NAME := "pdp0"
 
 # Camera
-USE_CAMERA_STUB := true
+COMMON_GLOBAL_CFLAGS += -DSAMSUNG_STE
 
 # Wifi
 BOARD_WLAN_DEVICE                := bcmdhd
