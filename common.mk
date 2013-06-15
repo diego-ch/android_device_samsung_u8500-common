@@ -17,6 +17,14 @@ COMMON_PATH := device/samsung/u8500-common
 
 DEVICE_PACKAGE_OVERLAYS := $(COMMON_PATH)/overlay
 
+# Init files
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/fstab.samsungjanice:root/fstab.samsungjanice \
+    $(COMMON_PATH)/rootdir/init.samsungjanice.rc:root/init.samsungjanice.rc \
+    $(COMMON_PATH)/rootdir/init.samsungjanice.usb.rc:root/init.samsungjanice.usb.rc \
+    $(COMMON_PATH)/rootdir/prerecovery.rc:root/prerecovery.rc \
+    $(COMMON_PATH)/rootdir/ueventd.samsungjanice.rc:root/ueventd.samsungjanice.rc
+
 # STE
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/cspsa.conf:system/etc/cspsa.conf \
