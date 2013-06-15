@@ -69,7 +69,6 @@ TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/samsung/u8500-common/relea
 # Audio
 BOARD_USES_ALSA_AUDIO := true
 COMMON_GLOBAL_CFLAGS += -DSTE_AUDIO
-COMMON_GLOBAL_CFLAGS += -DSAMSUNG_STE_AUDIO_BLOB
 
 # Graphics
 BOARD_EGL_CFG := device/samsung/u8500-common/configs/egl.cfg
