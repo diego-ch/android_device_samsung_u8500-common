@@ -66,7 +66,7 @@ PRODUCT_COPY_FILES += \
 $(call inherit-product, device/common/gps/gps_eu_supl.mk)
 
 # Packages
-PRODUCT_PACKAGES := \
+PRODUCT_PACKAGES += \
     audio.a2dp.default \
     audio.usb.default \
     com.android.future.usb.accessory \
@@ -77,7 +77,7 @@ PRODUCT_PACKAGES := \
     Torch
 
 # HAL
-PRODUCT_PACKAGES := \
+PRODUCT_PACKAGES += \
     libnetcmdiface
 
 # Charger
