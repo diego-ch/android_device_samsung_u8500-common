@@ -46,7 +46,7 @@ TARGET_NO_RADIOIMAGE := true
 
 TARGET_PROVIDES_INIT := true
 TARGET_PROVIDES_INIT_TARGET_RC := true
-TARGET_RECOVERY_INITRC := device/samsung/u8500-common/recovery.rc
+TARGET_RECOVERY_INITRC := device/samsung/u8500-common/rootdir/recovery.rc
 
 # Kernel
 BOARD_KERNEL_PAGESIZE := 4096
