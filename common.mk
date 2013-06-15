@@ -13,38 +13,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-DEVICE_PACKAGE_OVERLAYS := device/samsung/u8500-common/overlay
+COMMON_PATH := device/samsung/u8500-common
 
-# Init files
-PRODUCT_COPY_FILES := \
-    device/samsung/u8500-common/lpm.rc:root/lpm.rc \
-    device/samsung/u8500-common/prerecovery.rc:root/prerecovery.rc \
-    device/samsung/u8500-common/init.samsungjanice.usb.rc:root/init.samsungjanice.usb.rc \
-    device/samsung/u8500-common/init.samsungjanice.rc:root/init.samsungjanice.rc \
-    device/samsung/u8500-common/ueventd.samsungjanice.rc:root/ueventd.samsungjanice.rc
+DEVICE_PACKAGE_OVERLAYS := $(COMMON_PATH)/overlay
 
-# Cspsa & Modem
+# STE
 PRODUCT_COPY_FILES += \
-    device/samsung/u8500-common/configs/cspsa.conf:system/etc/cspsa.conf \
-    device/samsung/u8500-common/configs/ste_modem.sh:system/etc/ste_modem.sh
-
-# Usb Config
-PRODUCT_COPY_FILES += \
-    device/samsung/u8500-common/configs/usbid_init.sh:system/bin/usbid_init.sh
-
-# OMX Config
-PRODUCT_COPY_FILES += \
-    device/samsung/u8500-common/configs/omxloaders:system/etc/omxloaders
+    $(COMMON_PATH)/configs/cspsa.conf:system/etc/cspsa.conf \
+    $(COMMON_PATH)/configs/omxloaders:system/etc/omxloaders \
+    $(COMMON_PATH)/configs/ste_modem.sh:system/etc/ste_modem.sh \
+    $(COMMON_PATH)/configs/usbid_init.sh:system/bin/usbid_init.sh
 
 # Audio
 PRODUCT_COPY_FILES += \
-    device/samsung/u8500-common/configs/asound.conf:system/etc/asound.conf \
-    device/samsung/u8500-common/configs/audio_policy.conf:system/vendor/etc/audio_policy.conf \
-    device/samsung/u8500-common/configs/adm.sqlite-u8500:system/etc/adm.sqlite-u8500
+    $(COMMON_PATH)/configs/asound.conf:system/etc/asound.conf \
+    $(COMMON_PATH)/configs/audio_policy.conf:system/vendor/etc/audio_policy.conf \
+    $(COMMON_PATH)/configs/adm.sqlite-u8500:system/etc/adm.sqlite-u8500 \
+    $(COMMON_PATH)/configs/Volume.db:system/etc/Volume.db
 
 # Vold and Storage
 PRODUCT_COPY_FILES += \
-    device/samsung/u8500-common/configs/vold.fstab:system/etc/vold.fstab
+    $(COMMON_PATH)/configs/vold.fstab:system/etc/vold.fstab
 
 # Bluetooth configuration files
 PRODUCT_COPY_FILES += \
@@ -52,8 +41,8 @@ PRODUCT_COPY_FILES += \
 
 # Wifi
 PRODUCT_COPY_FILES += \
-    device/samsung/u8500-common/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
-    device/samsung/u8500-common/configs/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
+    $(COMMON_PATH)/configs/bcmdhd.cal:system/etc/wifi/bcmdhd.cal \
+    $(COMMON_PATH)/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
 
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
@@ -63,32 +52,35 @@ $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4330
 
 # Gps
 PRODUCT_COPY_FILES += \
-    device/samsung/u8500-common/configs/gps.conf:system/etc/gps.conf \
-    device/samsung/u8500-common/configs/sirfgps.conf:system/etc/sirfgps.conf
+    $(COMMON_PATH)/configs/gps.conf:system/etc/gps.conf \
+    $(COMMON_PATH)/configs/sirfgps.conf:system/etc/sirfgps.conf
+
+$(call inherit-product, device/common/gps/gps_eu_supl.mk)
 
 # Packages
 PRODUCT_PACKAGES := \
-	audio.a2dp.default \
-	audio.usb.default \
-	libaudiohw_legacy \
-	libsurfaceflinger_client \
-	FmRadioReceiver \
-	com.android.future.usb.accessory \
-	SamsungServiceMode \
-	Superuser \
-	Torch
+    audio.a2dp.default \
+    audio.usb.default \
+    com.android.future.usb.accessory \
+    FmRadioReceiver \
+    libaudioutils \
+    libtinyalsa \
+    SamsungServiceMode \
+    Torch
 
 # Charger
 PRODUCT_PACKAGES += \
     charger \
     charger_res_images
 
+# OMX
 PRODUCT_COPY_FILES += \
-    device/samsung/u8500-common/configs/media_codecs.xml:system/etc/media_codecs.xml \
-    device/samsung/u8500-common/configs/media_profiles.xml:system/etc/media_profiles.xml
+    $(COMMON_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
+    $(COMMON_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
 
 # RIL
 PRODUCT_PROPERTY_OVERRIDES += \
+    ro.telephony.ril_class=Smdk4210RIL \
     mobiledata.interfaces=pdp0,wlan0,gprs,ppp0 \
     ro.ril.hsxpa=1 \
     ro.ril.gprsclass=10
