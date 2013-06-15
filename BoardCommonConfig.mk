@@ -110,6 +110,7 @@ BOARD_LEGACY_NL80211_STA_EVENTS  := true
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
+BOARD_BLUEDROID_VENDOR_CONF := device/samsung/u8500-common/bluetooth/vnd_u8500.txt
 
 # Vold
 BOARD_VOLD_MAX_PARTITIONS := 12
