@@ -21,7 +21,7 @@
      for different hardware and product builds. -->
 <resources>
 
-    <!-- Our amoled doesn't animate well. -->
+    <!-- Disabled to activate electron beam animation (CRT-OFF) -->
     <bool name="config_animateScreenLights">false</bool>
 
     <integer name="config_deskDockKeepsScreenOn">0</integer>
@@ -49,19 +49,26 @@
          before automatically restore the default connection.  Set -1 if the connection
          does not require auto-restore. -->
     <!-- the 6th element indicates boot-time dependency-met value. -->
+	
     <string-array translatable="false" name="networkAttributes">
-        <item>"wifi,1,1,1,-1,true"</item>
-        <item>"mobile,0,0,0,-1,true"</item>
-        <item>"mobile_mms,2,0,2,60000,true"</item>
-        <item>"mobile_supl,3,0,2,60000,true"</item>
-        <item>"mobile_dun,4,0,3,60000,true"</item>
-        <item>"mobile_hipri,5,0,3,60000,true"</item>
-        <item>"mobile_bluetooth,7,7,1,-1,true"</item>
-        <item>"wifi_p2p,13,1,0,-1,true"</item>
+        <item>wifi,1,1,1,-1,true</item>
+        <item>mobile,0,0,0,-1,true</item>
+        <item>mobile_mms,2,0,2,60000,true</item>
+        <item>mobile_supl,3,0,2,60000,true</item>
+        <item>mobile_dun,4,0,2,60000,true</item>
+        <item>mobile_hipri,5,0,3,60000,true</item>
+        <item>bluetooth,7,7,2,-1,true</item>
+        <item>mobile_fota,10,0,2,60000,true</item>
+        <item>mobile_ims,11,0,2,60000,true</item>
+        <item>mobile_cbs,12,0,2,60000,true</item>
+        <item>wifi_p2p,13,1,0,-1,true</item>
+        <item>mobile_bip,17,0,2,60000,true</item>
     </string-array>
 
     <!-- An Array of "[ConnectivityManager connectionType],
          [# simultaneous connection types]"  -->
+		 
+	<!-- Radio Attributes -->
     <string-array translatable="false" name="radioAttributes">
         <item>"1,1"</item>
         <item>"0,1"</item>
@@ -71,22 +78,29 @@
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
          USB interfaces.  If the device doesn't want to support tething over USB this should
          be empty.  An example would be "usb.*" -->
-    <string-array translatable="false" name="config_tether_usb_regexs">
-        <item>"rndis0"</item>
-    </string-array>
+		 
+     <!-- USB tethering -->
+     <string-array translatable="false" name="config_tether_usb_regexs">
+         <item>"rndis0"</item>
+     </string-array>
 
+		
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
          Wifi interfaces.  If the device doesn't want to support tethering over Wifi this
          should be empty.  An example would be "softap.*" -->
+		 
+	<!-- Experimental / WIFI tethering -->
     <string-array translatable="false" name="config_tether_wifi_regexs">
-        <item>"wlan0"</item>
+        <item>"rmnet0"</item>
     </string-array>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
          bluetooth interfaces.  If the device doesn't want to support tethering over bluetooth this
          should be empty. -->
+		 
+	<!-- Experimental / Bluetooth tethering -->
     <string-array translatable="false" name="config_tether_bluetooth_regexs">
-        <item>"bnep\\d"</item>
+        <item>"bnep0"</item>
     </string-array>
 
     <!-- Array of ConnectivityManager.TYPE_xxxx values allowable for tethering -->
@@ -95,6 +109,7 @@
     <integer-array translatable="false" name="config_tether_upstream_types">
         <item>0</item>
         <item>1</item>
+        <item>4</item>
         <item>5</item>
         <item>7</item>
     </integer-array>
@@ -108,7 +123,8 @@
     <!-- Boolean indicating whether the wifi chipset has background scan support -->
     <bool translatable="false" name="config_wifi_background_scan_support">true</bool>
 
-    <bool name="config_ui_enableFadingMarquee">false</bool>
+	<!-- Enables or disables fading edges when marquee is enabled in TextView. -->
+    <bool name="config_ui_enableFadingMarquee">true</bool>
 
     <!-- Vibrator pattern for feedback about a long screen/key press -->
     <integer-array name="config_longPressVibePattern">
@@ -121,9 +137,9 @@
     <!-- Vibrator pattern for feedback about touching a virtual key -->
     <integer-array name="config_virtualKeyVibePattern">
         <item>0</item>
-        <item>1</item>
+        <item>10</item>
         <item>20</item>
-        <item>21</item>
+        <item>30</item>
     </integer-array>
 
     <!-- Vibrator pattern for a very short but reliable vibration for soft keyboard tap -->
@@ -171,4 +187,71 @@
 
     <!-- Boolean to enable stk functionality on Samsung phones -->
     <bool name="config_samsung_stk">true</bool>
+	
+    <!-- Indicate whether the SD card is accessible without removing the battery. -->
+    <bool name="config_batterySdCardAccessibility">true</bool>
+	
+    <!-- The VoiceMail default value is displayed to my own number if it is true -->
+    <bool name="config_telephony_use_own_number_for_voicemail">true</bool>
+	
+    <!-- Values greater or equal to 0 will enable electronbeam screen-on
+    animation with the specified delay (in milliseconds), -1 will disable the animation -->
+    <integer name="config_screenOnAnimation">350</integer>
+    
+    <!-- enable screen saver feature -->
+    <bool name="config_enableDreams">false</bool>
+    
+    <!-- Name of screensaver components to look for if none has been chosen by the user -->
+    <string name="config_defaultDreamComponent" translatable="false">com.android.deskclock/com.android.deskclock.Screensaver</string>
+    
+    <!-- LUN file to be used by legacy USB manager.
+    The existence of this file will be used to determine in the
+    legacy USB manager should be started. -->
+    <string name="config_legacyUmsLunFile">/sys/devices/virtual/android_usb/android0/f_mass_storage/lun0/file</string>
+    
+    <!-- Flag indicating whether the we should enable the automatic brightness in Settings.
+    Software implementation will be used if config_hardware_auto_brightness_available is not set -->
+    <bool name="config_automatic_brightness_available">true</bool>
+    
+     <!-- Array of light sensor LUX values to define our levels for auto backlight brightness support.
+     The N entries of this array define N + 1 zones as follows:
+
+     Zone 0:        0 <= LUX < array[0]
+     Zone 1:        array[0] <= LUX < array[1]
+     ...
+     Zone N:        array[N - 1] <= LUX < array[N]
+     Zone N + 1:    array[N] <= LUX < infinity
+
+     Must be overridden in platform specific overlays -->
+    <integer-array name="config_autoBrightnessLevels">
+        <item>7</item> <!-- (0 - 7) Very dark room -->
+        <item>75</item> <!-- (7 - 75) Poor light ambient -->
+        <item>1000</item> <!-- (75 - 1000) Indoor / shadows -->
+        <item>10000</item> <!--(1000 - 10000) Outdoor, (10000 - 16000 (max lux value)) Sunlight outdoor -->
+    </integer-array>
+    
+    <!-- Array of output values for LCD backlight corresponding to the LUX values
+    in the config_autoBrightnessLevels array.  This array should have size one greater
+    than the size of the config_autoBrightnessLevels array.
+    This must be overridden in platform specific overlays -->
+    <integer-array name="config_autoBrightnessLcdBacklightValues">
+        <item>20</item> <!-- (0 - 7) Very dark room -->
+        <item>30</item> <!-- (7 - 75) Poor light ambient -->
+        <item>110</item> <!-- (75 - 1000) Indoor / shadows -->
+        <item>175</item> <!-- (1000 - 10000) Outdoor-->
+        <item>255</item> <!-- (10000 - 16000) Sunlight outdoor -->
+    </integer-array>
+    
+    <!-- Array of output values for button backlight corresponding to the LUX values
+    in the config_autoBrightnessLevels array.  This array should have size one greater
+    than the size of the config_autoBrightnessLevels array.
+    This must be overridden in platform specific overlays -->
+    <integer-array name="config_autoBrightnessButtonBacklightValues">
+        <item>255</item> <!-- (0 - 7) Very dark room -->
+        <item>255</item> <!-- (7 - 75) Poor light ambient -->
+        <item>255</item> <!-- (75 - 1000) Indoor / shadows -->
+        <item>0</item> <!-- (1000 - 10000) Outdoor-->
+        <item>0</item> <!-- (10000 - 16000) Sunlight outdoor -->
+    </integer-array>
+    
 </resources>
