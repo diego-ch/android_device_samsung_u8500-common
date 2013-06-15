@@ -76,6 +76,10 @@ PRODUCT_PACKAGES := \
     SamsungServiceMode \
     Torch
 
+# HAL
+PRODUCT_PACKAGES := \
+    libnetcmdiface
+
 # Charger
 PRODUCT_PACKAGES += \
     charger \
