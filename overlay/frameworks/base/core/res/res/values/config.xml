@@ -30,12 +30,6 @@
     <!-- If this is true, the screen will come on when you unplug usb/power/whatever. -->
     <bool name="config_unplugTurnsOnScreen">true</bool>
 
-    <!-- Package name providing network location support. -->
-    <string name="config_networkLocationProviderPackageName" translatable="false">com.google.android.location</string>
-
-    <!-- Package name providing geocoder API support. -->
-    <string name="config_geocodeProviderPackageName" translatable="false">com.google.android.location</string>
-
     <!-- Whether a software navigation bar should be shown. NOTE: in the future this may be
          autodetected from the Configuration. -->
     <bool name="config_showNavigationBar">false</bool>
@@ -57,7 +51,7 @@
         <item>mobile_supl,3,0,2,60000,true</item>
         <item>mobile_dun,4,0,2,60000,true</item>
         <item>mobile_hipri,5,0,3,60000,true</item>
-        <item>bluetooth,7,7,2,-1,true</item>
+        <item>mobile_bluetooth,7,7,2,-1,true</item>
         <item>mobile_fota,10,0,2,60000,true</item>
         <item>mobile_ims,11,0,2,60000,true</item>
         <item>mobile_cbs,12,0,2,60000,true</item>
@@ -91,7 +85,7 @@
 		 
 	<!-- Experimental / WIFI tethering -->
     <string-array translatable="false" name="config_tether_wifi_regexs">
-        <item>"rmnet0"</item>
+        <item>"wlan0"</item>
     </string-array>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
@@ -123,7 +117,7 @@
     <!-- Boolean indicating whether the wifi chipset has background scan support -->
     <bool translatable="false" name="config_wifi_background_scan_support">true</bool>
 
-	<!-- Enables or disables fading edges when marquee is enabled in TextView. -->
+    <!-- Enables or disables fading edges when marquee is enabled in TextView. -->
     <bool name="config_ui_enableFadingMarquee">true</bool>
 
     <!-- Vibrator pattern for feedback about a long screen/key press -->
@@ -182,12 +176,6 @@
     <!-- Workaround for devices with broken keyboards -->
     <bool name="config_forceDisableHardwareKeyboard">true</bool>
 
-    <!-- If true, adds support for no delay A2DP in Samsung devices -->
-    <bool name="config_noDelayInATwoDP">true</bool>
-
-    <!-- Boolean to enable stk functionality on Samsung phones -->
-    <bool name="config_samsung_stk">true</bool>
-	
     <!-- Indicate whether the SD card is accessible without removing the battery. -->
     <bool name="config_batterySdCardAccessibility">true</bool>
 	
@@ -197,12 +185,6 @@
     <!-- Values greater or equal to 0 will enable electronbeam screen-on
     animation with the specified delay (in milliseconds), -1 will disable the animation -->
     <integer name="config_screenOnAnimation">350</integer>
-    
-    <!-- enable screen saver feature -->
-    <bool name="config_enableDreams">false</bool>
-    
-    <!-- Name of screensaver components to look for if none has been chosen by the user -->
-    <string name="config_defaultDreamComponent" translatable="false">com.android.deskclock/com.android.deskclock.Screensaver</string>
     
     <!-- LUN file to be used by legacy USB manager.
     The existence of this file will be used to determine in the
