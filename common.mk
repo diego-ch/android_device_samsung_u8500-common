@@ -82,18 +82,18 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
     $(COMMON_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
 
-ifeq($(BOARD_USES_BLUETOOTH_HACK)true)
+ifeq ($(BOARD_USES_BLUETOOTH_HACK),true)
 PRODUCT_COPY_FILES += \
-     PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/bluetooth/01bt/:system/etc/init.d/01bt \
     $(COMMON_PATH)/bluetooth/bt_vendor.conf/:system/etc/bluetooth/bt_vendor.conf
+endif
 
 # RIL
 PRODUCT_PROPERTY_OVERRIDES += \
     mobiledata.interfaces=pdp0,wlan0,gprs,ppp0 \
     ro.ril.hsxpa=1 \
     ro.ril.gprsclass=10
-ifneq ($(BOARD_USES_COMMON_RIL)true)
+ifneq ($(BOARD_USES_COMMON_RIL),true)
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.ril_class=SamsungExynos4RIL
 else
