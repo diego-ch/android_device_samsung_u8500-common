@@ -130,4 +130,4 @@ DISABLE_HW_ID_MATCH_CHECK :=true
 endif
 
 # Use the non-open-source parts, if they're present
--include vendor/samsung/u8500-common/BoardConfigVendor.mk
+include vendor/samsung/u8500-common/vendor-common.mk
