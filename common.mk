@@ -17,14 +17,6 @@ COMMON_PATH := device/samsung/u8500-common
 
 DEVICE_PACKAGE_OVERLAYS := $(COMMON_PATH)/overlay
 
-# Init files
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/fstab.samsungjanice:root/fstab.samsungjanice \
-    $(COMMON_PATH)/rootdir/init.samsungjanice.rc:root/init.samsungjanice.rc \
-    $(COMMON_PATH)/rootdir/init.samsungjanice.usb.rc:root/init.samsungjanice.usb.rc \
-    $(COMMON_PATH)/rootdir/prerecovery.rc:root/prerecovery.rc \
-    $(COMMON_PATH)/rootdir/ueventd.samsungjanice.rc:root/ueventd.samsungjanice.rc
-
 # STE
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/cspsa.conf:system/etc/cspsa.conf \
@@ -90,12 +82,25 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
     $(COMMON_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
 
+ifeq($(BOARD_USES_BLUETOOTH_HACK)true)
+PRODUCT_COPY_FILES += \
+     PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/bluetooth/01bt/:system/etc/init.d/01bt \
+    $(COMMON_PATH)/bluetooth/bt_vendor.conf/:system/etc/bluetooth/bt_vendor.conf
+
 # RIL
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.telephony.ril_class=SamsungExynos4RIL \
     mobiledata.interfaces=pdp0,wlan0,gprs,ppp0 \
     ro.ril.hsxpa=1 \
     ro.ril.gprsclass=10
+ifneq ($(BOARD_USES_COMMON_RIL)true)
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.telephony.ril_class=SamsungExynos4RIL
+else
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.telephony.ril_class=SamsungU8500RIL \
+    ro.telephony.sends_barcount=1
+endif
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
@@ -147,7 +152,9 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=131072 \
-    hwui.render_dirty_regions=false
+    hwui.render_dirty_regions=false \
+    video.accelerate.hw=1 \
+    debug.composition.type=gpu
 
 PRODUCT_TAGS += dalvik.gc.type-precise
 
