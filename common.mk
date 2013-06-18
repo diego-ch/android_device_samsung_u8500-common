@@ -86,6 +86,14 @@ ifeq ($(BOARD_USES_BLUETOOTH_HACK),true)
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/bluetooth/01bt/:system/etc/init.d/01bt \
     $(COMMON_PATH)/bluetooth/bt_vendor.conf/:system/etc/bluetooth/bt_vendor.conf
+PRODUCT_PACKAGES += \
+    libbluetooth \
+    libbluetoothd \
+    sdptool \
+    bluetoothd \
+    libglib \
+    hciattach \
+    brcm_patchram_plus
 endif
 
 # RIL
