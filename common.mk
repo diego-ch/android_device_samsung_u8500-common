@@ -87,7 +87,6 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/bluetooth/01bt/:system/etc/init.d/01bt \
     $(COMMON_PATH)/bluetooth/bt_vendor.conf/:system/etc/bluetooth/bt_vendor.conf
 PRODUCT_PACKAGES += \
-    hciattach
     brcm_patchram_plus
 endif
 
@@ -148,6 +147,24 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/android.software.sip.xml:system/etc/permissions/android.software.sip.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
+ifeq ($(BOARD_HAS_NFC),true)
+PRODUCT_PACKAGES += \
+	com.android.nfc_extras \
+        libnfc \
+	libnfc_jni \
+	Nfc \
+        Tag
+
+PRODUCT_COPY_FILES += \
+	frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml \
+	frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
+#NFCEE ACCESS CONTROL
+ifeq ($(TARGET_BUILD_VARIANT),user)
+	NFCEE_ACCESS_PATH := device/samsung/u8500-common/NFC/nfcee_access.xml
+else
+	NFCEE_ACCESS_PATH := device/samsung/u8500-common/NFC/nfcee_access_debug.xml
+endif
+endif
 
 # Feature live wallpaper
 PRODUCT_COPY_FILES += \
