@@ -184,9 +184,18 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 
 $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 
+# Use the non-open-source parts, if they're present
+include vendor/samsung/u8500-common/vendor-common.mk
+
 ifeq ($(TARGET_PRODUCT),janice)
 $(call inherit-product-if-exists, vendor/samsung/u8500-common/janice/janice-vendor-blobs.mk)
 endif
 ifeq ($(TARGET_PRODUCT),janicep)
 $(call inherit-product-if-exists, vendor/samsung/u8500-common/janicep/janicep-vendor-blobs.mk)
 endif
+
+
+PRODUCT_PACKAGES += \
+    libGLESv1_CM_mali \
+    libMali \
+    libUMP
