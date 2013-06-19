@@ -17,6 +17,8 @@ COMMON_PATH := device/samsung/u8500-common
 
 DEVICE_PACKAGE_OVERLAYS := $(COMMON_PATH)/overlay
 
+include vendor/samsung/u8500-common/common/mali/Android.mk
+
 # STE
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/cspsa.conf:system/etc/cspsa.conf \
@@ -67,7 +69,13 @@ PRODUCT_PACKAGES += \
     libtinyalsa \
     SamsungServiceMode \
     Torch
-
+    
+# Mali Libs
+PRODUCT_PACKAGES += \
+    libGLESv1_CM_mali \
+    libMali \
+    libUMP
+    
 # HAL
 PRODUCT_PACKAGES += \
     libnetcmdiface
@@ -162,8 +170,3 @@ $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 
 # Use the non-open-source parts, if they're present
 include vendor/samsung/u8500-common/vendor-common.mk
-
-PRODUCT_PACKAGES += \
-    libGLESv1_CM_mali \
-    libMali \
-    libUMP
