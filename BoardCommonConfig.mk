@@ -103,7 +103,7 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/musb-ux500.0/musb-hdrc
 
 # Recovery
 ifeq ($(BOARD_USES_COMMON_RECOVERY_GRAPHICS),true)
-BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/u8500-common/recovery/graphics.c
+BOARD_CUSTOM_GRAPHICS := ../../device/samsung/u8500-common/recovery/graphics.c
 endif
 BOARD_UMS_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun0/file"
 BOARD_USES_MMCUTILS := true
