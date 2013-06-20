@@ -89,14 +89,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     brcm_patchram_plus
 
-# RIL
-PRODUCT_PROPERTY_OVERRIDES += \
-    mobiledata.interfaces=pdp0,wlan0,gprs,ppp0 \
-    ro.ril.hsxpa=1 \
-    ro.ril.gprsclass=10
-    ro.telephony.ril_class=SamsungU8500RIL \
-    ro.telephony.sends_barcount=1
-
 # Filesystem management tools
 PRODUCT_PACKAGES += \
     static_busybox \
@@ -149,8 +141,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=131072 \
     hwui.render_dirty_regions=false \
-    video.accelerate.hw=1 \
-    debug.composition.type=gpu
+    video.accelerate.hw=1 
 
 PRODUCT_TAGS += dalvik.gc.type-precise
 
