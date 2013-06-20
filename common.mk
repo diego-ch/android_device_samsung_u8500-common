@@ -28,6 +28,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/asound.conf:system/etc/asound.conf \
     $(COMMON_PATH)/configs/audio_policy.conf:system/vendor/etc/audio_policy.conf \
+    $(COMMON_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf \
     $(COMMON_PATH)/configs/adm.sqlite-u8500:system/etc/adm.sqlite-u8500 \
     $(COMMON_PATH)/configs/Volume.db:system/etc/Volume.db
 
@@ -79,6 +80,7 @@ PRODUCT_PACKAGES += \
 
 # OMX
 PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/configs/02omxsym/:system/etc/init.d/02omxsym \
     $(COMMON_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
     $(COMMON_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
 

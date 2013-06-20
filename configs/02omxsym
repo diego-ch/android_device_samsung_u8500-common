@@ -1,0 +1,12 @@
+#!/system/bin/sh
+#
+# Symlink to enable calling of ste_omxcomponents in lib dir
+#
+# cp -l is a HARD symlink, not a normal copy
+#
+mount -o remount,rw /system
+echo "Symlinking OMX components"
+cp -l /system/lib/ste_omxcomponents/* /system/lib/
+mount -o remount,ro /system
+exit 0
+
