@@ -58,9 +58,6 @@ PRODUCT_COPY_FILES += \
 
 $(call inherit-product, device/common/gps/gps_eu_supl.mk)
 
-# Permission
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/configs/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
 # Packages
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
@@ -136,12 +133,9 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/android.software.sip.xml:system/etc/permissions/android.software.sip.xml \
-    frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
-
-
-# Feature live wallpaper
-PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
     packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
+
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=131072 \
