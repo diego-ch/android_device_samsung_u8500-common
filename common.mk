@@ -58,6 +58,9 @@ PRODUCT_COPY_FILES += \
 
 $(call inherit-product, device/common/gps/gps_eu_supl.mk)
 
+# Permission
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/configs/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
 # Packages
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
