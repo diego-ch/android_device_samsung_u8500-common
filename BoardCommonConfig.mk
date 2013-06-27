@@ -91,8 +91,6 @@ TARGET_SPECIFIC_HEADER_PATH := device/samsung/u8500-common/overlay/include
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/devices/virtual/power_supply/battery/batt_lp_charging
 BOARD_BATTERY_DEVICE_NAME := "battery"
 BOARD_CHARGER_RES := device/samsung/u8500-common/res/charger
-# DA TOUCH RECOVERY
-BOARD_TOUCH_RECOVERY := true
 
 
 BOARD_CUSTOM_BOOTIMG_MK := device/samsung/u8500-common/shbootimg.mk
