@@ -17,6 +17,10 @@ COMMON_PATH := device/samsung/u8500-common
 
 DEVICE_PACKAGE_OVERLAYS := $(COMMON_PATH)/overlay
 
+# Init files
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/lpm.rc:root/lpm.rc
+
 # STE
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/cspsa.conf:system/etc/cspsa.conf \
