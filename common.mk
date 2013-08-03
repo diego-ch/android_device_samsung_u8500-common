@@ -20,6 +20,7 @@ DEVICE_PACKAGE_OVERLAYS := $(COMMON_PATH)/overlay
 # Init files
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/fstab.samsungjanice:root/fstab.samsungjanice \
+    $(COMMON_PATH)/rootdir/lpm.rc:root/lpm.rc \
     $(COMMON_PATH)/rootdir/init.samsungjanice.rc:root/init.samsungjanice.rc \
     $(COMMON_PATH)/rootdir/init.samsungjanice.usb.rc:root/init.samsungjanice.usb.rc \
     $(COMMON_PATH)/rootdir/prerecovery.rc:root/prerecovery.rc \
