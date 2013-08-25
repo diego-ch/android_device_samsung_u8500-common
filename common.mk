@@ -67,7 +67,6 @@ PRODUCT_PACKAGES += \
     audio.a2dp.default \
     audio.usb.default \
     com.android.future.usb.accessory \
-    FmRadioReceiver \
     libaudioutils \
     libtinyalsa \
     SamsungServiceMode \
