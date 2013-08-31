@@ -4,7 +4,7 @@ on early-init
 
 on init
 
-sysclktz
+sysclktz 0
 
     export PATH /sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
     export LD_LIBRARY_PATH /vendor/lib:/system/lib
