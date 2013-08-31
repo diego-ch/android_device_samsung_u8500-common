@@ -12,11 +12,14 @@ sysclktz 0
 
     mkdir /sdcard
     
-    
-on early-fs
+    service ueventd /sbin/ueventd
+    critical
 
     mount vfat /dev/block/mmcblk0p8 /sdcard rw wait noatime
     chown root root /sdcard
+    
+service /system/xbin/strace -f -tt -o /sdcard/charger.strace battery_charger /charger
+
 
 on boot
     # set cpu governor to hotplug while in charging mode
@@ -24,13 +27,6 @@ on boot
 
     class_start default
 
-## Daemon processes to be run by init.
-##
-service ueventd /sbin/ueventd
-    critical
-
-service /system/xbin/strace -f -tt -o /sdcard/charger.strace battery_charger /charger
-    oneshot
 
 # adbd is controlled by the persist.service.adb.enable system property
 service adbd /sbin/adbd
