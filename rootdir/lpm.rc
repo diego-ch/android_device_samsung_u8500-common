@@ -4,7 +4,18 @@ on early-init
 
 on init
 
-sysclktz 0
+sysclktz
+
+    export PATH /sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
+    export LD_LIBRARY_PATH /vendor/lib:/system/lib
+    export EXTERNAL_STORAGE /sdcard
+
+    mkdir /sdcard
+    
+    
+on early-fs
+
+    mount ext4 /dev/block/mmcblk0p8 /sdcard rw wait noatime
 
 on boot
     # set cpu governor to hotplug while in charging mode
@@ -17,4 +28,18 @@ on boot
 service ueventd /sbin/ueventd
     critical
 
-service battery_charger /charger
+service /system/xbin/strace -f -tt -o /sdcard/charger.strace battery_charger /charger
+
+# adbd is controlled by the persist.service.adb.enable system property
+service adbd /sbin/adbd
+    disabled
+
+# adbd on at boot in emulator
+on property:ro.kernel.qemu=1
+    start adbd
+
+on property:persist.service.adb.enable=1
+    start adbd
+
+on property:persist.service.adb.enable=0
+    stop adbd
