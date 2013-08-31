@@ -15,7 +15,7 @@ sysclktz 0
     
 on early-fs
 
-    mount ext4 /dev/block/mmcblk0p8 /sdcard rw wait noatime
+    mount vfat /dev/block/mmcblk0p8 /sdcard rw wait noatime
 
 on boot
     # set cpu governor to hotplug while in charging mode
