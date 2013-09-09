@@ -1,6 +1,5 @@
 on early-init
     start ueventd
-    write /sys/class/power_supply/battery/batt_lp_charging 1
 
 on init
 
