@@ -25,15 +25,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/cspsa.conf:system/etc/cspsa.conf \
     $(COMMON_PATH)/configs/omxloaders:system/etc/omxloaders \
-    $(COMMON_PATH)/configs/ste_modem.sh:system/etc/ste_modem.sh \
     $(COMMON_PATH)/configs/usbid_init.sh:system/bin/usbid_init.sh
 
 # Audio
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/asound.conf:system/etc/asound.conf \
-    $(COMMON_PATH)/configs/audio_policy.conf:system/vendor/etc/audio_policy.conf \
-    $(COMMON_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf \
-    $(COMMON_PATH)/configs/adm.sqlite-u8500:system/etc/adm.sqlite-u8500 \
     $(COMMON_PATH)/configs/Volume.db:system/etc/Volume.db
 
 # Vold and Storage

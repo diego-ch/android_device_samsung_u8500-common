@@ -34,7 +34,6 @@ TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 BOARD_CUSTOM_BOOTIMG_MK := device/samsung/u8500-common/shbootimg.mk
 
 # Graphics
-BOARD_EGL_CFG := device/samsung/u8500-common/configs/egl.cfg
 USE_OPENGL_RENDERER := true
 
 # Bluetooth
