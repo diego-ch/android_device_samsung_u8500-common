@@ -149,5 +149,9 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 
 $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 
+# Keylayout
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
+
 # Use the non-open-source parts, if they're present
 include vendor/samsung/u8500-common/vendor-common.mk

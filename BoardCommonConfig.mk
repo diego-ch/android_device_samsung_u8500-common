@@ -36,6 +36,9 @@ BOARD_CUSTOM_BOOTIMG_MK := device/samsung/u8500-common/shbootimg.mk
 # Graphics
 USE_OPENGL_RENDERER := true
 
+#RIL
+BOARD_RIL_CLASS := ../../../device/samsung/u8500-common/ril/
+
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
