@@ -254,4 +254,3 @@ static inline int copybit_close(struct copybit_device_t* device) {
 __END_DECLS
 
 #endif  // ANDROID_COPYBIT_INTERFACE_H
-
