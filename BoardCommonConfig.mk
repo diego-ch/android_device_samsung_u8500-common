@@ -56,7 +56,7 @@ BOARD_USES_LIBMEDIA_WITH_AUDIOPARAMETER := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/musb-ux500.0/musb-hdrc/gadget/lun%d/file"
 
 # Charging mode
-BOARD_CHARGER_ENABLE_SUSPEND := true
+# BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/devices/virtual/power_supply/battery/lpm_mode
 BOARD_CHARGER_RES := device/samsung/u8500-common/res/charger
 
