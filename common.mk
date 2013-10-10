@@ -53,7 +53,6 @@ $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4330
 
 # Gps
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/configs/gps.conf:system/etc/gps.conf \
     $(COMMON_PATH)/configs/sirfgps.conf:system/etc/sirfgps.conf
 
 $(call inherit-product, device/common/gps/gps_eu_supl.mk)
