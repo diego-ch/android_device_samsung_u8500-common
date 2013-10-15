@@ -32,10 +32,6 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/asound.conf:system/etc/asound.conf \
     $(COMMON_PATH)/configs/Volume.db:system/etc/Volume.db
 
-# Vold and Storage
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/configs/vold.fstab:system/etc/vold.fstab
-
 # Bluetooth configuration files
 PRODUCT_COPY_FILES += \
     system/bluetooth/data/main.le.conf:system/etc/bluetooth/main.conf
