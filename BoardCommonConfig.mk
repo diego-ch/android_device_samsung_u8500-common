@@ -89,6 +89,7 @@ BOARD_CHARGER_RES := device/samsung/u8500-common/res/charger
 
 # Recovery
 BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/u8500-common/recovery/graphics.c
+TARGET_RECOVERY_FSTAB := ../../../device/samsung/u8500-common/rootdir/recovery.fstab
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/u8500-common/recovery/recovery_keys.c
 BOARD_UMS_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun0/file"
 BOARD_USES_MMCUTILS := true

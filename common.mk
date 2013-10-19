@@ -19,7 +19,9 @@ DEVICE_PACKAGE_OVERLAYS := $(COMMON_PATH)/overlay
 
 # Init files
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/lpm.rc:root/lpm.rc
+    $(LOCAL_PATH)/rootdir/lpm.rc:root/lpm.rc \
+    $(LOCAL_PATH)/rootdir/recovery.rc:root/recovery.rc \
+    $(LOCAL_PATH)/rootdir/recovery.fstab:root/recovery.fstab
 
 # STE
 PRODUCT_COPY_FILES += \
