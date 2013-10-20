@@ -140,6 +140,7 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.kernel.android.checkjni=0 \
+    persist.sys.strictmode.disable=1 \
     dalvik.vm.checkjni=false
 
 # Set default USB interface
