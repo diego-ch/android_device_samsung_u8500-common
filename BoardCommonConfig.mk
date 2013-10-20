@@ -20,6 +20,16 @@ TARGET_SPECIFIC_HEADER_PATH := device/samsung/u8500-common/overlay/include
 # Board
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
+TARGET_BOOTLOADER_BOARD_NAME := montblanc
+
+# Partitions
+BOARD_NAND_PAGE_SIZE := 4096
+BOARD_NAND_SPARE_SIZE := 128
+BOARD_FLASH_BLOCK_SIZE := 4096
+TARGET_USERIMAGES_USE_EXT4 := true
+BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 641728512
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 2147483648
 
 # Platform 
 TARGET_BOARD_PLATFORM := montblanc
@@ -40,6 +50,9 @@ TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 
 # Kernel
 BOARD_CUSTOM_BOOTIMG_MK := device/samsung/u8500-common/shbootimg.mk
+BOARD_KERNEL_PAGESIZE := 4096
+BOARD_KERNEL_BASE := 0x40000000
+BOARD_KERNEL_CMDLINE := "console=ttySAC2,115200 consoleblank=0"
 
 # Graphics
 BOARD_EGL_CFG := device/samsung/u8500-common/configs/egl.cfg
@@ -82,6 +95,9 @@ ENABLE_WEBGL := true
 
 # Vold
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/musb-ux500.0/musb-hdrc/gadget/lun%d/file"
+BOARD_VOLD_MAX_PARTITIONS := 25
+BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
+BOARD_VOLD_DISC_HAS_MULTIPLE_MAJORS := true
 
 # Charging mode
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/devices/virtual/power_supply/battery/lpm_mode
