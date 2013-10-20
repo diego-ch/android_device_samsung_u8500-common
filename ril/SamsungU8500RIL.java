@@ -40,6 +40,8 @@ import android.telephony.SignalStrength;
 import static com.android.internal.telephony.RILConstants.*;
 
 import com.android.internal.telephony.CommandException;
+import com.android.internal.telephony.dataconnection.DataCallResponse;
+import com.android.internal.telephony.dataconnection.DcFailCause;
 import com.android.internal.telephony.gsm.SmsBroadcastConfigInfo;
 import com.android.internal.telephony.gsm.SuppServiceNotification;
 import com.android.internal.telephony.RILConstants;
@@ -181,7 +183,6 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
     private AudioManager audioManager;
     private boolean mSignalbarCount = SystemProperties.getInt("ro.telephony.sends_barcount", 0) == 1 ? true : false;
     private boolean mIsSamsungCdma = SystemProperties.getBoolean("ro.ril.samsung_cdma", false);
-    private boolean mIsGBModem = SystemProperties.getBoolean("ro.ril.gbmodem", false);
 
     public SamsungU8500RIL(Context context, int networkMode, int cdmaSubscription) {
         super(context, networkMode, cdmaSubscription);
@@ -881,12 +882,6 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
             // we'll assume that it should be the value we want the
             // vendor ril to take if we reestablish a connection to it.
             mPreferredNetworkType = response[0];
-        }
-
-        // When the modem responds Phone.NT_MODE_GLOBAL, it means Phone.NT_MODE_WCDMA_PREF
-        if (response[0] == Phone.NT_MODE_GLOBAL) {
-            Log.d(LOG_TAG, "Overriding network type response from GLOBAL to WCDMA preferred");
-            response[0] = Phone.NT_MODE_WCDMA_PREF;
         }
 
         return response;
