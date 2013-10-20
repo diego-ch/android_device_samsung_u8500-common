@@ -112,10 +112,6 @@ Only the three quirks included above are recognized at this point:
 
 
 <!-- Audio decoders -->
-        <MediaCodec name="OMX.ST.mp3.decoder" type="audio/mpeg" />
-        <MediaCodec name="OMX.ST.mp3.decoder" type="audio/mpeg" />
-        <MediaCodec name="OMX.ST.aac.decoder" type="audio/mp4a-latm" />
-
         <MediaCodec name="OMX.google.mp3.decoder" type="audio/mpeg" />
         <MediaCodec name="OMX.google.mp3.decoder" type="audio/mpeg-L1" />
         <MediaCodec name="OMX.google.mp3.decoder" type="audio/mpeg-L2" />
