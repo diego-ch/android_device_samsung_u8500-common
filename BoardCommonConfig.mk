@@ -58,7 +58,6 @@ BOARD_KERNEL_CMDLINE := "console=ttySAC2,115200 consoleblank=0"
 BOARD_EGL_CFG := device/samsung/u8500-common/configs/egl.cfg
 USE_OPENGL_RENDERER := true
 BOARD_EGL_NEEDS_LEGACY_FB := true
-COMMON_GLOBAL_CFLAGS += -DEGL_NEEDS_FNW
 
 # Wifi
 BOARD_WLAN_DEVICE                := bcmdhd
@@ -104,7 +103,6 @@ BOARD_CHARGING_MODE_BOOTING_LPM := /sys/devices/virtual/power_supply/battery/lpm
 
 # Recovery
 BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/u8500-common/recovery/graphics.c
-TARGET_RECOVERY_FSTAB := device/samsung/u8500-common/rootdir/recovery.fstab
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/u8500-common/recovery/recovery_keys.c
 BOARD_UMS_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun0/file"
 BOARD_USES_MMCUTILS := true
