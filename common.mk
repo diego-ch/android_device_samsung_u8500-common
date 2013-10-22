@@ -29,8 +29,7 @@ PRODUCT_COPY_FILES += \
 
 # Audio
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/configs/asound.conf:system/etc/asound.conf \
-    $(COMMON_PATH)/configs/Volume.db:system/etc/Volume.db
+    $(COMMON_PATH)/configs/asound.conf:system/etc/asound.conf
 
 # Bluetooth configuration files
 PRODUCT_COPY_FILES += \
@@ -38,7 +37,6 @@ PRODUCT_COPY_FILES += \
 
 # Wifi
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/configs/bcmdhd.cal:system/etc/wifi/bcmdhd.cal \
     $(COMMON_PATH)/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
 
 PRODUCT_PROPERTY_OVERRIDES += \
