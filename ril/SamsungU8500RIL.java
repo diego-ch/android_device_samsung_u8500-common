@@ -97,6 +97,7 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
     //SAMSUNG STATES
     static final int RIL_REQUEST_GET_CELL_BROADCAST_CONFIG = 10002;
 
+    static final int RIL_REQUEST_ENTER_NETWORK_DEPERSONALIZATION = 8;
     static final int RIL_REQUEST_SEND_ENCODED_USSD = 10005;
     static final int RIL_REQUEST_SET_PDA_MEMORY_STATUS = 10006;
     static final int RIL_REQUEST_GET_PHONEBOOK_STORAGE_INFO = 10007;
@@ -177,6 +178,7 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
     static final int RIL_UNSOL_UTS_GETSMSMSG = 11030;
     static final int RIL_UNSOL_UTS_GET_UNREAD_SMS_STATUS = 11031;
     static final int RIL_UNSOL_MIP_CONNECT_STATUS = 11032;
+    
 
     protected HandlerThread mSamsungu8500RILThread;
     protected ConnectivityHandler mSamsungu8500RILHandler;
