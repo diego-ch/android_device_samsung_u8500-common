@@ -179,5 +179,8 @@
     The existence of this file will be used to determine in the
     legacy USB manager should be started. -->
     <string name="config_legacyUmsLunFile">/sys/devices/virtual/android_usb/android0/f_mass_storage/lun0/file</string>
+
+    <!-- Device supports LED flashlight -->
+    <bool name="config_enableTorch">true</bool>
     
 </resources>
