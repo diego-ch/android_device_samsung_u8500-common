@@ -75,7 +75,7 @@ import android.telephony.SignalStrength;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.text.TextUtils;
-import android.util.Log;
+import android.telephony.Rlog;
 
 import com.android.internal.telephony.gsm.SmsBroadcastConfigInfo;
 import com.android.internal.telephony.gsm.SuppServiceNotification;
@@ -97,7 +97,6 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
     //SAMSUNG STATES
     static final int RIL_REQUEST_GET_CELL_BROADCAST_CONFIG = 10002;
 
-    static final int RIL_REQUEST_ENTER_NETWORK_DEPERSONALIZATION = 8;
     static final int RIL_REQUEST_SEND_ENCODED_USSD = 10005;
     static final int RIL_REQUEST_SET_PDA_MEMORY_STATUS = 10006;
     static final int RIL_REQUEST_GET_PHONEBOOK_STORAGE_INFO = 10007;
@@ -178,7 +177,6 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
     static final int RIL_UNSOL_UTS_GETSMSMSG = 11030;
     static final int RIL_UNSOL_UTS_GET_UNREAD_SMS_STATUS = 11031;
     static final int RIL_UNSOL_MIP_CONNECT_STATUS = 11032;
-    
 
     protected HandlerThread mSamsungu8500RILThread;
     protected ConnectivityHandler mSamsungu8500RILHandler;
@@ -297,7 +295,7 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
 
         public void setPreferedNetworkType(int networkType, Message response)
         {
-            Log.d(LOG_TAG, "Mobile Dataconnection is online setting it down");
+            Rlog.d(RILJ_LOG_TAG, "Mobile Dataconnection is online setting it down");
             mDesiredNetworkType = networkType;
             mNetworktypeResponse = response;
             ConnectivityManager cm =
@@ -315,7 +313,7 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
                 ConnectivityManager cm =
                     (ConnectivityManager)mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-                Log.d(LOG_TAG, "preferred NetworkType set upping Mobile Dataconnection");
+                Rlog.d(RILJ_LOG_TAG, "preferred NetworkType set upping Mobile Dataconnection");
                 cm.setMobileDataEnabled(true);
                 //everything done now call back that we have set the networktype
                 AsyncResult.forMessage(mNetworktypeResponse, null, null);
@@ -333,7 +331,7 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
             public void onReceive(Context context, Intent intent) {
                 String action = intent.getAction();
                 if (!action.equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
-                    Log.w(LOG_TAG, "onReceived() called with " + intent);
+                    Rlog.w(RILJ_LOG_TAG, "onReceived() called with " + intent);
                     return;
                 }
                 boolean noConnectivity =
@@ -341,7 +339,7 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
 
                 if (noConnectivity) {
                     //Ok dataconnection is down, now set the networktype
-                    Log.w(LOG_TAG, "Mobile Dataconnection is now down setting preferred NetworkType");
+                    Rlog.w(RILJ_LOG_TAG, "Mobile Dataconnection is now down setting preferred NetworkType");
                     stopListening();
                     sendPreferedNetworktype(mDesiredNetworkType, obtainMessage(MESSAGE_SET_PREFERRED_NETWORK_TYPE));
                     mDesiredNetworkType = -1;
@@ -376,7 +374,7 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
                       // first, then the wakelock is released without debugging.
                     timeDiff = removalTime - rr.creationTime;
                     if ( timeDiff > mWakeLockTimeout ) {
-                        Log.d(LOG_TAG, "No response for [" + rr.mSerial + "] " +
+                        Rlog.d(RILJ_LOG_TAG, "No response for [" + rr.mSerial + "] " +
                                 requestToString(rr.mRequest) + " after " + timeDiff + " milliseconds.");
 
                         /* Don't actually remove anything for now. Consider uncommenting this to
@@ -415,7 +413,7 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
     rr = findAndRemoveRequestFromList(serial);
 
     if (rr == null) {
-        Log.w(LOG_TAG, "Unexpected solicited response! sn: "
+        Rlog.w(RILJ_LOG_TAG, "Unexpected solicited response! sn: "
                         + serial + " error: " + error);
             return;
     }
@@ -433,7 +431,7 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
             case RIL_REQUEST_ENTER_SIM_PUK2: ret =  responseInts(p); break;
             case RIL_REQUEST_CHANGE_SIM_PIN: ret =  responseInts(p); break;
             case RIL_REQUEST_CHANGE_SIM_PIN2: ret =  responseInts(p); break;
-            case RIL_REQUEST_ENTER_NETWORK_DEPERSONALIZATION: ret =  responseInts(p); break;
+            case RIL_REQUEST_ENTER_DEPERSONALIZATION_CODE: ret =  responseInts(p); break;
             case RIL_REQUEST_GET_CURRENT_CALLS: ret =  responseCallList(p); break;
             case RIL_REQUEST_DIAL: ret =  responseVoid(p); break;
             case RIL_REQUEST_GET_IMSI: ret =  responseString(p); break;
@@ -541,7 +539,7 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
             }} catch (Throwable tr) {
                 // Exceptions here usually mean invalid RIL responses
 
-                Log.w(LOG_TAG, rr.serialString() + "< "
+                Rlog.w(RILJ_LOG_TAG, rr.serialString() + "< "
                         + requestToString(rr.mRequest)
                         + " exception, possible invalid RIL response", tr);
 
@@ -566,7 +564,7 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
                 {
                     ret =  responseSMS(p);
                 } catch (Throwable tr) {
-                    Log.w(LOG_TAG, rr.serialString() + "< "
+                    Rlog.w(RILJ_LOG_TAG, rr.serialString() + "< "
                             + requestToString(rr.mRequest)
                             + " exception, Processing Samsung SMS fix ", tr);
                     rr.onError(error, ret);
@@ -618,7 +616,7 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
     public void
     dialEmergencyCall(String address, int clirMode, Message result) {
         RILRequest rr;
-        Log.v(LOG_TAG, "Emergency dial: " + address);
+        Rlog.v(RILJ_LOG_TAG, "Emergency dial: " + address);
 
         rr = RILRequest.obtain(RIL_REQUEST_DIAL_EMERGENCY, result);
         rr.mParcel.writeString(address + "/");
@@ -663,7 +661,7 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
             case RIL_UNSOL_RESPONSE_RADIO_STATE_CHANGED:
                 /* has bonus radio state int */
                 int state = p.readInt();
-                Log.d(LOG_TAG, "Radio state: " + state);
+                Rlog.d(RILJ_LOG_TAG, "Radio state: " + state);
 
                 switch (state) {
                     case 2:
@@ -679,14 +677,14 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
                         state = 10;
                         // When SIM is PIN-unlocked, RIL doesn't respond with RIL_UNSOL_RESPONSE_SIM_STATUS_CHANGED.
                         // We notify the system here.
-                        Log.d(LOG_TAG, "SIM is PIN-unlocked now");
+                        Rlog.d(RILJ_LOG_TAG, "SIM is PIN-unlocked now");
                         if (mIccStatusChangedRegistrants != null) {
                             mIccStatusChangedRegistrants.notifyRegistrants();
                         }
                         break;
                 }
                 RadioState newState = getRadioStateFromInt(state);
-                Log.d(LOG_TAG, "New Radio state: " + state + " (" + newState.toString() + ")");
+                Rlog.d(RILJ_LOG_TAG, "New Radio state: " + state + " (" + newState.toString() + ")");
                 switchToRadioState(newState);
                 break;
             case RIL_UNSOL_RESPONSE_NEW_BROADCAST_SMS:
@@ -710,13 +708,13 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
             case RIL_UNSOL_AM:
                 if (RILJ_LOGD) samsungUnsljLogRet(response, ret);
                 String amString = (String) ret;
-                Log.d(LOG_TAG, "Executing AM: " + amString);
+                Rlog.d(RILJ_LOG_TAG, "Executing AM: " + amString);
 
                 try {
                     Runtime.getRuntime().exec("am " + amString);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Log.e(LOG_TAG, "am " + amString + " could not be executed.");
+                    Rlog.e(RILJ_LOG_TAG, "am " + amString + " could not be executed.");
                 }
                 break;
             case RIL_UNSOL_DUN_PIN_CONTROL_SIGNAL:
@@ -776,10 +774,10 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
      */
     private void setWbAmr(int state) {
         if (state == 1) {
-            Log.d(LOG_TAG, "setWbAmr(): setting audio parameter - wb_amr=on");
+            Rlog.d(RILJ_LOG_TAG, "setWbAmr(): setting audio parameter - wb_amr=on");
             audioManager.setParameters("wb_amr=on");
         } else {
-            Log.d(LOG_TAG, "setWbAmr(): setting audio parameter - wb_amr=off");
+            Rlog.d(RILJ_LOG_TAG, "setWbAmr(): setting audio parameter - wb_amr=off");
             audioManager.setParameters("wb_amr=off");
         }
     }
@@ -795,14 +793,14 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
         int pos = p.dataPosition();
         int size = p.dataSize();
 
-        Log.d(LOG_TAG, "Parcel size = " + size);
-        Log.d(LOG_TAG, "Parcel pos = " + pos);
-        Log.d(LOG_TAG, "Parcel dataAvail = " + dataAvail);
+        Rlog.d(RILJ_LOG_TAG, "Parcel size = " + size);
+        Rlog.d(RILJ_LOG_TAG, "Parcel pos = " + pos);
+        Rlog.d(RILJ_LOG_TAG, "Parcel dataAvail = " + dataAvail);
 
         //Samsung changes
         num = p.readInt();
 
-        Log.d(LOG_TAG, "num = " + num);
+        Rlog.d(RILJ_LOG_TAG, "num = " + num);
         response = new ArrayList<DriverCall>(num);
 
         for (int i = 0 ; i < num ; i++) {
@@ -824,19 +822,19 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
             dc.namePresentation     = p.readInt();
             int uusInfoPresent      = p.readInt();
 
-            Log.d(LOG_TAG, "state = " + dc.state);
-            Log.d(LOG_TAG, "index = " + dc.index);
-            Log.d(LOG_TAG, "state = " + dc.TOA);
-            Log.d(LOG_TAG, "isMpty = " + dc.isMpty);
-            Log.d(LOG_TAG, "isMT = " + dc.isMT);
-            Log.d(LOG_TAG, "als = " + dc.als);
-            Log.d(LOG_TAG, "isVoice = " + dc.isVoice);
-            Log.d(LOG_TAG, "isVideo = " + isVideo);
-            Log.d(LOG_TAG, "number = " + dc.number);
-            Log.d(LOG_TAG, "np = " + np);
-            Log.d(LOG_TAG, "name = " + dc.name);
-            Log.d(LOG_TAG, "namePresentation = " + dc.namePresentation);
-            Log.d(LOG_TAG, "uusInfoPresent = " + uusInfoPresent);
+            Rlog.d(RILJ_LOG_TAG, "state = " + dc.state);
+            Rlog.d(RILJ_LOG_TAG, "index = " + dc.index);
+            Rlog.d(RILJ_LOG_TAG, "state = " + dc.TOA);
+            Rlog.d(RILJ_LOG_TAG, "isMpty = " + dc.isMpty);
+            Rlog.d(RILJ_LOG_TAG, "isMT = " + dc.isMT);
+            Rlog.d(RILJ_LOG_TAG, "als = " + dc.als);
+            Rlog.d(RILJ_LOG_TAG, "isVoice = " + dc.isVoice);
+            Rlog.d(RILJ_LOG_TAG, "isVideo = " + isVideo);
+            Rlog.d(RILJ_LOG_TAG, "number = " + dc.number);
+            Rlog.d(RILJ_LOG_TAG, "np = " + np);
+            Rlog.d(RILJ_LOG_TAG, "name = " + dc.name);
+            Rlog.d(RILJ_LOG_TAG, "namePresentation = " + dc.namePresentation);
+            Rlog.d(RILJ_LOG_TAG, "uusInfoPresent = " + uusInfoPresent);
 
             if (uusInfoPresent == 1) {
                 dc.uusInfo = new UUSInfo();
@@ -844,16 +842,15 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
                 dc.uusInfo.setDcs(p.readInt());
                 byte[] userData = p.createByteArray();
                 dc.uusInfo.setUserData(userData);
-                Log
-                .v(LOG_TAG, String.format("Incoming UUS : type=%d, dcs=%d, length=%d",
+                Rlog.v(RILJ_LOG_TAG, String.format("Incoming UUS : type=%d, dcs=%d, length=%d",
                         dc.uusInfo.getType(), dc.uusInfo.getDcs(),
                         dc.uusInfo.getUserData().length));
-                Log.v(LOG_TAG, "Incoming UUS : data (string)="
+                Rlog.v(RILJ_LOG_TAG, "Incoming UUS : data (string)="
                         + new String(dc.uusInfo.getUserData()));
-                Log.v(LOG_TAG, "Incoming UUS : data (hex): "
+                Rlog.v(RILJ_LOG_TAG, "Incoming UUS : data (hex): "
                         + IccUtils.bytesToHexString(dc.uusInfo.getUserData()));
             } else {
-                Log.v(LOG_TAG, "Incoming UUS : NOT present!");
+                Rlog.v(RILJ_LOG_TAG, "Incoming UUS : NOT present!");
             }
 
             // Make sure there's a leading + on addresses with a TOA of 145
@@ -863,10 +860,10 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
 
             if (dc.isVoicePrivacy) {
                 mVoicePrivacyOnRegistrants.notifyRegistrants();
-                Log.d(LOG_TAG, "InCall VoicePrivacy is enabled");
+                Rlog.d(RILJ_LOG_TAG, "InCall VoicePrivacy is enabled");
             } else {
                 mVoicePrivacyOffRegistrants.notifyRegistrants();
-                Log.d(LOG_TAG, "InCall VoicePrivacy is disabled");
+                Rlog.d(RILJ_LOG_TAG, "InCall VoicePrivacy is disabled");
             }
         }
 
@@ -939,7 +936,7 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
         if (mRilVersion >= 7)
             send(rr);
         else
-            Log.d(LOG_TAG, "RIL_REQUEST_VOICE_RADIO_TECH blocked!!!");
+            Rlog.d(RILJ_LOG_TAG, "RIL_REQUEST_VOICE_RADIO_TECH blocked!!!");
     }
 
     @Override
@@ -948,7 +945,7 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
                 RILConstants.RIL_REQUEST_CDMA_GET_SUBSCRIPTION_SOURCE, response);
 
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
-        Log.d(LOG_TAG, "RIL_REQUEST_CDMA_GET_SUBSCRIPTION_SOURCE blocked!!!");
+        Rlog.d(RILJ_LOG_TAG, "RIL_REQUEST_CDMA_GET_SUBSCRIPTION_SOURCE blocked!!!");
         //send(rr);
     }
 }
