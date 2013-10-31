@@ -23,7 +23,7 @@
 
     <!-- If this is true, the screen will fade off. 
          TODO: Disable this again, we just enable it to skip the actually semi-broken CRT-Animation--> 
-    <bool name="config_animateScreenLights">true</bool>
+    <bool name="config_animateScreenLights">false</bool>
 
     <integer name="config_deskDockKeepsScreenOn">0</integer>
     <integer name="config_carDockKeepsScreenOn">1</integer>
