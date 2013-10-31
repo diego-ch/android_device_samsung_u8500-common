@@ -57,7 +57,7 @@ BOARD_KERNEL_CMDLINE := "console=ttySAC2,115200 consoleblank=0"
 # Graphics
 BOARD_EGL_CFG := device/samsung/u8500-common/configs/egl.cfg
 USE_OPENGL_RENDERER := true
-BOARD_EGL_NEEDS_LEGACY_FB := true
+#BOARD_EGL_NEEDS_LEGACY_FB := true
 
 # Wifi
 BOARD_WLAN_DEVICE                := bcmdhd
