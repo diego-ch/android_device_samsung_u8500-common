@@ -21,8 +21,7 @@
      for different hardware and product builds. -->
 <resources>
 
-    <!-- If this is true, the screen will fade off. 
-         TODO: Disable this again, we just enable it to skip the actually semi-broken CRT-Animation--> 
+    <!-- If this is true, the screen will fade off. --> 
     <bool name="config_animateScreenLights">false</bool>
     
     <!-- True will enable the electron beam screen-off animation. -->
@@ -185,5 +184,14 @@
 
     <!-- Device supports LED flashlight -->
     <bool name="config_enableTorch">true</bool>
+	
+	<!-- Disable the home key unlock setting -->
+    <bool name="config_disableHomeUnlockSetting">false</bool>
+
+    <!-- Maximum number of supported users -->
+    <integer name="config_multiuserMaximumUsers">4</integer>
+
+    <!-- Boolean to enable stk functionality on Samsung phones -->
+    <bool name="config_samsung_stk">true</bool>
     
 </resources>
