@@ -185,9 +185,6 @@
 
     <!-- Device supports LED flashlight -->
     <bool name="config_enableTorch">true</bool>
-	
-	<!-- Disable the home key unlock setting -->
-    <bool name="config_disableHomeUnlockSetting">false</bool>
 
     <!-- Maximum number of supported users -->
     <integer name="config_multiuserMaximumUsers">4</integer>
