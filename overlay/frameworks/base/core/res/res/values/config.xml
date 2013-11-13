@@ -99,7 +99,7 @@
          should be empty. -->
 	<!-- BT tethering -->
 	<string-array translatable="false" name="config_tether_bluetooth_regexs">
-        <item>"bnep0"</item>
+        <item>"bt-pan"</item>
     </string-array>
 
     <!-- Array of ConnectivityManager.TYPE_xxxx values allowable for tethering -->
