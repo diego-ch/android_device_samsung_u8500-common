@@ -17,6 +17,19 @@ COMMON_PATH := device/samsung/u8500-common
 
 DEVICE_PACKAGE_OVERLAYS := $(COMMON_PATH)/overlay
 
+# Packages
+PRODUCT_PACKAGES += \
+    audio.a2dp.default \
+    audio.usb.default \
+    com.android.future.usb.accessory \
+    libaudioutils \
+    libtinyalsa \
+    libblt_hw \
+    libomxil-bellagio \
+    power.montblanc \
+    SamsungServiceMode \
+    Torch
+
 # Init files
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/lpm.rc:root/lpm.rc
@@ -32,7 +45,7 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/asound.conf:system/etc/asound.conf
 	
 # Alsa
-$(call inherit-product, device/samsung/u8500-common/libasound/alsa-lib-products.mk)
+$(call inherit-product, device/samsung/u8500-common/opensource/libasound/alsa-lib-products.mk)
 
 # Bluetooth configuration files
 #PRODUCT_COPY_FILES += \
@@ -51,16 +64,6 @@ $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4330
 # Gps
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/sirfgps.conf:system/etc/sirfgps.conf
-
-# Packages
-PRODUCT_PACKAGES += \
-    audio.a2dp.default \
-    audio.usb.default \
-    com.android.future.usb.accessory \
-    libaudioutils \
-    libtinyalsa \
-    SamsungServiceMode \
-    Torch
     
 # HAL
 PRODUCT_PACKAGES += \
