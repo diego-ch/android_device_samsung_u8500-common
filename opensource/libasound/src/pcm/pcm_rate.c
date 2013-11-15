@@ -621,7 +621,7 @@ static inline void snd_pcm_rate_sync_hwptr(snd_pcm_t *pcm)
 static int snd_pcm_rate_hwsync(snd_pcm_t *pcm)
 {
 	snd_pcm_rate_t *rate = pcm->private_data;
-	int err = snd_pcm_hwsync(rate->gen.slave);
+	int err = snd_pcm_avail_update(rate->gen.slave);
 	if (err < 0)
 		return err;
 	snd_atomic_write_begin(&rate->watom);

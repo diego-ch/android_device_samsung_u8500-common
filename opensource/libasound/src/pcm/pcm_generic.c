@@ -139,7 +139,7 @@ snd_pcm_state_t snd_pcm_generic_state(snd_pcm_t *pcm)
 int snd_pcm_generic_hwsync(snd_pcm_t *pcm)
 {
 	snd_pcm_generic_t *generic = pcm->private_data;
-	return snd_pcm_hwsync(generic->slave);
+	return snd_pcm_avail_update(generic->slave);
 }
 
 int snd_pcm_generic_reset(snd_pcm_t *pcm)

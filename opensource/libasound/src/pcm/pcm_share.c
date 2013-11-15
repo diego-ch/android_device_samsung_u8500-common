@@ -732,7 +732,7 @@ static int _snd_pcm_share_hwsync(snd_pcm_t *pcm)
 	default:
 		break;
 	}
-	return snd_pcm_hwsync(slave->pcm);
+	return snd_pcm_avail_update(slave->pcm);
 }
 
 static int snd_pcm_share_hwsync(snd_pcm_t *pcm)

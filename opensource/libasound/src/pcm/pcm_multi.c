@@ -405,7 +405,7 @@ static int snd_pcm_multi_hwsync(snd_pcm_t *pcm)
 {
 	snd_pcm_multi_t *multi = pcm->private_data;
 	snd_pcm_t *slave = multi->slaves[multi->master_slave].pcm;
-	return snd_pcm_hwsync(slave);
+	return snd_pcm_avail_update(slave);
 }
 
 static int snd_pcm_multi_delay(snd_pcm_t *pcm, snd_pcm_sframes_t *delayp)
