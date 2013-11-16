@@ -27,6 +27,7 @@ PRODUCT_PACKAGES += \
     libblt_hw \
     libomxil-bellagio \
     power.montblanc \
+    lights.montblanc \
     SamsungServiceMode \
     Torch
 
