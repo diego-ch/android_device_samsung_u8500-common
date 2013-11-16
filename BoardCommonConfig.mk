@@ -50,7 +50,7 @@ TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 BOARD_CUSTOM_BOOTIMG_MK := device/samsung/u8500-common/shbootimg.mk
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_BASE := 0x40000000
-BOARD_KERNEL_CMDLINE := "console=ttySAC2,115200 consoleblank=0"
+BOARD_KERNEL_CMDLINE := "console=ttySAC2,115200 consoleblank=0 androidboot.selinux=permissive"
 
 # Graphics
 BOARD_EGL_CFG := device/samsung/u8500-common/configs/egl.cfg
@@ -90,6 +90,7 @@ BOARD_USES_LIBSECRIL_STUB := true
 # Audio
 BOARD_USES_ALSA_AUDIO := true
 COMMON_GLOBAL_CFLAGS += -DMR0_AUDIO_BLOB
+BOARD_HAVE_PRE_KITKAT_AUDIO_BLOB := true
 
 # Enable WEBGL in WebKit
 ENABLE_WEBGL := true
