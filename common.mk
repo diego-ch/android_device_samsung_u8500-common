@@ -46,7 +46,7 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/asound.conf:system/etc/asound.conf
 	
 # Alsa
-$(call inherit-product, device/samsung/u8500-common/opensource/libasound/alsa-lib-products.mk)
+$(call inherit-product, device/samsung/u8500-common/libasound/alsa-lib-products.mk)
 
 # Bluetooth configuration files
 #PRODUCT_COPY_FILES += \

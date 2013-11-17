@@ -10,7 +10,7 @@ PRODUCT_PACKAGES += libasound
 ##
 LOCAL_PATH := $(call my-dir)
 TARGET_ALSA_CONF_DIR := system/usr/share/alsa
-LOCAL_ALSA_CONF_DIR  := device/samsung/u8500-common/opensource/libasound/src/conf
+LOCAL_ALSA_CONF_DIR  := device/samsung/u8500-common/libasound/src/conf
 
 PRODUCT_COPY_FILES += \
         $(LOCAL_ALSA_CONF_DIR)/alsa.conf:$(TARGET_ALSA_CONF_DIR)/alsa.conf \
