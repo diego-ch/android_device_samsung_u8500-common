@@ -15,6 +15,8 @@
 # limitations under the License.
 #
 
+TARGET_SPECIFIC_HEADER_PATH := device/samsung/u8500-common/include
+
 # Board
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
