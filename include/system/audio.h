@@ -485,9 +485,11 @@ enum {
                                AUDIO_DEVICE_IN_DGTL_DOCK_HEADSET |
                                AUDIO_DEVICE_IN_USB_ACCESSORY |
                                AUDIO_DEVICE_IN_USB_DEVICE |
-#ifdef QCOM_HARDWARE
+#if !defined(ICS_AUDIO_BLOB) || !defined(MR0_AUDIO_BLOB)
                                AUDIO_DEVICE_IN_PROXY |
                                AUDIO_DEVICE_IN_ANC_HEADSET |
+#endif
+#ifdef QCOM_HARDWARE
                                AUDIO_DEVICE_IN_FM_RX |
                                AUDIO_DEVICE_IN_FM_RX_A2DP |
 #endif
