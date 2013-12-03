@@ -134,7 +134,13 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
     packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
 
-
+# RIL
+PRODUCT_PROPERTY_OVERRIDES += \
+    mobiledata.interfaces=pdp0,wlan0,gprs,ppp0 \
+    ro.telephony.default_network=0 \
+    ro.telephony.ril_class=SamsungU8500RIL \
+    ro.telephony.sends_barcount=1
+		
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=131072 \
     hwui.render_dirty_regions=false \
