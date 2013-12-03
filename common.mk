@@ -84,10 +84,7 @@ PRODUCT_COPY_FILES += \
 
 # BT
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/bluetooth/01bt:system/etc/init.d/01bt \
     $(COMMON_PATH)/bluetooth/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf
-PRODUCT_PACKAGES += \
-    brcm_patchram_plus
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
