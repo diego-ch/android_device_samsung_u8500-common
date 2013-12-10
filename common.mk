@@ -77,7 +77,7 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/asound.conf:system/etc/asound.conf
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
-    audio.usb.default
+    audio.usb.default \
     libaudioutils \
     libtinyalsa
 
