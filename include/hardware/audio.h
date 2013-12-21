@@ -142,7 +142,7 @@ __BEGIN_DECLS
 /* Query ADSP Status */
 #define AUDIO_PARAMETER_KEY_ADSP_STATUS "ADSP_STATUS"
 
-* Query Sound Card Status */
+/* Query Sound Card Status */
  #define AUDIO_PARAMETER_KEY_SND_CARD_STATUS "SND_CARD_STATUS"
 
 /* Query if Proxy can be Opend */
