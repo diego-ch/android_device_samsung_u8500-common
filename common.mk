@@ -26,7 +26,7 @@ PRODUCT_AAPT_PREF_CONFIG := hdpi
 
 # Graphics
 PRODUCT_PACKAGES += \
-	libblt_hw
+    libblt_hw
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=131072 \
     persist.sys.strictmode.disable=1 \
@@ -119,7 +119,8 @@ PRODUCT_PACKAGES += \
 # Keylayout
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
-    $(COMMON_PATH)/configs/usr/keylayout/sec_touchkey.kl:system/usr/keylayout/sec_touchkey.kl
+    $(COMMON_PATH)/configs/usr/keylayout/sec_touchkey.kl:system/usr/keylayout/sec_touchkey.kl \
+    $(COMMON_PATH)/configs/usr/keylayout/simple_remote.kl:system/usr/keylayout/simple_remote.kl \
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
