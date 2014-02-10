@@ -16,6 +16,6 @@ LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := healthd_board_montblanc.cpp
-LOCAL_MODULE := healthd.montblanc
+LOCAL_MODULE := libhealthd.montblanc
 LOCAL_C_INCLUDES := system/core/healthd
 include $(BUILD_SHARED_LIBRARY)
