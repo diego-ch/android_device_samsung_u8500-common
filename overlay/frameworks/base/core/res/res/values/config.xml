@@ -192,9 +192,6 @@
     <!-- Device supports LED flashlight -->
     <bool name="config_enableTorch">true</bool>
 
-    <!-- Maximum number of supported users -->
-    <integer name="config_multiuserMaximumUsers">4</integer>
-
     <!-- Boolean to enable stk functionality on Samsung phones -->
     <bool name="config_samsung_stk">true</bool>
     
