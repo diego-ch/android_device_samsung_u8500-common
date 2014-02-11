@@ -92,7 +92,6 @@ PRODUCT_COPY_FILES += \
 
 # Montblanc libs
 PRODUCT_PACKAGES += \
-    libhealthd.montblanc \
     power.montblanc \
     lights.montblanc
 

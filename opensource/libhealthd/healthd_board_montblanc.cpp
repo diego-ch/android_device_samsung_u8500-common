@@ -17,8 +17,7 @@
 
 #include <healthd.h>
 
-void
-healthd_board_init(struct healthd_config *config)
+void healthd_board_init(struct healthd_config *config)
 {
     config->batteryCapacityPath    = "/sys/class/power_supply/ab8500_fg/capacity";
     config->batteryStatusPath      = "/sys/class/power_supply/ab8500_chargalg/status";
@@ -28,11 +27,9 @@ healthd_board_init(struct healthd_config *config)
     config->batteryHealthPath      = "/sys/class/power_supply/ab8500_chargalg/health";
     config->batteryTemperaturePath = "/sys/class/power_supply/ab8500_btemp/temp";
     config->batteryTechnologyPath  = "/sys/class/power_supply/ab8500_btemp/technology";
-    // others use defaults
 }
 
-int
-healthd_board_battery_update(struct android::BatteryProperties *props)
+int healthd_board_battery_update(struct android::BatteryProperties *props)
 {
     // return 0 to log periodic polled battery status to kernel log
     return 0;
