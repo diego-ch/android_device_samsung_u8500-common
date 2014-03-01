@@ -30,6 +30,9 @@
 #include <hardware/hardware.h>
 #include <system/audio.h>
 #include <hardware/audio_effect.h>
+#ifdef AUDIO_LISTEN_ENABLED
+#include <listen_types.h>
+#endif
 
 __BEGIN_DECLS
 
@@ -124,6 +127,31 @@ __BEGIN_DECLS
  * "sup_sampling_rates=44100|48000" */
 #define AUDIO_PARAMETER_STREAM_SUP_SAMPLING_RATES "sup_sampling_rates"
 
+/**
+ * audio codec parameters
+ */
+
+#define AUDIO_OFFLOAD_CODEC_PARAMS "music_offload_codec_param"
+#define AUDIO_OFFLOAD_CODEC_BIT_PER_SAMPLE "music_offload_bit_per_sample"
+#define AUDIO_OFFLOAD_CODEC_BIT_RATE "music_offload_bit_rate"
+#define AUDIO_OFFLOAD_CODEC_AVG_BIT_RATE "music_offload_avg_bit_rate"
+#define AUDIO_OFFLOAD_CODEC_ID "music_offload_codec_id"
+#define AUDIO_OFFLOAD_CODEC_BLOCK_ALIGN "music_offload_block_align"
+#define AUDIO_OFFLOAD_CODEC_SAMPLE_RATE "music_offload_sample_rate"
+#define AUDIO_OFFLOAD_CODEC_ENCODE_OPTION "music_offload_encode_option"
+#define AUDIO_OFFLOAD_CODEC_NUM_CHANNEL  "music_offload_num_channels"
+#define AUDIO_OFFLOAD_CODEC_DOWN_SAMPLING  "music_offload_down_sampling"
+#define AUDIO_OFFLOAD_CODEC_DELAY_SAMPLES  "delay_samples"
+#define AUDIO_OFFLOAD_CODEC_PADDING_SAMPLES  "padding_samples"
+#define AUDIO_OFFLOAD_CODEC_WMA_FORMAT_TAG "music_offload_wma_format_tag"
+#define AUDIO_OFFLOAD_CODEC_WMA_BLOCK_ALIGN "music_offload_wma_block_align"
+#define AUDIO_OFFLOAD_CODEC_WMA_BIT_PER_SAMPLE "music_offload_wma_bit_per_sample"
+#define AUDIO_OFFLOAD_CODEC_WMA_CHANNEL_MASK "music_offload_wma_channel_mask"
+#define AUDIO_OFFLOAD_CODEC_WMA_ENCODE_OPTION "music_offload_wma_encode_option"
+#define AUDIO_OFFLOAD_CODEC_WMA_ENCODE_OPTION1"music_offload_wma_encode_option1"
+#define AUDIO_OFFLOAD_CODEC_WMA_ENCODE_OPTION2 "music_offload_wma_encode_option2"
+#define AUDIO_OFFLOAD_CODEC_FORMAT  "music_offload_codec_format"
+
 /* Query handle fm parameter*/
 #define AUDIO_PARAMETER_KEY_HANDLE_FM "handle_fm"
 
@@ -150,23 +178,6 @@ __BEGIN_DECLS
 
 /* Query fm volume */
 #define AUDIO_PARAMETER_KEY_FM_VOLUME "fm_volume"
-
-/**
- * audio codec parameters
- */
-
-#define AUDIO_OFFLOAD_CODEC_PARAMS "music_offload_codec_param"
-#define AUDIO_OFFLOAD_CODEC_BIT_PER_SAMPLE "music_offload_bit_per_sample"
-#define AUDIO_OFFLOAD_CODEC_BIT_RATE "music_offload_bit_rate"
-#define AUDIO_OFFLOAD_CODEC_AVG_BIT_RATE "music_offload_avg_bit_rate"
-#define AUDIO_OFFLOAD_CODEC_ID "music_offload_codec_id"
-#define AUDIO_OFFLOAD_CODEC_BLOCK_ALIGN "music_offload_block_align"
-#define AUDIO_OFFLOAD_CODEC_SAMPLE_RATE "music_offload_sample_rate"
-#define AUDIO_OFFLOAD_CODEC_ENCODE_OPTION "music_offload_encode_option"
-#define AUDIO_OFFLOAD_CODEC_NUM_CHANNEL  "music_offload_num_channels"
-#define AUDIO_OFFLOAD_CODEC_DOWN_SAMPLING  "music_offload_down_sampling"
-#define AUDIO_OFFLOAD_CODEC_DELAY_SAMPLES  "delay_samples"
-#define AUDIO_OFFLOAD_CODEC_PADDING_SAMPLES  "padding_samples"
 
 /**************************************/
 
@@ -717,6 +728,27 @@ struct audio_hw_device {
      * method may leave it set to NULL.
      */
     int (*get_master_mute)(struct audio_hw_device *dev, bool *mute);
+#endif
+
+#ifdef AUDIO_LISTEN_ENABLED
+    /** This method opens the listen session and returns a handle */
+    int (*open_listen_session)(struct audio_hw_device *dev,
+                               struct listen_session** handle);
+
+    /** This method closes the listen session  */
+    int (*close_listen_session)(struct audio_hw_device *dev,
+                                struct listen_session* handle);
+
+    /** This method sets the mad observer callback  */
+    int (*set_mad_observer)(struct audio_hw_device *dev,
+                            listen_callback_t cb_func);
+
+    /*  This method is used for setting listen hal specfic parameters.
+     *  If multiple paramets are set in one call and setting any one of them
+     *  fails it will return failure.
+     */
+    int (*listen_set_parameters)(struct audio_hw_device *dev,
+                                 const char *kv_pairs);
 #endif
 };
 typedef struct audio_hw_device audio_hw_device_t;
