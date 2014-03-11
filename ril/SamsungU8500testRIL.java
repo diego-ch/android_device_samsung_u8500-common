@@ -66,13 +66,13 @@ import com.android.internal.telephony.dataconnection.DcFailCause;
 
 import android.telephony.Rlog;
 
-public class SamsungU8500RIL extends RIL implements CommandsInterface {
+public class SamsungU8500testRIL extends RIL implements CommandsInterface {
 
     private boolean mSignalbarCount = SystemProperties.getInt("ro.telephony.sends_barcount", 0) == 1 ? true : false;
     private boolean mIsSamsungCdma = SystemProperties.getBoolean("ro.ril.samsung_cdma", false);
     private Object mCatProCmdBuffer;
 
-    public SamsungU8500RIL(Context context, int networkMode, int cdmaSubscription) {
+    public SamsungU8500testRIL(Context context, int networkMode, int cdmaSubscription) {
         super(context, networkMode, cdmaSubscription);
     }
 
@@ -1088,21 +1088,21 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
 
         if(NeedReconnect())
         {
-            if (mSamsungu8500RILHandler == null) {
+            if (mSamsungu8500testRILHandler == null) {
 
-                handlerThread = new HandlerThread("mSamsungu8500RILThread");
-                mSamsungu8500RILThread = handlerThread;
+                handlerThread = new HandlerThread("mSamsungu8500testRILThread");
+                mSamsungu8500testRILThread = handlerThread;
 
-                mSamsungu8500RILThread.start();
+                mSamsungu8500testRILThread.start();
 
-                looper = mSamsungu8500RILThread.getLooper();
-                mSamsungu8500RILHandler = new ConnectivityHandler(mContext, looper);
+                looper = mSamsungu8500testRILThread.getLooper();
+                mSamsungu8500testRILHandler = new ConnectivityHandler(mContext, looper);
             }
-            mSamsungu8500RILHandler.setPreferedNetworkType(networkType, response);
+            mSamsungu8500testRILHandler.setPreferedNetworkType(networkType, response);
         } else {
-            if (mSamsungu8500RILHandler != null) {
-                mSamsungu8500RILThread = null;
-                mSamsungu8500RILHandler = null;
+            if (mSamsungu8500testRILHandler != null) {
+                mSamsungu8500testRILThread = null;
+                mSamsungu8500testRILHandler = null;
             }
             sendPreferedNetworktype(networkType, response);
         }
