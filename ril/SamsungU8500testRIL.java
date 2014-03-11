@@ -37,6 +37,8 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
 import android.os.Message;
 import android.os.AsyncResult;
 import android.os.Parcel;
@@ -68,6 +70,8 @@ import android.telephony.Rlog;
 
 public class SamsungU8500testRIL extends RIL implements CommandsInterface {
 
+    protected HandlerThread mSamsungu8500testRILThread;
+    protected ConnectivityHandler mSamsungu8500testRILHandler;
     private boolean mSignalbarCount = SystemProperties.getInt("ro.telephony.sends_barcount", 0) == 1 ? true : false;
     private boolean mIsSamsungCdma = SystemProperties.getBoolean("ro.ril.samsung_cdma", false);
     private Object mCatProCmdBuffer;
