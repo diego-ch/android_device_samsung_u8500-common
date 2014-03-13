@@ -84,10 +84,6 @@ PRODUCT_PACKAGES += \
 
 $(call inherit-product, device/samsung/u8500-common/opensource/libasound/alsa-lib-products.mk)
 
-# GPS
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/configs/sirfgps.conf:system/etc/sirfgps.conf
-
 # Montblanc libs
 PRODUCT_PACKAGES += \
     power.montblanc \
