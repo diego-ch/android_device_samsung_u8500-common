@@ -56,7 +56,6 @@ BOARD_KERNEL_CMDLINE := "console=ttySAC2,115200 consoleblank=0 androidboot.selin
 
 # Graphics
 BOARD_EGL_CFG := device/samsung/u8500-common/configs/egl.cfg
-BOARD_EGL_WORKAROUND_BUG_10194508 := true
 TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
 USE_OPENGL_RENDERER := true
 
