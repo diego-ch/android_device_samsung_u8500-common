@@ -55,9 +55,10 @@ BOARD_KERNEL_BASE := 0x40000000
 BOARD_KERNEL_CMDLINE := "console=ttySAC2,115200 consoleblank=0 androidboot.selinux=permissive"
 
 # Graphics
-BOARD_EGL_CFG := device/samsung/u8500-common/configs/egl.cfg
-TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
 USE_OPENGL_RENDERER := true
+BOARD_EGL_WORKAROUND_BUG_10194508 := true
+TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
+BOARD_EGL_CFG := device/samsung/u8500-common/configs/egl.cfg
 
 # Wifi
 BOARD_WLAN_DEVICE                := bcmdhd
