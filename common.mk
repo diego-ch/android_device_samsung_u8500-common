@@ -117,7 +117,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
     $(COMMON_PATH)/configs/usr/keylayout/sec_touchkey.kl:system/usr/keylayout/sec_touchkey.kl \
-    $(COMMON_PATH)/configs/usr/keylayout/simple_remote.kl:system/usr/keylayout/simple_remote.kl \
+    $(COMMON_PATH)/configs/usr/keylayout/simple_remote.kl:system/usr/keylayout/simple_remote.kl
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
@@ -166,6 +166,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Disable SELinux
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.boot.selinux=disabled
+
+# Low-InCall workaround app
+PRODUCT_PACKAGES += \
+    CMCallService
 
 # Precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
