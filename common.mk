@@ -175,4 +175,4 @@ include vendor/samsung/u8500-common/vendor-common.mk
 
 # Frandom
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/frandom/00frandom:system/etc/init.d/00frandom
+    $(COMMON_PATH)/configs/00frandom:system/etc/init.d/00frandom
