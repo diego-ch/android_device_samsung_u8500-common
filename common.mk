@@ -172,3 +172,7 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 
 # Use the non-open-source parts, if they're present
 include vendor/samsung/u8500-common/vendor-common.mk
+
+# Frandom
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/frandom/00frandom:system/etc/init.d/00frandom
