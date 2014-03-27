@@ -174,5 +174,5 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 include vendor/samsung/u8500-common/vendor-common.mk
 
 # Frandom
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/configs/00frandom:system/etc/init.d/00frandom
+#PRODUCT_COPY_FILES += \
+#    $(COMMON_PATH)/configs/00frandom:system/etc/init.d/00frandom
