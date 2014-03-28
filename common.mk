@@ -86,7 +86,6 @@ $(call inherit-product, device/samsung/u8500-common/opensource/libasound/alsa-li
 
 # Montblanc libs
 PRODUCT_PACKAGES += \
-    power.montblanc \
     lights.montblanc
 
 # USB
