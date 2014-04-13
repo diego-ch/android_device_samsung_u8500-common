@@ -176,6 +176,9 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 # Use the non-open-source parts, if they're present
 include vendor/samsung/u8500-common/vendor-common.mk
 
-# Frandom
-#PRODUCT_COPY_FILES += \
-#    $(COMMON_PATH)/configs/00frandom:system/etc/init.d/00frandom
+# Storage switch script
+ PRODUCT_COPY_FILES += \
+     $(LOCAL_PATH)/configs/SwapStorages.sh:system/xbin/SwapStorages.sh
+ PRODUCT_PROPERTY_OVERRIDES += \
+     persist.sys.vold.switchablepair=sdcard0,sdcard1 \
+     persist.sys.vold.switchexternal=0
