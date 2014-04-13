@@ -24,6 +24,10 @@ $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 PRODUCT_AAPT_CONFIG := normal hdpi
 PRODUCT_AAPT_PREF_CONFIG := hdpi
 
+# NovaThor Settings
+PRODUCT_PACKAGES += \
+    NovaThorSettings
+
 # Graphics
 PRODUCT_PACKAGES += \
     libblt_hw
