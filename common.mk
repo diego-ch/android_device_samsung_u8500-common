@@ -170,15 +170,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.boot.selinux=disabled
 
+# Storage switch
+ PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.vold.switchablepair=sdcard0,sdcard1
+
 # Precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 # Use the non-open-source parts, if they're present
 include vendor/samsung/u8500-common/vendor-common.mk
-
-# Storage switch script
- PRODUCT_COPY_FILES += \
-     $(LOCAL_PATH)/configs/SwapStorages.sh:system/xbin/SwapStorages.sh
- PRODUCT_PROPERTY_OVERRIDES += \
-     persist.sys.vold.switchablepair=sdcard0,sdcard1 \
-     persist.sys.vold.switchexternal=0
