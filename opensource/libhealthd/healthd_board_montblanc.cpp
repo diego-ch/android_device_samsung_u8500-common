@@ -21,7 +21,7 @@ void healthd_board_init(struct healthd_config *config)
 {
     config->batteryCapacityPath    = "/sys/class/power_supply/ab8500_fg/capacity";
     config->batteryStatusPath      = "/sys/class/power_supply/ab8500_chargalg/status";
-    config->batteryVoltagePath     = "/sys/class/power_supply/ab8500_ac/voltage_now";
+    config->batteryVoltagePath     = "/sys/class/power_supply/ab8500_fg/voltage_now";
     config->batteryCurrentNowPath  = "/sys/class/power_supply/ab8500_fg/current_now";
     config->batteryPresentPath     = "/sys/class/power_supply/ab8500_btemp/present";
     config->batteryHealthPath      = "/sys/class/power_supply/ab8500_chargalg/health";
