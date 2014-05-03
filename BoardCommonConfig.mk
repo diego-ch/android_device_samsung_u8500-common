@@ -84,7 +84,7 @@ BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_BLUEDROID_VENDOR_CONF := device/samsung/u8500-common/bluetooth/vnd_u8500.txt
 
 # RIL
-BOARD_RIL_CLASS := ../../../device/samsung/u8500-common/ril/
+BOARD_RIL_CLASS := ../../../device/samsung/u8500-common/opensource/ril/
 
 # Audio
 BOARD_USES_ALSA_AUDIO := true

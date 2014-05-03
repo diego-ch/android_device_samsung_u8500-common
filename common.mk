@@ -30,11 +30,10 @@ PRODUCT_PACKAGES += \
     libblt_hw
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=131072 \
-    persist.sys.strictmode.disable=1 \
-    debug.sf.hw=1 \
-    debug.hwui.render_dirty_regions=false \
     ro.zygote.disable_gl_preload=1 \
-    ro.bq.gpu_to_cpu_unsupported=1
+    ro.bq.gpu_to_cpu_unsupported=1 \
+    debug.sf.hw=1 \
+    debug.hwui.render_dirty_regions=false
 
 # Media
 PRODUCT_COPY_FILES += \
@@ -69,9 +68,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.hsxpa=1 \
     ro.ril.gprsclass=10 \
-    mobiledata.interfaces=pdp0,wlan0,gprs,ppp0 \
     ro.telephony.ril_class=SamsungU8500RIL \
-    ro.telephony.sends_barcount=1
+    ro.telephony.sends_barcount=1 \
+    mobiledata.interfaces=pdp0,wlan0,gprs,ppp0
 
 # Audio
 PRODUCT_COPY_FILES += \
@@ -103,7 +102,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory \
     SamsungServiceMode \
-    CMAccount \
     Torch
 
 # Filesystem management tools
@@ -115,7 +113,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
     $(COMMON_PATH)/configs/usr/keylayout/sec_touchkey.kl:system/usr/keylayout/sec_touchkey.kl \
-    $(COMMON_PATH)/configs/usr/keylayout/simple_remote.kl:system/usr/keylayout/simple_remote.kl \
+    $(COMMON_PATH)/configs/usr/keylayout/simple_remote.kl:system/usr/keylayout/simple_remote.kl
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
@@ -146,17 +144,9 @@ PRODUCT_COPY_FILES += \
 
 # Live Wallpapers
 PRODUCT_PACKAGES += \
-    Galaxy4 \
-    HoloSpiralWallpaper \
-    LiveWallpapers \
-    LiveWallpapersPicker \
-    MagicSmokeWallpapers \
-    NoiseField \
-    PhaseBeam \
-    VisualizationWallpapers \
     librs_jni
 
-# Error Checking
+# Disable error Checking
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.kernel.android.checkjni=0 \
     dalvik.vm.checkjni=false
