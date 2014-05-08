@@ -84,7 +84,7 @@ BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_BLUEDROID_VENDOR_CONF := device/samsung/u8500-common/bluetooth/vnd_u8500.txt
 
 # RIL
-BOARD_RIL_CLASS := ../../../device/samsung/u8500-common/opensource/ril/
+BOARD_RIL_CLASS := ../../../device/samsung/u8500-common/ril/
 
 # Audio
 BOARD_USES_ALSA_AUDIO := true
@@ -114,9 +114,6 @@ BOARD_SUPPRESS_EMMC_WIPE := true
 RECOVERY_FSTAB_VERSION := 2
 BOARD_RECOVERY_SWIPE := true
 COMMON_GLOBAL_CFLAGS += -DRECOVERY_CANT_USE_CONFIG_EXT4_FS_XATTR
-
-# STE healthd HAL
-BOARD_HAL_STATIC_LIBRARIES := libhealthd.montblanc
 
 # Misc
 COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS

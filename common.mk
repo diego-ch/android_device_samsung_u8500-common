@@ -26,8 +26,6 @@ PRODUCT_PACKAGES += \
     NovaThorSettings
 
 # Graphics
-PRODUCT_PACKAGES += \
-    libblt_hw
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=131072 \
     ro.zygote.disable_gl_preload=1 \
@@ -40,16 +38,10 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/omxloaders:system/etc/omxloaders \
     $(COMMON_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
     $(COMMON_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
-PRODUCT_PACKAGES += \
-    libomxil-bellagio
 
 # Wifi
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
-    $(COMMON_PATH)/configs/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
-    $(COMMON_PATH)/configs/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
-PRODUCT_PACKAGES += \
-    libnetcmdiface
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
     wifi.supplicant_scan_interval=150
@@ -80,11 +72,9 @@ PRODUCT_PACKAGES += \
     audio.usb.default \
     libaudioutils \
     libtinyalsa
-$(call inherit-product, device/samsung/u8500-common/opensource/libasound/alsa-lib-products.mk)
 
-# Montblanc libs
-PRODUCT_PACKAGES += \
-    lights.montblanc
+# U8500 Hardware
+$(call inherit-product, hardware/u8500/u8500.mk)
 
 # USB
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
