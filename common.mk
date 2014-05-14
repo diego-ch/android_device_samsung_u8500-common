@@ -153,6 +153,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Dalvik VM config for 768MB RAM devices
 PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.dexopt-data-only=1 \
     dalvik.vm.heapstartsize=5m \
     dalvik.vm.heapgrowthlimit=48m \
     dalvik.vm.heapsize=128m \
