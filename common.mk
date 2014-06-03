@@ -25,6 +25,10 @@ PRODUCT_AAPT_PREF_CONFIG := hdpi
 PRODUCT_PACKAGES += \
     NovaThorSettings
 
+# U8500 Common init
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/init.u8500.rc:root/init.u8500.rc
+
 # Graphics
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=131072 \
@@ -68,6 +72,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Audio
 PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf \
     $(COMMON_PATH)/configs/asound.conf:system/etc/asound.conf
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
