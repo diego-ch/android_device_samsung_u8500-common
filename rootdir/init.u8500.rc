@@ -1,4 +1,5 @@
 import /device_tunables.rc
+import /init.u8500.usb.rc
 
 on init
 
@@ -47,6 +48,9 @@ on init
     chmod 0644 /proc/cmdline
 
 on fs
+
+    mount_all /fstab.${ro.hardware}
+    swapon_all /fstab.${ro.hardware}
 
     setprop ro.crypto.fuse_sdcard true
  
