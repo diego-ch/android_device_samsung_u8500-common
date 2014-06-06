@@ -49,9 +49,6 @@ on init
 
 on fs
 
-    mount_all /fstab.${ro.hardware}
-    swapon_all /fstab.${ro.hardware}
-
     setprop ro.crypto.fuse_sdcard true
  
     # Start CSPSA before synchronously running the factory reset utility that
