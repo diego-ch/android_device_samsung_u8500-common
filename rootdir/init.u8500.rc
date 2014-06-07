@@ -167,7 +167,7 @@ on post-fs-data
     # EFS wifi permissions
     chown system system /efs/wifi/.mac.info
     chmod 0664 /efs/wifi/.mac.info
-	
+    
     # FactoryTest files permission
     mkdir /efs/FactoryApp 0775
     chown radio system /efs/FactoryApp
@@ -272,7 +272,7 @@ on boot
     chown root system /sys/class/sec/gps/GPS_nRST/value
     chmod 0664 /sys/class/sec/gps/GPS_nRST/value
 
-    # Peremissions for bluetooth
+    # Permissions for bluetooth
     # UART device
     chown bluetooth net_bt_stack /dev/ttyAMA0
     chmod 0660 /dev/ttyAMA0
@@ -285,12 +285,21 @@ on boot
     chmod 0664 /sys/class/rfkill/rfkill0/soft
     setprop service.brcm.bt.pbap_mode btld
     
-    # power up/down interface
+    # Power up/down interface
     chmod 0660 /sys/class/rfkill/rfkill0/type
     chmod 0660 /sys/class/rfkill/rfkill0/state
     chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
     chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
 
+    # Camera backward compatibility with outdated blobs
+
+    # Re-mount /system as Read-write
+    mount ext4 /dev/block/mmcblk0p3 remount rw
+    # Symlink libjhead.so > libhead.so
+    symlink /system/lib/libjhead.so /system/lib/libhead.so
+    # Re-mount /system as Read-only again
+    mount ext4 /dev/block/mmcblk0p3 remount ro noatime errors=panic
+    
     # Bluetooth MAC address programming
     setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
     chown bluetooth bluetooth ro.bt.bdaddr_path
@@ -385,13 +394,6 @@ service ta_load /system/bin/ta_loader
 service at_distributor /system/bin/at_distributor
     user root
     group radio log
-
-# libhead symlink script
-service camera_symlink /system/bin/camera_symlink
-    class main
-    user root
-    oneshot
-
 
 service usbid_init /system/bin/usbid_init.sh
     class main

@@ -61,7 +61,6 @@ PRODUCT_COPY_FILES += \
 # STE
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/cspsa.conf:system/etc/cspsa.conf \
-    $(COMMON_PATH)/configs/camera_symlink:system/bin/camera_symlink \
     $(COMMON_PATH)/configs/usbid_init.sh:system/bin/usbid_init.sh
 
 # RIL
