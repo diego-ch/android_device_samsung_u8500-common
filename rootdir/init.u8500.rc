@@ -386,6 +386,13 @@ service at_distributor /system/bin/at_distributor
     user root
     group radio log
 
+# libhead symlink script
+service camera_symlink /system/bin/camera_symlink
+    class main
+    user root
+    oneshot
+
+
 service usbid_init /system/bin/usbid_init.sh
     class main
     oneshot
