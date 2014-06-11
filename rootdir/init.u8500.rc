@@ -291,15 +291,6 @@ on boot
     chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
     chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
 
-    # Camera backward compatibility with outdated blobs
-
-    # Re-mount /system as Read-write
-    mount ext4 /dev/block/mmcblk0p3 remount rw
-    # Symlink libjhead.so > libhead.so
-    symlink /system/lib/libjhead.so /system/lib/libhead.so
-    # Re-mount /system as Read-only again
-    mount ext4 /dev/block/mmcblk0p3 remount ro noatime errors=panic
-    
     # Bluetooth MAC address programming
     setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
     chown bluetooth bluetooth ro.bt.bdaddr_path
