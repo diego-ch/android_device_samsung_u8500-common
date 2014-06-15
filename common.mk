@@ -156,9 +156,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.kernel.android.checkjni=0 \
     dalvik.vm.checkjni=false
 
-# Disable SELinux
+# SELinux
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.boot.selinux=disabled
+    ro.boot.selinux=permissive
 
 # Storage switch
  PRODUCT_PROPERTY_OVERRIDES += \

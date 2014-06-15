@@ -116,6 +116,22 @@ BOARD_SUPPRESS_EMMC_WIPE := true
 RECOVERY_FSTAB_VERSION := 2
 BOARD_RECOVERY_SWIPE := true
 
+# SELinux
+BOARD_SEPOLICY_DIRS += \
+    device/samsung/u8500-common/selinux
+
+BOARD_SEPOLICY_UNION += \
+    device.te \
+    file.te \
+    rild.te \
+    drmserver.te \
+    ueventd.te \
+    domain.te \
+    system.te \
+    file_contexts \
+    wpa_supplicant.te \
+    vold.te
+
 # Delete the line below when SELinux is enabled on all devices
 COMMON_GLOBAL_CFLAGS += -DRECOVERY_CANT_USE_CONFIG_EXT4_FS_XATTR
 
