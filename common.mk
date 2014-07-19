@@ -76,8 +76,9 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf \
     $(COMMON_PATH)/configs/asound.conf:system/etc/asound.conf
 PRODUCT_PACKAGES += \
-    audio.a2dp.default \
     audio.usb.default \
+    audio.a2dp.default \
+    audio.r_submix.default \
     libaudioutils \
     libtinyalsa
 
@@ -105,8 +106,7 @@ PRODUCT_PACKAGES += \
 # Filesystem management tools
 PRODUCT_PACKAGES += \
     make_ext4fs \
-    setup_fs \
-    e2fsck
+    setup_fs
 
 # F2FS
 PRODUCT_PACKAGES += \
