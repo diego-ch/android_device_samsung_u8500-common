@@ -233,6 +233,10 @@ on post-fs-data
 
     # Change permissions for modem_log_relay config file
     chmod 666 /modemfs/trace_auto.conf
+    
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "interactive"
+    write /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay "20000 600000:40000 800000:20000"
 
     # If there is no fs-post-data action in the init.<device>.rc file, you
     # must uncomment this line, otherwise encrypted filesystems
