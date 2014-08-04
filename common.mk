@@ -78,7 +78,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     audio.usb.default \
     audio.a2dp.default \
-    audio.r_submix.default \
     libaudioutils \
     libtinyalsa
 
