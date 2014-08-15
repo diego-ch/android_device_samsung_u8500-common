@@ -241,6 +241,7 @@ on post-fs-data
     write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time "40000 800000:80000"
     write /sys/devices/system/cpu/cpufreq/interactive/timer_rate "60000 200000:40000 800000:30000 1000000:20000"
     write /sys/block/mmcblk0/queue/scheduler deadline
+    write /sys/block/mmcblk1/queue/scheduler deadline
 
     # If there is no fs-post-data action in the init.<device>.rc file, you
     # must uncomment this line, otherwise encrypted filesystems
