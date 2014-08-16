@@ -298,13 +298,8 @@ typedef struct {
     float   elevation;
     /** Azimuth of SV in degrees. */
     float   azimuth;
-    /** Unknown field in Samsung I9100 libgps
-        May be an indicator for constellation type
-        (GPS, GLONASS, Galileo)?
-        Used on GT-I9100, likely also present on GT-N7000,
-        SGH-I717, SGH-I727 but this needs confirmation.
-    */
-    int unknown_samsung_field;
+	/** Unknown Samsung element. */
+	int     padding;
 } GpsSvInfo;
 
 /** Represents SV status. */
