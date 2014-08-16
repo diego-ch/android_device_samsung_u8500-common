@@ -57,6 +57,7 @@ BOARD_CUSTOM_BOOTIMG_MK := device/samsung/u8500-common/shbootimg.mk
 
 # Graphics
 USE_OPENGL_RENDERER := true
+BOARD_USE_MHEAP_SCREENSHOT := true
 BOARD_EGL_WORKAROUND_BUG_10194508 := true
 TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
 BOARD_EGL_CFG := device/samsung/u8500-common/configs/egl.cfg
