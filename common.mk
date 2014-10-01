@@ -174,5 +174,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heapmaxfree=4m
 PRODUCT_TAGS += dalvik.gc.type-precise
 
+# KSM
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.ksm.default=1
+
 # Use the non-open-source parts, if they're present
 include vendor/samsung/u8500-common/vendor-common.mk
