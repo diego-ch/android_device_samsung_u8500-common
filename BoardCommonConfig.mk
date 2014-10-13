@@ -115,9 +115,6 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_SUPPRESS_EMMC_WIPE := true
 BOARD_RECOVERY_SWIPE := true
 
-# External apps on SD
-TARGET_EXTERNAL_APPS = sdcard1
-
 # SELinux
 BOARD_SEPOLICY_DIRS += \
     device/samsung/u8500-common/selinux
